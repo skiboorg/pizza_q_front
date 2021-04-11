@@ -1,0 +1,448 @@
+<template>
+  <q-page class="q-pa-sm q-mb-lg">
+    <div class="container">
+      <h3 class="f-raleway-900">Оформление заказа</h3>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+          <p class="q-mb-sm text-bold text-h6">Доставка</p>
+          <q-btn-toggle
+            v-model="orderData.delivery_type"
+            toggle-color="primary"
+            class="q-mb-lg"
+            :options="[
+        {label: 'Курьером', value: 'Курьером'},
+        {label: 'Самовывоз', value: 'Самовывоз'},
+      ]"
+          />
+
+          <div  class="checkout-form">
+
+            <q-form ref="orderForm" @submit="placeOrder" class="q-gutter-sd q-mb-lg">
+              <q-input filled v-model="orderData.name" dense label="Ваше имя *" :rules="[val => !!val || 'Это обязательное поле']"/>
+              <q-input pattern="[0-9]*" filled v-model="orderData.phone" dense label="Телефон *" mask="+7 (###) ###-##-##" lazy-rules
+                       :rules="[val => !!val  || 'Это обязательное поле', val => val.length > 17 || 'Телефон введен не полностью']"/>
+              <q-checkbox class="q-mb-md" dense v-model="orderData.need_callback" label="Перезвоните мне для уточнения деталей заказа" />
+              <div v-if="orderData.delivery_type==='Курьером'">
+                <div v-if="$user.loggedIn &&  user_addresses.length>0" class="q-mb-sm">
+                  <q-select dense filled v-model="selectedAddress" :options="user_addresses" label="Выберите адрес доставки" />
+                  <p class="q-mb-sm">или укажите другой</p>
+                </div>
+              </div>
+
+              <div v-if="orderData.delivery_type==='Курьером'" class="flex  no-wrap">
+                <q-input class="full-width " filled v-model="orderData.street" dense label="Улица *" :rules="[val => !!val || 'Это обязательное поле']"/>
+                <q-input  filled class="q-ml-sm" v-model="orderData.house" type="number" dense label="Дом *" :rules="[val => !!val || 'Это обязательное поле']"/>
+              </div>
+              <div v-if="orderData.delivery_type==='Курьером'" class="flex justify-between no-wrap q-mb-md">
+                <q-input class=" q-mr-sm" filled v-model="orderData.flat" type="number" dense label="Кв " />
+                <q-input class=" q-mr-sm" filled v-model="orderData.podezd" type="number" dense label="Подъезд " />
+                <q-input class=" q-mr-sm"  filled v-model="orderData.code" type="number" dense label="Код двери " />
+                <q-input  filled v-model="orderData.floor" dense type="number" label="Этаж " />
+              </div>
+            </q-form>
+
+          </div>
+          <div v-show="orderData.delivery_type!=='Курьером'" class="">
+            <p class="text-bold text-h6">Адрес кафе</p>
+            <div class="q-mb-sm " v-for="address in currentCity.adresses" :key="address.id">
+              <q-radio dense   v-model="orderData.cafe_address"  :val="address.address" :label="address.address" />
+            </div>
+
+            <!--      <div ref="map" style="height: 300px" class="q-mb-sm">-->
+
+            <!--        <yandex-map-->
+            <!--          :coords="coordinates"-->
+            <!--          :class="'ymapContanerHidden'"-->
+            <!--          zoom="14"-->
+            <!--          style="width: 100%; height: 100%; padding: 0"-->
+            <!--          :cluster-options="{ 1: {clusterDisableClickZoom: true} }"-->
+            <!--          :controls="['trafficControl']"-->
+            <!--          map-type="map">-->
+            <!--          <ymap-marker-->
+            <!--            markerId="1"-->
+            <!--            marker-type="Placemark"-->
+            <!--            :coords="coordinates">-->
+            <!--          </ymap-marker>-->
+            <!--        </yandex-map>-->
+
+
+          </div>
+
+          <!--    </div>-->
+          <q-input
+            class="q-mb-md"
+            v-model="orderData.comment"
+            label="Комментарий к заказу"
+            filled
+            type="textarea"
+          />
+          <p class="text-bold text-h6">{{orderData.delivery_type === 'Курьером' ? 'Когда доставить?' : 'Во сколько заберете?'}}</p>
+          <div class="flex justify-between no-wrap q-mb-none">
+            <q-input dense v-show="orderData.delivery_type === 'Курьером'" style="flex-basis: 49%" filled v-model="orderData.date" mask="date" label="Дата" :rules="['date']">
+              <template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                    <q-date v-model="orderData.date" :options="dateFn"  >
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Выбрать дату" color="primary" flat />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+            <q-select dense style="flex-basis: 49%" filled v-model="orderData.time" :options="delivery_time" label="Время" />
+
+          </div>
+
+          <p class="text-bold text-primary text-h6">{{orderData.delivery_type==='Курьером' ? 'Доставка в районе 30 минут' : 'Заказ можно будет забрать примерно через 40 минут'}}</p>
+          <p class="text-bold text-h6">Оплата</p>
+          <div class="flex column items-start q-mb-lg">
+            <q-radio class="q-mb-sm" dense  v-model="orderData.payment" val="cash" label="Наличными курьеру" />
+            <div v-if="orderData.payment==='cash'" class="flex items-center">
+              <p style="flex-basis: 40%">С какой суммы подготовить сдачу?</p>
+              <q-input  type="number" class="q-mr-sm" style="flex-basis: 20%" dense  outlined v-model="orderData.cashback" ></q-input>
+              <q-checkbox left-label v-model="orderData.no_cashback">Без сдачи</q-checkbox>
+            </div>
+            <q-radio class="q-mb-sm" dense  v-model="orderData.payment" val="online" label="Онлайн" />
+            <q-radio dense  v-model="orderData.payment" val="courier_card" label="Картой курьеру" />
+
+          </div>
+
+          <q-btn v-if="orderData.delivery_type==='Курьером'" color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
+                 :label="`Подтвердить заказ на ${items_in_cart.total_price - cart_bonuses - cart_promo + delivery_price} р` "/>
+          <q-btn v-else color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
+                 :label="`Подтвердить заказ на ${items_in_cart.total_price - cart_bonuses - cart_promo} р` "/>
+
+
+          <p class="text-caption text-grey-6">Нажимая на кнопку, вы даете согласие на обработку персональных данных</p>
+
+
+          <Payment/>
+        </div><!--        col-6-->
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 gt-xs offset-lg-1 offset-md-1 offset-sm-1">
+          <q-card>
+            <q-card-section class="flex items-center justify-between">
+              <p class="no-margin text-grey-6">Изменить состав корзины</p>
+              <q-btn to="/cart" flat dense icon="edit" color="grey-6" round/>
+            </q-card-section>
+            <q-card-section>
+              <q-card flat v-for="constructor in items_in_cart.pizza_constructors"
+                      :key="constructor.id">
+                <q-card-section horizontal :class="[headerCart ? 'q-mb-sm' : 'q-mb-md']">
+                  <q-img
+                    :ratio="16/9"
+                    :style="{'height':  headerCart ? '90px' : 'auto'}"
+                    contain
+                    class="col-2 no-border-radius"
+                    :src="constructor.items[0].image"
+                  /> <q-img
+                  :ratio="16/9"
+                  :style="{'height':  headerCart ? '90px' : 'auto'}"
+                  contain
+                  class="col-2 no-border-radius"
+                  :src="constructor.items[1].image"
+                />
+                  <q-card-section class=" col-5 q-py-none q-pl-sm q-pr-none  "
+                                  :class="[!headerCart ? 'flex justify-between' : '']">
+
+                    <p v-if="headerCart" class="no-margin text-caption text-bold">Пицца из половинок</p>
+                    <p v-else class="no-margin text-h6 text-bold">Пицца из половинок</p>
+                    <p :class="[headerCart ? 'text-caption' : 'text-body1 text-primary text-bold']">{{constructor.items[0].name}} + {{constructor.items[1].name}} {{constructor.quantity}} шт </p>
+
+                  </q-card-section>
+                  <q-card-section class="no-padding col-3 flex column justify-between items-end" >
+                    <!--          <q-btn  @click="changeQuantity('delete_cart_constructor',constructor.code)" flat round dense icon="delete_outline" class="q-mr-sm"/>-->
+                    <div class="">
+                      <p v-if="$user.loggedIn" class="no-margin text-caption ">+{{constructor.bonuses}} бал.</p>
+                      <p class="no-margin text-body1 text-bold">{{constructor.price}} р</p>
+                    </div>
+
+                  </q-card-section>
+                </q-card-section>
+                <q-separator spaced/>
+                <q-inner-loading :showing="current_id===constructor.id">
+                  <q-spinner-tail size="50px" color="primary" />
+                </q-inner-loading>
+              </q-card>
+              <q-card flat v-for="item in items_in_cart.items"
+                      :key="item.id">
+                <q-card-section horizontal :class="[headerCart ? 'q-mb-sm' : 'q-mb-md']">
+                  <q-img
+                    :ratio="16/9"
+                    contain
+                    :style="{'height':  headerCart ? '90px' : 'auto'}"
+                    class="col-4 no-border-radius"
+                    :src="item.item.image"
+                  />
+                  <q-card-section class=" col-5 q-py-none q-pl-sm q-pr-none  "
+                                  :class="[!headerCart ? 'flex column justify-between' : '']">
+                    <p v-if="headerCart" class="no-margin text-caption text-bold" :class="[item.item.is_gift ? 'text-primary': '']">{{item.item.name}}</p>
+                    <p v-else class="no-margin text-h6 text-bold" :class="[item.item.is_gift ? 'text-primary': '']">{{item.item.name}}</p>
+
+                    <p v-if="item.selected_size > 0 " class="no-margin "
+                       :class="[headerCart ? 'text-caption' : 'text-body1 text-primary text-bold']">
+                      {{item.quantity * item.item.min_unit}} {{item.item.unit_name}} {{item.selected_size}} см
+                    </p>
+                    <p v-else class="no-margin"
+                       :class="[headerCart ? 'text-caption' : 'text-body1 text-primary text-bold']">
+                      {{item.quantity * item.item.min_unit}} {{item.item.unit_name}}
+                    </p>
+
+
+
+                  </q-card-section>
+                  <q-card-section class="no-padding col-3 flex column justify-between items-end" >
+                    <!--          <q-btn v-if="!item.item.is_gift || headerCart" @click="changeQuantity('delete_item',item.code)" flat outline round dense icon="delete_outline" class="q-mr-sm"/>-->
+
+                    <div class="">
+                      <p v-if="$user.loggedIn && !item.item.is_gift" class="no-margin text-caption ">+{{item.bonuses}} бал.</p>
+                      <p class="no-margin text-body1 text-bold">{{item.price}} р</p>
+                    </div>
+
+                  </q-card-section>
+                </q-card-section>
+                <q-separator spaced />
+                <q-inner-loading :showing="current_id===item.id">
+                  <q-spinner-tail size="50px" color="primary" />
+                </q-inner-loading>
+              </q-card>
+              <q-card flat v-for="souce in items_in_cart.souces"
+                      :key="souce.id">
+                <q-card-section horizontal :class="[headerCart ? 'q-mb-sm' : 'q-mb-md']">
+                  <q-img
+                    :ratio="16/9"
+                    contain
+                    :style="{'height':  headerCart ? '90px' : 'auto'}"
+                    class="col-4 no-border-radius"
+                    :src="souce.item.image"
+                  />
+                  <q-card-section class=" col-5 q-py-none q-pl-sm q-pr-none  "
+                                  :class="[!headerCart ? 'flex column justify-between' : '']">
+                    <p v-if="headerCart" class="no-margin text-caption text-bold">{{souce.item.name}}</p>
+                    <p v-else class="no-margin text-h6 text-bold">{{souce.item.name}}</p>
+
+                    <p class="no-margin " :class="[headerCart ? 'text-caption' : 'text-body1 text-primary text-bold']" >{{souce.quantity}} шт</p>
+
+                  </q-card-section>
+                  <q-card-section class="no-padding col-3 flex column justify-between items-end" >
+                    <!--          <q-btn @click="changeQuantity('delete_cart_souse',souce.code, souce.id)" flat round dense icon="delete_outline" class="q-mr-sm"/>-->
+                    <div class="">
+                      <p v-if="$user.loggedIn" class="no-margin text-caption ">+{{souce.bonuses}} бал.</p>
+                      <p class="no-margin text-caption text-bold">{{souce.price}} р</p>
+                    </div>
+
+                  </q-card-section>
+                </q-card-section>
+                <q-separator spaced/>
+                <q-inner-loading :showing="current_id===souce.id">
+                  <q-spinner-tail size="50px" color="primary" />
+                </q-inner-loading>
+              </q-card>
+            </q-card-section>
+            <q-card-section>
+
+              <p class="text-bold text-body1">Кол-во персон: {{items_in_cart.persons}}</p>
+              <div class="flex items-center justify-between">
+                <p class="text-bold text-body1 no-margin">Сумма заказа:</p>
+                <p class="text-bold text-body1 no-margin">{{items_in_cart.total_price}} р</p>
+              </div>
+
+              <div v-if="cart_bonuses>0" class="flex items-center justify-between">
+                <p class="text-bold text-body1 no-margin">Баллы:</p>
+                <p class="text-bold text-body1 no-margin">- {{cart_bonuses}} р</p>
+              </div>
+              <div v-if="cart_promo>0" class="flex items-center justify-between">
+                <p class="text-bold text-body1 no-margin">Промокод:</p>
+                <p class="text-bold text-body1 no-margin">- {{cart_promo}} р</p>
+              </div>
+              <div v-if="delivery_price>0" class="flex items-center justify-between">
+                <p class="text-bold text-body1 no-margin">Доставка:</p>
+                <p class="text-bold text-body1 no-margin">+ {{delivery_price}} р</p>
+              </div>
+              <div  class="flex items-center justify-between">
+                <p class="text-bold text-h6 text-primary no-margin">Итого:</p>
+                <p class="text-bold text-h6 text-primary no-margin">{{items_in_cart.total_price - cart_promo - cart_bonuses + delivery_price}} р</p>
+              </div>
+
+
+
+
+            </q-card-section>
+          </q-card>
+        </div><!--        col-6-->
+      </div><!--        row -->
+    </div>
+  </q-page>
+</template>
+
+<script>
+import {  mapActions, mapGetters} from "vuex";
+import { date } from 'quasar'
+import Payment from "components/payment";
+
+export default {
+  components:{
+    Payment
+  },
+  data() {
+    return {
+      myMap: null,
+      current_id:null,
+      headerCart:true,
+      myGeoObject: null,
+      currentMark:null,
+      orderPlaced:false,
+      orderCode:null,
+      delivery_type:1,
+      selectedAddress:null,
+      delivery_time: [
+        '11:00', '11:30','12:00', '12:30', '13:00', '13:30','14:00', '14:30','15:00', '15:30', '16:00','16:30','17:00',
+        '17:30','18:00', '18:30', '19:00', '19:30','20:00', '20:30','21:00', '21:30', '22:00', '22:30'],
+      orderData:{
+        pizzaSize:22,
+        delivery_type:'Курьером',
+        cafe_address:null,
+        payment:'cash',
+        need_callback:false,
+        no_cashback:true,
+        comment:null,
+        cashback:0,
+        name: this.$user.loggedIn ? this.$user.user.fio : '',
+        phone: this.$user.loggedIn ? this.$user.user.phone : '',
+        street:null,
+        house:null,
+        flat:null,
+        podezd:null,
+        code:null,
+        floor:null,
+        date: date.formatDate(Date.now(), 'YYYY-MM-DD'),
+        time:'11:00',
+      },
+
+      dateOptions: {
+        disabledDate(time) {
+          return (time.getTime() + 3600 * 1000 * 24) < Date.now();
+        }
+
+      },
+    };
+  },
+  watch:{
+    selectedAddress(val){
+      console.log(val)
+      this.orderData.street = val.street
+      this.orderData.house = val.house
+      this.orderData.flat = val.flat
+      this.orderData.podezd = val.podezd
+      this.orderData.code = val.code
+      this.orderData.floor = val.floor
+    },
+    'orderData.delivery_type'(val){
+
+      //this.currentMark = new ymaps.Placemark(this.coordinates);
+      //this.myMap.geoObjects.add(this.currentMark)
+    }
+  },
+  mounted() {
+    this.orderData.cafe_address = this.currentCity.adresses[0].address
+
+    let hour = new Date().getHours()
+    let minute = new Date().getMinutes()
+    let is_not_half_hour = minute < 30
+    // for (let i = hour; i < 23; i++) {
+    //   this.delivery_time = []
+    //   this.delivery_time.push(`${i}:00`)
+    //   if (is_not_half_hour)
+    //     this.delivery_time.push(`${i}:30`)
+    // }
+    this.orderData.time= `${is_not_half_hour ? hour : hour+1}:${is_not_half_hour ? '30' : '00'}`
+    this.$analytics.fbq.event('InitiateCheckout',{
+            value: this.items_in_cart.total_price - this.cart_bonuses - this.cart_promo,
+              currency: 'RUB',
+          })
+  },
+  computed:{
+    ...mapGetters('cart',['cart_items_count','items_in_cart','cart_bonuses','cart_promo',]),
+    ...mapGetters('city',['cities','currentCity']),
+    delivery_price(){
+      return  this.orderData.delivery_type==='Курьером' ? 100 : 0
+    },
+    coordinates () {
+      return this.currentCity.adresses.find(x => x.address === this.orderData.cafe_address).coordinates.split(',')
+    },
+    user_addresses(){
+      if (this.$user.loggedIn){
+        let addr = []
+        for (let i of this.$user.user.addresses){
+          addr.push({
+            id:i.id,
+            label:i.street,
+            value:i.id,
+            street:i.street,
+            house:i.house,
+            flat:i.flat,
+            podezd:i.podezd,
+            code:i.code,
+            floor:i.floor,
+          })
+        }
+        return addr
+      }
+    }
+  },
+  methods:{
+    ...mapActions('cart',['fetchCart']),
+    ...mapActions('componentState',['changePaymentVisible','changePaymentUrl']),
+    map_init() {
+      console.log(this.$refs)
+      this.myMap = new ymaps.Map(this.$refs.map, {
+        center: [55.76, 37.64], // Москва
+        zoom: 10
+      }, {
+        searchControlProvider: 'yandex#search'
+      })
+    },
+    dateFn (date) {
+      return date >= new Date().toISOString().split('T')[0].replace('-','/').replace('-','/')
+    },
+    async placeOrder(){
+      console.log('new order')
+      this.$q.loading.show()
+      const response = await this.$api.post('/api/order/new_order',
+        {
+          session_id:this.$q.cookies.get('session_id'),
+          data:this.orderData,
+          bonuses:this.cart_bonuses,
+          promo:this.cart_promo,
+          source:'site'
+        })
+      console.log(response.data)
+      await this.fetchCart()
+       this.$analytics.fbq.event('Purchase', {
+        value: this.items_in_cart.total_price - this.cart_bonuses - this.cart_promo + this.delivery_price,
+        currency: 'RUB'
+      })
+      if (response.data.formUrl){
+        console.log('redirect ',response.data.formUrl)
+        // this.changePaymentUrl(response.data.formUrl)
+        // this.changePaymentVisible(true)
+        window.location.href = response.data.formUrl
+      }else{
+        this.orderCode = response.data.code
+        this.$q.loading.hide()
+        this.orderPlaced = true
+        this.$user.loggedIn ?  this.$user.fetchUser() : null
+        this.$router.push(`/order_self/${this.orderCode}`)
+      }
+    },
+    createOrder(){
+      this.$refs.orderForm.submit()
+    }
+  }
+}
+</script>
+<style lang="sass">
+.q-field__bottom--animated
+  bottom: 4px
+</style>

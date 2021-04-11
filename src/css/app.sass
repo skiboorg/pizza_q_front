@@ -1,0 +1,81 @@
+body
+  font-family: "Inter", sans-serif
+  color: #262626
+  font-size: 16px
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+  -webkit-appearance: none
+  margin: 0
+
+input[type=number]
+  -moz-appearance: textfield
+
+.container
+  max-width: 1320px
+  padding: 0 10px
+  margin: 0 auto
+
+.products-grid
+  display: grid
+  grid-template-columns: repeat(auto-fill,minmax(290px,1fr))
+  grid-column-gap: 30px
+  grid-row-gap: 30px
+  grid-auto-rows: max-content
+
+.f-raleway-900
+  font-family: 'Raleway', sans-serif
+  font-weight: 900
+  line-height: 100%
+
+.f-inter
+  font-family: 'Inter', sans-serif
+.f-mont
+  font-family: 'Montserrat', sans-serif
+
+.w400
+  font-weight: 400
+
+.w700
+  font-weight: 700
+
+.lh-100
+  line-height: 100%
+  //min-height: 32px
+
+.swiper-button-next
+  right: 0
+  top: 46px
+  &::after
+    content: url(~assets/right-arrow.svg) !important
+.swiper-button-prev
+  left: 0
+  top: 46px
+  &::after
+    content: url(~assets/left-arrow.svg) !important
+
+.no-text-decoration
+  text-decoration: unset
+
+.text-decoration-dash
+  display: inline-block
+  border-bottom: 1px dashed #262626
+  transition: all .2s linear
+  &:hover
+    color: $primary !important
+    border-color: $primary
+
+.container-sm
+  max-width: 900px
+  margin: 0 auto
+  padding: 0 10px
+
+@media (max-width: 768px)
+  .f-raleway-900
+    font-size: 20px
+    margin-top: 10px
+  .lh-100
+    min-height: unset
+  .text-h6
+    line-height: 100%
+    font-size: 1rem
