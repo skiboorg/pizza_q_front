@@ -2,7 +2,7 @@
 
   <q-page class="q-pb-lg">
 
-    <section class="home-page-slider q-mt-lg">
+    <section v-if="categories.length>0" class="home-page-slider q-mt-lg">
       <div class="home-page-slider__overlay overlay-left">
         <svg @click="homeTopSliderPrev" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="17" cy="17" r="17" ></circle>
@@ -24,7 +24,7 @@
         </swiper>
       </q-no-ssr>
     </section>
-    <div class="container">
+    <div v-if="categories.length>0" class="container">
       <div>
         <section  :data-index="index" :id="`catID_${category.id}`" v-for="(category,index) in categories" :key="category.id" class="">
           <h3 class="f-raleway-900">{{category.name}}</h3>
@@ -56,22 +56,22 @@
         </section>
       </div>
     </div>
-<!--    <div v-else class="container">-->
-<!--      <section >-->
-<!--        <div class="products-grid">-->
-<!--          <q-card v-for="i in 20" :key="i">-->
-<!--            <q-skeleton height="200px" square />-->
-<!--            <q-card-section>-->
-<!--              <q-skeleton type="text" />-->
-<!--              <q-skeleton type="text" />-->
-<!--            </q-card-section>-->
-<!--            <q-card-actions align="right" class="q-gutter-md">-->
-<!--              <q-skeleton type="QBtn" />-->
-<!--            </q-card-actions>-->
-<!--          </q-card>-->
-<!--        </div>-->
-<!--      </section>-->
-<!--    </div>-->
+    <div v-else class="container">
+      <section >
+        <div class="products-grid">
+          <q-card v-for="i in 20" :key="i">
+            <q-skeleton height="200px" square />
+            <q-card-section>
+              <q-skeleton type="text" />
+              <q-skeleton type="text" />
+            </q-card-section>
+            <q-card-actions align="right" class="q-gutter-md">
+              <q-skeleton type="QBtn" />
+            </q-card-actions>
+          </q-card>
+        </div>
+      </section>
+    </div>
     <PizzaConstructor/>
     <Pizza/>
   </q-page>

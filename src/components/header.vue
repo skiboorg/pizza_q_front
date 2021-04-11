@@ -25,7 +25,7 @@
         </div>
         <q-btn @click="changeRightMenuVisible(true)" flat round dense icon="menu" class="q-mr-sm lt-md"/>
       </q-toolbar>
-      <div  class="row items-start">
+      <div v-if="categories.length>0" class="row items-start">
         <div class="col-10">
           <q-tabs
             v-model="tab"
@@ -67,9 +67,9 @@
           </q-chip>
         </div>
       </div>
-<!--      <div v-if="!categories.length>0" class="row q-gutter-md">-->
-<!--        <q-skeleton type="QBtn" style="width: 100%" />-->
-<!--      </div>-->
+      <div v-if="!categories.length>0" class="row q-gutter-md">
+        <q-skeleton type="QBtn" style="width: 100%" />
+      </div>
     </div>
     <AuthModal/>
   </q-header>

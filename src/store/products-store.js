@@ -1,5 +1,5 @@
 import { Cookies } from 'quasar'
-
+import { api } from 'boot/axios'
 
 const state = () => ({
   categories:[],
@@ -46,12 +46,12 @@ const actions = {
       await this.dispatch('city/fetchCity')
       city_id = Cookies.get('city_id')
 
-      const response_souses = await this._vm.$api.get(`/api/items/get_souses_by_city?city_id=${city_id}`)
+      const response_souses = await api.get(`/api/items/get_souses_by_city?city_id=${city_id}`)
       commit('updateSouses', response_souses.data)
       //const response_items = await this._vm.$api.get(`/api/items/get_items_by_city?city_id=${city_id}`)
-      const response_categories = await this._vm.$api.get(`/api/items/get_categories?city_id=${city_id}`)
-      const response_recommended = await this._vm.$api.get(`/api/items/get_recommended_items?city_id=${city_id}`)
-      const response_recommended_for_meat = await this._vm.$api.get(`/api/items/get_recommended_items_for_meat?city_id=${city_id}`)
+      const response_categories = await api.get(`/api/items/get_categories?city_id=${city_id}`)
+      const response_recommended = await api.get(`/api/items/get_recommended_items?city_id=${city_id}`)
+      const response_recommended_for_meat = await api.get(`/api/items/get_recommended_items_for_meat?city_id=${city_id}`)
 
       // commit('updateItems', response_items.data)
       commit('updateRecommendedItems', response_recommended.data)
@@ -64,7 +64,7 @@ const actions = {
     commit('updateOpenedPizza',data)
   },
   async fetchPizza({state},data){
-    const response = await this._vm.$api.get(`/api/items/get_item_by_id/${data}`)
+    const response = await api.get(`/api/items/get_item_by_id/${data}`)
     console.log(response.data)
   },
 
