@@ -7,7 +7,7 @@
           <img class="q-pa-sm cursor-pointer" src="~assets/logo_big.svg">
         </q-avatar>
         <div class="gt-sm">
-          <p class="no-margin text-bold">{{currentCity.name}}</p>
+          <p class="no-margin text-bold">Новый Уренгой</p>
           <p  class="no-margin text-caption text-bold">Сеть мясных кафе</p>
         </div>
         <q-space/>
@@ -99,7 +99,7 @@ export default {
     window.addEventListener('scroll', this.updateScroll);
   },
   computed:{
-    ...mapGetters('city',['cities','currentCity']),
+    ...mapGetters('city',['cities',]), //'currentCity'
     ...mapGetters('products',['categories']),
     ...mapGetters('cart',['cart_items_count','items_in_cart']),
     is_index_page(){
