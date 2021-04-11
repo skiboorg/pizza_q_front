@@ -56,7 +56,7 @@
         </section>
       </div>
     </div>
-    <div v-if="!categories.length>0" class="container">
+    <div v-else class="container">
       <section >
         <div class="products-grid">
           <q-card v-for="i in 20" :key="i">
