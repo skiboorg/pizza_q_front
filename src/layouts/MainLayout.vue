@@ -17,7 +17,7 @@
           clickable
           v-ripple
           :active="link === 'offer'"
-          @click="link = 'offer'"
+          @click="link = 'offer', $router.push('/promotions')"
           active-class="my-menu-link">
           <q-item-section avatar>
             <q-icon name="local_offer" />
@@ -28,7 +28,7 @@
           clickable
           v-ripple
           :active="link === 'delivery'"
-          @click="link = 'delivery'"
+          @click="link = 'delivery', $router.push('/delivery')"
           active-class="my-menu-link">
           <q-item-section avatar>
             <q-icon name="delivery_dining" />
@@ -39,7 +39,7 @@
           clickable
           v-ripple
           :active="link === 'about'"
-          @click="link = 'about'"
+          @click="link = 'about', $router.push('/about')"
           active-class="my-menu-link">
           <q-item-section avatar>
             <q-icon name="help_outline" />
@@ -50,7 +50,7 @@
           clickable
           v-ripple
           :active="link === 'contact'"
-          @click="link = 'contact'"
+          @click="link = 'contact', $router.push('/contacts')"
           active-class="my-menu-link">
           <q-item-section avatar>
             <q-icon name="contact_page" />

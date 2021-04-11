@@ -14,6 +14,7 @@ module.exports = function (/* ctx */) {
       'ya_map',
       'ya_metrika',
       'fbp',
+      'lazy'
     ],
     css: [
       'app.sass',

@@ -1,14 +1,16 @@
 <template>
 
   <q-card  class="q-mb-sm q-mx-sm no-padding item-card" :flat="$q.screen.lt.sm" >
-    <q-card-section :horizontal="$q.screen.lt.sm" class="q-mb-sm no-padding" style="position: relative">
+    <q-card-section :horizontal="$q.screen.lt.sm" class="q-mb-sm no-padding " style="position: relative">
       <!--      <img  :src="item.image" class="col-5 no-border-radius" style="object-fit: contain;position: relative;z-index: 0">-->
-      <q-img
-        :contain="item.is_pizza"
-        :cover="!item.is_pizza"
-        :ratio="1"
-        class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"
-        :src="item.image"/>
+
+      <img :style="{'object-fit': item.is_pizza ? 'contain' : 'cover' }" class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image" v-lazy="item.image" alt="">
+<!--      <q-img-->
+<!--        :contain="item.is_pizza"-->
+<!--        :cover="!item.is_pizza"-->
+<!--        :ratio="1"-->
+<!--        class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"-->
+<!--        :src="item.image"/>-->
 
       <q-card-section class="q-pa-lg-md q-pa-md-md q-py-sm-none q-px-sm-sm q-py-xs-none q-px-xs-sm col-lg-7 col-md-7 col-sm-7 col-xs-8">
 
@@ -34,7 +36,7 @@
 
           <div v-if="!item.is_pizza" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 units-add flex justify-between items-center  q-mb-sm ">
             <q-btn @click="minusUnit" outline round size="xs" color="primary"  icon="remove" />
-            <p class="q-ma-none bg-grey-1 q-pa-sm">{{total_units}} {{unit_name}}</p>
+            <p class="item-card__unit q-ma-none bg-grey-1 q-pa-sm">{{total_units}} {{unit_name}}</p>
             <q-btn @click="plusUnit" outline round size="xs" color="primary" icon="add" />
           </div>
 
@@ -42,8 +44,8 @@
         <div class="row justify-between items-center">
           <div class="">
             <p class="no-margin"><span style="text-decoration: line-through;color: #7A7878; font-weight: normal" v-if="item.prices.find(x => x.city === this.$q.cookies.get('city_id')).old_price>0">{{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).old_price}}р <br></span></p>
-           <p v-if="item.is_pizza" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold no-margin ">от {{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price}} р</p>
-           <p v-else class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-bold no-margin ">{{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price}} р</p>
+           <p v-if="item.is_pizza" class="item-card__price col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold no-margin ">от {{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price}} р</p>
+           <p v-else class="item-card__price col-lg-3 col-md-3 col-sm-3 col-xs-3 text-bold no-margin ">{{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price}} р</p>
 
           </div>
        <q-btn  v-if="item.is_pizza" unelevated
@@ -58,7 +60,7 @@
                class="in-cart-btn col-lg-9 col-md-9 col-sm-9 col-xs-9"
                :loading="is_loading"
                @click="addToCart(item)"
-
+               :size="$q.screen.lt.sm ? 'sm' : 'md'"
                color="primary"
                :label="`В корзину ${item.is_meat ?
                 item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price * units
@@ -164,6 +166,9 @@ export default {
   &__image
     border-top-left-radius: 4px
     border-top-right-radius: 4px
+    width: 100%
+    height: auto
+    //object-fit: cover
 .in-cart-btn
   min-width: 120px
 .ingredient
@@ -175,11 +180,15 @@ export default {
       content: none
       margin-right: 0
 .units-add
-  flex-basis: 50%
+  flex-basis: 60%
 @media (max-width: 768px)
   .item-card
     &:hover
       border: 1px solid #fff
+    &__unit
+      font-size: 13px
+    &__price
+      font-size: 14px
   .in-cart-btn
     min-width: unset
   .units-add
