@@ -95,7 +95,7 @@
 
           </div>
 
-          <p class="text-bold text-primary text-h6">{{orderData.delivery_type==='Курьером' ? 'Доставка в районе 30 минут' : 'Заказ можно будет забрать примерно через 40 минут'}}</p>
+          <p class="text-bold text-primary text-h6">{{orderData.delivery_type==='Курьером' ? 'Доставка в районе 60 минут' : 'Заказ можно будет забрать примерно через 40 минут'}}</p>
           <p class="text-bold text-h6">Оплата</p>
           <div class="flex column items-start q-mb-lg">
             <q-radio class="q-mb-sm" dense  v-model="orderData.payment" val="cash" label="Наличными курьеру" />
