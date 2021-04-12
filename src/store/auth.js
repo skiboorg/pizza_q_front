@@ -22,7 +22,8 @@ const actions = {
   loginUser({dispatch},data){
     api.post('/auth/token/login/',data)
       .then(response=>{
-        LocalStorage.set('auth_token',response.data.auth_token)
+        this._vm.$cook.set('auth_token',response.data.auth_token)
+        // LocalStorage.set('auth_token',response.data.auth_token)
         api.defaults.headers.common['Authorization'] = 'Token ' + response.data.auth_token
         dispatch('getUser',true)
 
@@ -54,7 +55,7 @@ const actions = {
       .then(response=>{
         console.log('logoutUser', response)
         api.defaults.headers.common['Authorization'] = null
-        LocalStorage.remove('auth_token')
+        this._vm.$cook.remove('auth_token')
         commit('updateUser', {})
         commit('updateUserStatus', false)
         this.dispatch('cart/fetchCart')

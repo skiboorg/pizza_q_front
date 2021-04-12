@@ -2,7 +2,7 @@
   <q-header class="header bg-white text-black q-py-sm"
             :class="[scrollPosition > 90 && !scrollUp ? 'header-sticky shadow-3':'', scrollPosition > 90 ? 'shadow-3':'']">
     <div class="container">
-      <q-no-ssr>
+
       <q-toolbar class="q-pb-md ">
         <q-avatar @click="$router.push('/')" rounded :size="$q.screen.lt.md ? '50px' : '70px'" class="bg-black q-mr-md">
           <img class="q-pa-sm cursor-pointer" src="~assets/logo_big.svg">
@@ -22,11 +22,11 @@
         </q-tabs>
         <q-space/>
         <div class="gt-sm">
-          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" href="tel:+73494292407">+7 (3494) 29 24 07</a></p>
+          <p class="text-bold text-h6 no-margin zphone"><a class="text-primary" style="text-decoration: unset" href="tel:+73494292407">+7 (3494) 29 24 07</a></p>
         </div>
         <q-btn @click="changeRightMenuVisible(true)" flat round dense icon="menu" class="q-mr-sm lt-md"/>
       </q-toolbar>
-      </q-no-ssr>
+
       <div v-if="categories.length>0" class="row items-start">
         <div class="col-10">
           <q-tabs

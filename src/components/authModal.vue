@@ -181,13 +181,8 @@ export default {
     async userRegisterAction(){
       this.loading=true
       if(!this.sended_sms){
-        this.$q.notify({
-          message: 'На ваш номер отправлено SMS с кодом подтверждения',
-          position: this.$q.screen.lt.sm ? 'bottom' : 'bottom-right',
-          color:'positive',
-          icon: 'announcement'
-        })
         await this.send_sms()
+
       }else {
         this.loading=false
         await this.completeRegistration()
@@ -221,6 +216,12 @@ export default {
       const response = await  this.$api.post(`api/user/send_code_sms`,{phone:this.userRegister.phone})
       console.log(response.data)
       if (response.data.code){
+        this.$q.notify({
+          message: 'На ваш номер отправлено SMS с кодом подтверждения',
+          position: this.$q.screen.lt.sm ? 'bottom' : 'bottom-right',
+          color:'positive',
+          icon: 'announcement'
+        })
         this.sended_sms= response.data.code
         this.loading=false
       }else {

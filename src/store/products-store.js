@@ -39,12 +39,12 @@ const mutations = {
 const actions = {
 
   async fetchItems({state,commit,dispatch,}){
-    let city_id = Cookies.get('city_id')
+    let city_id = this._vm.$cook.get('city_id')
 
     if(state.items.length===0){
       console.log('fetchItems')
       await this.dispatch('city/fetchCity')
-      city_id = Cookies.get('city_id')
+      city_id = this._vm.$cook.get('city_id')
 
       const response_souses = await api.get(`/api/items/get_souses_by_city?city_id=${city_id}`)
       commit('updateSouses', response_souses.data)

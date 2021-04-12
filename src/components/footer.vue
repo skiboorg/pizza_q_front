@@ -7,7 +7,7 @@
           <img class="q-pa-sm cursor-pointer" src="~assets/logo_big.svg">
         </q-avatar>
           <p>Новый Уренгой,<br>ул.Железнодорожная д.12</p>
-          <p class="text-bold"><a class="no-text-decoration text-grey-10" href="tel:+73494292407">+7 (3494) 29 24 07</a> </p>
+          <p class="text-bold zphone"><a class="no-text-decoration text-grey-10 " href="tel:+73494292407">+7 (3494) 29 24 07</a> </p>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
           <p><router-link class="no-text-decoration text-grey-10" exact-active-class="link-active" exact to="promotions">Акции</router-link></p>

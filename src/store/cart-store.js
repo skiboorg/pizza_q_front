@@ -37,10 +37,12 @@ const actions = {
 
       console.log('fetchCart')
 
-      let session_id = Cookies.get('session_id')
+      let session_id = this._vm.$cook.get('session_id')
+     // let session_id = Cookies.get('session_id')
       if (!session_id) {
         Cookies.set('session_id', uid())
-        session_id = Cookies.get('session_id')
+        session_id = this._vm.$cook.get('session_id')
+       // session_id = Cookies.get('session_id')
       }
       const response_cart = await this._vm.$api.get(`/api/cart/get_cart?session_id=${session_id}`)
       commit('updateCart', response_cart.data)

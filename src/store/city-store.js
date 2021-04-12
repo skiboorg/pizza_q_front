@@ -19,7 +19,7 @@ const mutations = {
 const actions = {
   async fetchCity({commit,state,dispatch}){
     console.log('fetchCity')
-    const city_id = Cookies.get('city_id')
+    const city_id = this._vm.$cook.get('city_id')
 
     const response = await this._vm.$api.get(`/api/items/get_cities`)
     console.log('response city',response.data)
@@ -31,7 +31,7 @@ const actions = {
   },
   changeMainCity({commit}, data) {
     console.log('changeMainCity')
-    let city_in_cookie = Cookies.get('city_id')
+    let city_in_cookie = this._vm.$cook.get('city_id')
     if (city_in_cookie !== data){
       Cookies.set('city_id',data)
       commit('updateMainCity', data)
