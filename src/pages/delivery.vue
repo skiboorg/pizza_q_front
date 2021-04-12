@@ -7,7 +7,7 @@
          <div class="row q-col-gutter-lg">
            <div class="col-6 text-center">
              <p class="text-grey-6 text-body2 no-margin">ДОСТАВКА РАБОТАЕТ</p>
-             <p class="text-bold text-h5 no-margin" >c 11:00 до 23:00</p>
+             <p class="text-bold text-h5 no-margin" >c 10:30 до 22:30</p>
 
            </div>
            <div class="col-6 text-center">
