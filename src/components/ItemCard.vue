@@ -3,7 +3,6 @@
   <q-card  class="q-mb-sm q-mx-sm no-padding item-card" :flat="$q.screen.lt.sm" >
     <q-card-section :horizontal="$q.screen.lt.sm" class="q-mb-sm no-padding " style="position: relative">
       <!--      <img  :src="item.image" class="col-5 no-border-radius" style="object-fit: contain;position: relative;z-index: 0">-->
-
 <!--      <img :style="{'object-fit': item.is_pizza ? 'contain' : 'cover' }" class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image" v-lazy="item.image" alt="">-->
       <q-img
         :contain="item.is_pizza"
@@ -11,7 +10,6 @@
         :ratio="1"
         class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"
         :src="item.image"/>
-
       <q-card-section class="q-pa-lg-md q-pa-md-md q-py-sm-none q-px-sm-sm q-py-xs-none q-px-xs-sm col-lg-7 col-md-7 col-sm-7 col-xs-8">
 
         <div class="row items-center">

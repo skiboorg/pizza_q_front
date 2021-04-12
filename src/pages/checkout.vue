@@ -44,7 +44,7 @@
           </div>
           <div v-show="orderData.delivery_type!=='Курьером'" class="">
             <p class="text-bold text-h6">Адрес кафе</p>
-            <div class="q-mb-sm " v-for="address in currentCity.adresses" :key="address.id">
+            <div class="q-mb-sm " v-for="address in adresses" :key="address.id">
               <q-radio dense   v-model="orderData.cafe_address"  :val="address.address" :label="address.address" />
             </div>
 
@@ -295,6 +295,7 @@ export default {
       orderPlaced:false,
       orderCode:null,
       delivery_type:1,
+      adresses:[],
       selectedAddress:null,
       delivery_time: [
         '11:00', '11:30','12:00', '12:30', '13:00', '13:30','14:00', '14:30','15:00', '15:30', '16:00','16:30','17:00',
@@ -356,6 +357,7 @@ export default {
     //   if (is_not_half_hour)
     //     this.delivery_time.push(`${i}:30`)
     // }
+    this.adresses = this.currentCity.adresses
     this.orderData.time= `${is_not_half_hour ? hour : hour+1}:${is_not_half_hour ? '30' : '00'}`
     this.$analytics.fbq.event('InitiateCheckout',{
             value: this.items_in_cart.total_price - this.cart_bonuses - this.cart_promo,

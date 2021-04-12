@@ -2,6 +2,7 @@
   <q-header class="header bg-white text-black q-py-sm"
             :class="[scrollPosition > 90 && !scrollUp ? 'header-sticky shadow-3':'', scrollPosition > 90 ? 'shadow-3':'']">
     <div class="container">
+      <q-no-ssr>
       <q-toolbar class="q-pb-md ">
         <q-avatar @click="$router.push('/')" rounded :size="$q.screen.lt.md ? '50px' : '70px'" class="bg-black q-mr-md">
           <img class="q-pa-sm cursor-pointer" src="~assets/logo_big.svg">
@@ -16,8 +17,8 @@
           <q-route-tab name="tab2" to="delivery" label="Доставка и оплата" />
           <q-route-tab name="tab3" to="about" label="О нас" />
           <q-route-tab name="tab4" to="contacts" label="Контакты" />
-          <q-tab v-if="!$user.loggedIn" name="tab5" @click="changeAuthModalVisible(true)" icon="login"  label="Вход" />
-          <q-route-tab  v-else name="tab5" to="lk" icon="person" label="Профиль" />
+          <q-tab v-if="!$user.loggedIn" name="tab5" @click="changeAuthModalVisible(true)" icon="login"  label="Личный кабинет" />
+          <q-route-tab  v-else name="tab5" to="lk" icon="person" label="Личный кабинет" />
         </q-tabs>
         <q-space/>
         <div class="gt-sm">
@@ -25,6 +26,7 @@
         </div>
         <q-btn @click="changeRightMenuVisible(true)" flat round dense icon="menu" class="q-mr-sm lt-md"/>
       </q-toolbar>
+      </q-no-ssr>
       <div v-if="categories.length>0" class="row items-start">
         <div class="col-10">
           <q-tabs
@@ -43,7 +45,7 @@
                    :label="item.name"
                    v-for="(item,index) in categories"
                    :key="item.id"
-                   @click="is_index_page
+                   @click="changeSelectedCategory(index), is_index_page
                    ? $scrollTo('#catID_'+item.id, 200, {offset: -90})
                    : $router.push(`/#catID_${item.id}`)"
             />
@@ -111,7 +113,7 @@ export default {
     ...mapActions('products',['fetchItems']),
     ...mapActions('cart',['fetchCart','eraseCart']),
     ...mapActions('auth',['logoutUser']),
-    ...mapActions('componentState',['changeRightMenuVisible','changeAuthModalVisible']),
+    ...mapActions('componentState',['changeRightMenuVisible','changeAuthModalVisible','changeSelectedCategory']),
     openCartPage(){
       this.$analytics.fbq.event('InitiateCheckout',{
       value: this.items_in_cart.total_price,

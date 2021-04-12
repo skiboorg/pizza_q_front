@@ -1,6 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
     <Header/>
+    <q-no-ssr>
     <q-drawer v-model="is_visible" side="right" overlay behavior="mobile" bordered>
       <q-toolbar class="q-pb-md">
         <q-avatar rounded size="50px" class="bg-black q-mt-sm">
@@ -91,7 +92,7 @@
           <q-item-section avatar>
             <q-icon name="login" />
           </q-item-section>
-          <q-item-section>Войти</q-item-section>
+          <q-item-section>Личный кабинет</q-item-section>
         </q-item>
 
 
@@ -135,6 +136,7 @@
 <!--      </div>-->
 
     </q-drawer>
+    </q-no-ssr>
     <q-page-container style="padding-top: 0">
       <!--      <transition name="fade">-->
       <router-view />

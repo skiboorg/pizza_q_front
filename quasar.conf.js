@@ -1,5 +1,6 @@
 module.exports = function (/* ctx */) {
   return {
+    preFetch: true,
     bin: {
    linuxAndroidStudio: "/home/xxx/android-studio/bin/studio.sh"
   },
@@ -11,10 +12,10 @@ module.exports = function (/* ctx */) {
       'scroll',
       'slider',
       'init',
-      'ya_map',
-      'ya_metrika',
-      'fbp',
-      'lazy'
+      //{ path: 'lazy', server: false },
+      { path: 'ya_map', server: false },
+      { path: 'ya_metrika', server: false },
+      { path: 'fbp', server: false },
     ],
     css: [
       'app.sass',
@@ -48,9 +49,9 @@ module.exports = function (/* ctx */) {
       // transpileDependencies: [],
 
       // rtl: false, // https://quasar.dev/options/rtl-support
-      // preloadChunks: true,
-      // showProgress: false,
-      // gzip: true,
+      preloadChunks: true,
+      gzip: true,
+      minify:true,
       // analyze: true,
 
       // Options below are automatically set depending on the env, set them if you want to override
@@ -91,10 +92,11 @@ module.exports = function (/* ctx */) {
 
       // Quasar plugins
       plugins: [
-          'Cookies',
+        'Cookies',
         'Notify',
         'LocalStorage',
-        'Loading'
+        'Loading',
+        'LoadingBar'
       ]
     },
 

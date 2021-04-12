@@ -36,6 +36,7 @@ const actions = {
   async fetchCart({commit,state,dispatch}){
 
       console.log('fetchCart')
+
       let session_id = Cookies.get('session_id')
       if (!session_id) {
         Cookies.set('session_id', uid())

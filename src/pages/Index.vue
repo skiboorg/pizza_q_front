@@ -1,7 +1,6 @@
 <template>
 
   <q-page class="q-pb-lg">
-
     <section v-if="categories.length>0" class="home-page-slider q-mt-lg">
       <div class="home-page-slider__overlay overlay-left">
         <svg @click="homeTopSliderPrev" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -15,17 +14,27 @@
           <path d="M14.759 9.8418L20.9409 16.9997L14.759 24.1576" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </div>
-      <q-no-ssr>
         <swiper ref="homeTopSlider" :options="sliderHomeTopOption">
           <swiper-slide class="home-page-slider__item" v-for="banner in banners" :key="banner.id">
             <div class=""><img style="max-width: 100%; height: auto" :src="banner.image" alt="" ></div>
           </swiper-slide >
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
-      </q-no-ssr>
     </section>
     <div v-if="categories.length>0" class="container">
       <div>
+
+<!--        <section>-->
+<!--          <h3 class="f-raleway-900">{{categories[selected_category].name}}</h3>-->
+<!--          <div class="products-grid">-->
+
+<!--           <ItemCard   v-if="!item.is_for_meat && item.is_active && !item.is_gift"-->
+<!--                        v-for="item in categories[selected_category].items"-->
+<!--                        :item="item"-->
+<!--                        :key="item.id"/>-->
+<!--          </div>-->
+<!--        </section>-->
+
         <section  :data-index="index" :id="`catID_${category.id}`" v-for="(category,index) in categories" :key="category.id" class="">
           <h3 class="f-raleway-900">{{category.name}}</h3>
           <div class="products-grid">
@@ -35,7 +44,7 @@
                   :ratio="1"
                   contain
                   class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"
-                  src="~assets/constr.png"/>
+                  src="~assets/constr.webp"/>
               <q-card-section class="q-pa-lg-md q-pa-md-md q-py-sm-none q-px-sm-sm q-py-xs-none q-px-xs-sm col-lg-7 col-md-7 col-sm-7 col-xs-8">
                   <p class="text-subtitle1 lh-100 text-bold ">Пицца-конструктор</p>
                    <p class="text-caption text-grey q-mb-sm ingridient-items">Выберите половинки пицц и соберите свою!</p>
@@ -117,7 +126,6 @@ export default {
         ,autoplay: {
           delay: 3000,
         },
-
         breakpoints: {
           // when window width is >= 320px
           320: {
@@ -160,11 +168,11 @@ export default {
 
   },
   computed:{
-    ...mapGetters('products',['categories','all_pizza']),
+    ...mapGetters('products',['categories']),
+    ...mapGetters('componentState',['selected_category']),
     homeTopSlider() {
       return this.$refs.homeTopSlider.$swiper
     }
-
   }
 }
 </script>

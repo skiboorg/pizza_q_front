@@ -5,6 +5,7 @@ const state = () => ({
   payment_visible:false,
   right_menu:false,
   auth_modal:false,
+  selected_category:0
 })
 
 const mutations = {
@@ -25,6 +26,9 @@ const mutations = {
   },
   updateAuthModal(state,data){
     state.auth_modal = data
+  },
+  updateSelectedCategory(state,data){
+    state.selected_category = data
   },
 
 }
@@ -48,6 +52,9 @@ const actions = {
   changeAuthModalVisible({commit},data){
     commit('updateAuthModal', data)
   },
+  changeSelectedCategory({commit},data){
+    commit('updateSelectedCategory', data)
+  },
 }
 
 export const getters = {
@@ -56,7 +63,8 @@ export const getters = {
   is_payment_visible: (state) => state.payment_visible,
   payment_url: (state) => state.payment_url,
   is_right_menu_visible: (state) => state.right_menu,
-  is_auth_modal_visible: (state) => state.auth_modal
+  is_auth_modal_visible: (state) => state.auth_modal,
+  selected_category: (state) => state.selected_category
 }
 
 export default {

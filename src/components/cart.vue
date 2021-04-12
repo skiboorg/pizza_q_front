@@ -47,7 +47,11 @@
 <!--          <q-btn  @click="changeQuantity('delete_cart_constructor',constructor.code)" flat round dense icon="delete_outline" class="q-mr-sm"/>-->
           <q-icon @click="changeQuantity('delete_cart_constructor',constructor.code,constructor.id)" class="cursor-pointer inline-block " size="25px" name="delete_outline"/>
           <div class="">
+            <q-no-ssr>
+              <q-no-ssr>
             <p v-if="$user.loggedIn" class="no-margin text-caption ">+{{constructor.bonuses}} бал.</p>
+              </q-no-ssr>
+            </q-no-ssr>
             <p class="no-margin text-body1 text-bold">{{constructor.price}} р</p>
           </div>
 
@@ -100,7 +104,9 @@
 <!--          <q-btn v-if="!item.item.is_gift || headerCart" @click="changeQuantity('delete_item',item.code)" flat outline round dense icon="delete_outline" class="q-mr-sm"/>-->
           <q-icon @click="changeQuantity('delete_item',item.code,item.id)" class="cursor-pointer inline-block " size="25px" name="delete_outline"/>
           <div class="">
-            <p v-if="$user.loggedIn && !item.item.is_gift" class="no-margin text-caption ">+{{item.bonuses}} бал.</p>
+            <q-no-ssr>
+              <p v-if="$user.loggedIn && !item.item.is_gift" class="no-margin text-caption ">+{{item.bonuses}} бал.</p>
+            </q-no-ssr>
             <p class="no-margin text-body1 text-bold">{{item.price}} р</p>
           </div>
 
@@ -145,7 +151,9 @@
 <!--          <q-btn @click="changeQuantity('delete_cart_souse',souce.code, souce.id)" flat round dense icon="delete_outline" class="q-mr-sm"/>-->
            <q-icon @click="changeQuantity('delete_cart_souse',souce.code,souce.id)" class="cursor-pointer inline-block " size="25px" name="delete_outline"/>
           <div class="">
+            <q-no-ssr>
             <p v-if="$user.loggedIn" class="no-margin text-caption ">+{{souce.bonuses}} бал.</p>
+            </q-no-ssr>
             <p class="no-margin text-caption text-bold">{{souce.price}} р</p>
           </div>
 
@@ -204,6 +212,7 @@
         </swiper>
       </q-no-ssr>
       <p class="text-h6 text-bold">Рекомендуем к заказу</p>
+      <q-no-ssr>
       <swiper   class="recommended-slider" :options="soucesSliderOption">
         <swiper-slide v-if="items_in_cart.items.filter(x => x.item.id === item.id).length===0" class="recommended-item"  v-for="item in recommended_items" :key="item.id">
           <q-card  class="q-py-sm cursor-pointer" @click="addToCart(item)" >
@@ -224,7 +233,9 @@
         <div class="swiper-button-prev" slot="button-prev"></div>
         <div class="swiper-button-next" slot="button-next"></div>
       </swiper>
-      <div v-if="$user.loggedIn" class="q-mb-none">
+      </q-no-ssr>
+      <q-no-ssr>
+        <div v-if="$user.loggedIn" class="q-mb-none">
         <p  class="q-mb-none">Баллов будет начислено: {{items_in_cart.total_bonuses}} </p>
         <q-checkbox size="sm" class="q-mb-sm" left-label  v-model="with_bonuses" :label="`Списать баллы (${$user.user.bonuses} баллов доступно)`" />
         <q-card-section v-if="!$user.user.promo" class="no-padding">
@@ -235,6 +246,7 @@
 
         </q-card-section>
       </div>
+      </q-no-ssr>
     </div>
 
     <div v-if="!headerCart" class="">
@@ -264,11 +276,14 @@
 
 
   </div>
-  <div v-else class="flex items-center justify-center column text-center">
 
+  <div v-else class="flex items-center justify-center column text-center">
+<q-no-ssr>
     <img src="~assets/empty-cart.svg" >
     <p class="text-h6 text-center">Вы сюда еще ничего не добавили</p>
+</q-no-ssr>
   </div>
+
 </template>
 
 <script>
@@ -360,7 +375,6 @@ export default {
 
     },
     async addSouseToCart (item) {
-
       await this.$api.post(`/api/cart/add_to_cart_souse`,
         {
           session_id:this.$q.cookies.get('session_id'),

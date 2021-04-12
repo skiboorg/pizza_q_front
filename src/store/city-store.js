@@ -43,7 +43,9 @@ const actions = {
 const getters = {
   cities: (state) => state.cities,
   mainCity: (state) => state.main_city,
-  currentCity: (state) => state.cities.find(x => x.id === Cookies.get('city_id'))
+  currentCity: (state) =>{
+   return  state.cities.find(x => x.id === Cookies.get('city_id')) ? state.cities.find(x => x.id === Cookies.get('city_id')) : []
+  }
 }
 
 
