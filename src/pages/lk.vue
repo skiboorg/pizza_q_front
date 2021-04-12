@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="container-sm">
-      <p class="text-bold text-h3">Баллов начислено: {{$user.user.bonuses}}</p>
+      <p class="text-bold text-h5">Баллов начислено: {{$user.user.bonuses}}</p>
       <q-tabs
         v-model="tab"
         dense

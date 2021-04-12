@@ -4,13 +4,13 @@
     <q-card-section :horizontal="$q.screen.lt.sm" class="q-mb-sm no-padding " style="position: relative">
       <!--      <img  :src="item.image" class="col-5 no-border-radius" style="object-fit: contain;position: relative;z-index: 0">-->
 
-      <img :style="{'object-fit': item.is_pizza ? 'contain' : 'cover' }" class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image" v-lazy="item.image" alt="">
-<!--      <q-img-->
-<!--        :contain="item.is_pizza"-->
-<!--        :cover="!item.is_pizza"-->
-<!--        :ratio="1"-->
-<!--        class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"-->
-<!--        :src="item.image"/>-->
+<!--      <img :style="{'object-fit': item.is_pizza ? 'contain' : 'cover' }" class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image" v-lazy="item.image" alt="">-->
+      <q-img
+        :contain="item.is_pizza"
+        :cover="!item.is_pizza"
+        :ratio="1"
+        class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"
+        :src="item.image"/>
 
       <q-card-section class="q-pa-lg-md q-pa-md-md q-py-sm-none q-px-sm-sm q-py-xs-none q-px-xs-sm col-lg-7 col-md-7 col-sm-7 col-xs-8">
 
@@ -61,6 +61,7 @@
                :loading="is_loading"
                @click="addToCart(item)"
                :size="$q.screen.lt.sm ? 'sm' : 'md'"
+               :class="$q.screen.lt.sm ? 'text-bold q-py-sm' : ''"
                color="primary"
                :label="`В корзину ${item.is_meat ?
                 item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price * units
@@ -180,7 +181,7 @@ export default {
       content: none
       margin-right: 0
 .units-add
-  flex-basis: 60%
+  //flex-basis: 60%
 @media (max-width: 768px)
   .item-card
     &:hover

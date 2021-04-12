@@ -51,7 +51,7 @@
           </q-tabs>
         </div>
         <div  @mouseover="cart= true" @click="cart= true" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0 cursor-pointer text-right">
-          <q-chip  icon="shopping_cart" :label="`${items_in_cart.total_price} р`"  >
+          <q-chip class="cart-icon"  icon="shopping_cart" :label="`${items_in_cart.total_price} р`"  >
             <q-badge v-if="cart_items_count>0" floating rounded>{{cart_items_count}}</q-badge>
             <q-menu  fit :offset="[0, 12]" @mouseleave="cart=false" v-model="cart"  self="top end" anchor="bottom end">
               <Cart class="cart" :headerCart="true"/>
@@ -166,5 +166,6 @@ export default {
 @media (max-width: 768px)
   .header-sticky
     top: -65px
-
+  .cart-icon
+    padding: 9px
 </style>

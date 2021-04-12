@@ -62,6 +62,18 @@
           v-if="$user.loggedIn"
           clickable
           v-ripple
+          :active="link === 'lk'"
+           @click="link = 'lk', $router.push('/lk')"
+          active-class="my-menu-link">
+          <q-item-section avatar>
+            <q-icon name="person" />
+          </q-item-section>
+          <q-item-section>Личный кабинет</q-item-section>
+        </q-item>
+        <q-item
+          v-if="$user.loggedIn"
+          clickable
+          v-ripple
           :active="link === 'logout'"
           @click="logoutUser"
           active-class="my-menu-link">

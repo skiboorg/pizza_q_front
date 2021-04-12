@@ -48,7 +48,7 @@
                 </q-card-section>
               </q-card-section>
             </q-card>
-            <ItemCard   v-if="!item.is_for_meat && item.is_active"
+            <ItemCard   v-if="!item.is_for_meat && item.is_active && !item.is_gift"
                         v-for="item in category.items"
                         :item="item"
                         :key="item.id"/>
