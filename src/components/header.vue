@@ -22,7 +22,9 @@
         </q-tabs>
         <q-space/>
         <div class="gt-sm">
+          <q-no-ssr>
           <p class="text-bold text-h6 no-margin zphone"><a class="text-primary" style="text-decoration: unset" href="tel:+73494292407">+7 (3494) 29 24 07</a></p>
+          </q-no-ssr>
         </div>
         <q-btn @click="changeRightMenuVisible(true)" flat round dense icon="menu" class="q-mr-sm lt-md"/>
       </q-toolbar>

@@ -15,7 +15,7 @@
              <p class="text-bold text-h5  no-margin" >от 100 руб</p>
            </div>
            <div class="col-6 text-center">
-               <p class="text-grey-6 text-body2 no-margin">ДОСТАВКА</p>
+               <p class="text-grey-6 text-body2 no-margin">ЦЕНА ДОСТАВКИ</p>
              <p class="text-bold text-h5  no-margin" >100 руб</p>
            </div>
            <div class="col-6 text-center">
@@ -33,20 +33,22 @@
         </div>
       </div>
     <p class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">При покупке любых блюд, на любую сумму мы начисляем бонусы в размере 0,5% от суммы заказа, которыми вы сможете
-      рассчитываться при любом заказе, в любое время. Чтобы бонусы, при покупке, могли начисляться - <span class="text-bold">необходимо зарегистрироваться на сайте</span>.
+      рассчитываться при любом заказе, в любое время. Чтобы бонусы, при покупке, могли начисляться -
+      <span class="text-bold">необходимо зарегистрироваться на сайте,
+        <span @click="changeAuthModalVisible(true)" class="cursor-pointer text-decoration-dash">в личном кабинете</span></span>
 </p>
     <p class="text-center text-h3 f-raleway-900 q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">Способы оплаты</p>
-    <div class="flex items-center justify-evenly q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">
-      <div class="text-center">
-        <img src="~assets/pay1.png" alt="">
+    <div class="flex items-center no-wrap justify-evenly q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">
+      <div  class="text-center flex column items-center justify-between">
+        <img style="width: 90px;height:85px;object-fit: contain" src="~assets/pay1.png" alt="">
         <p class="no-margin">Наличными курьеру</p>
       </div>
-      <div class="text-center">
-        <img src="~assets/pay2.png" alt="">
-        <p class="no-margin">Онлайн оплата на сайте</p>
+      <div  class="text-center flex column items-center justify-between">
+        <img style="width: 90px;height:85px;object-fit: contain" src="~assets/pay2.png" alt="">
+        <p class="no-margin">Оплата на сайте</p>
       </div>
-      <div class="text-center">
-        <img src="~assets/pay3.png" alt="">
+      <div  class="text-center flex column items-center justify-between">
+        <img style="width: 90px;height:85px;object-fit: contain" src="~assets/pay3.png" alt="">
         <p class="no-margin">Оплата картой курьеру</p>
       </div>
     </div>
@@ -87,6 +89,7 @@
 
 <script>
 import Map from "components/map";
+import {mapActions} from 'vuex';
 export default {
   components:{
     Map
@@ -96,6 +99,9 @@ export default {
 
     };
   },
+  methods:{
+    ...mapActions('componentState',['changeAuthModalVisible'])
+  }
 
 
 }
