@@ -31,7 +31,7 @@
 
               <div v-if="orderData.delivery_type==='Курьером'" class="flex  no-wrap">
                 <q-input class="full-width " filled v-model="orderData.street" dense label="Улица *" :rules="[val => !!val || 'Это обязательное поле']"/>
-                <q-input  filled class="q-ml-sm" v-model="orderData.house" type="number" dense label="Дом *" :rules="[val => !!val || 'Это обязательное поле']"/>
+                <q-input  filled class="q-ml-sm" v-model="orderData.house"  dense label="Дом *" :rules="[val => !!val || 'Это обязательное поле']"/>
               </div>
               <div v-if="orderData.delivery_type==='Курьером'" class="flex justify-between no-wrap q-mb-md">
                 <q-input class=" q-mr-sm" filled v-model="orderData.flat" type="number" dense label="Кв " />
@@ -98,14 +98,15 @@
           <p class="text-bold text-primary text-h6">{{orderData.delivery_type==='Курьером' ? 'Доставка в районе 60 минут' : 'Заказ можно будет забрать примерно через 40 минут'}}</p>
           <p class="text-bold text-h6">Оплата</p>
           <div class="flex column items-start q-mb-lg">
-            <q-radio class="q-mb-sm" dense  v-model="orderData.payment" val="cash" label="Наличными курьеру" />
+            {{orderData.payment}}
+            <q-radio v-if="orderData.delivery_type==='Курьером'" class="q-mb-sm" dense  v-model="orderData.payment" val="cash" label="Наличными курьеру" />
             <div v-if="orderData.payment==='cash'" class="flex items-center">
               <p style="flex-basis: 40%">С какой суммы подготовить сдачу?</p>
               <q-input  type="number" class="q-mr-sm" style="flex-basis: 20%" dense  outlined v-model="orderData.cashback" ></q-input>
               <q-checkbox left-label v-model="orderData.no_cashback">Без сдачи</q-checkbox>
             </div>
             <q-radio class="q-mb-sm" dense  v-model="orderData.payment" val="online" label="Онлайн" />
-            <q-radio dense  v-model="orderData.payment" val="courier_card" label="Картой курьеру" />
+            <q-radio v-if="orderData.delivery_type==='Курьером'" dense  v-model="orderData.payment" val="courier_card" label="Картой курьеру" />
 
           </div>
 
@@ -330,6 +331,7 @@ export default {
     };
   },
   watch:{
+
     selectedAddress(val){
       console.log(val)
       this.orderData.street = val.street
@@ -340,6 +342,7 @@ export default {
       this.orderData.floor = val.floor
     },
     'orderData.delivery_type'(val){
+      val === 'Самовывоз' ? this.orderData.payment = 'online' : 'cash'
 
       //this.currentMark = new ymaps.Placemark(this.coordinates);
       //this.myMap.geoObjects.add(this.currentMark)
@@ -364,6 +367,7 @@ export default {
               currency: 'RUB',
           })
   },
+
   computed:{
     ...mapGetters('cart',['cart_items_count','items_in_cart','cart_bonuses','cart_promo',]),
     ...mapGetters('city',['cities','currentCity']),

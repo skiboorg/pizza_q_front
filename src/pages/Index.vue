@@ -152,8 +152,15 @@ export default {
     this.banners = response.data
 
   },
-  mounted() {
+  // mounted() {
+  //   if (this.$router.currentRoute.hash){
+  //     console.log(this.$router.currentRoute.hash)
+  //     this.$scrollTo(this.$router.currentRoute.hash, 200, {offset: -90})
+  //   }
+  // },
+  updated(){
     if (this.$router.currentRoute.hash){
+      console.log(this.$router.currentRoute.hash)
       this.$scrollTo(this.$router.currentRoute.hash, 200, {offset: -90})
     }
   },
@@ -173,6 +180,7 @@ export default {
     homeTopSlider() {
       return this.$refs.homeTopSlider.$swiper
     }
+
   }
 }
 </script>

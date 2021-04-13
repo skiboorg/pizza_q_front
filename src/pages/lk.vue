@@ -46,7 +46,7 @@
       <p class="text-bold">Добавить новый адрес</p>
       <div class="flex justify-between no-wrap">
           <q-input class="full-width q-mr-sm" filled v-model="newAddress.street" dense label="Улица *" :rules="[val => !!val || 'Это обязательное поле']"/>
-          <q-input  filled v-model="newAddress.house" type="number" dense label="Дом *" :rules="[val => !!val || 'Это обязательное поле']"/>
+          <q-input  filled v-model="newAddress.house"  dense label="Дом *" :rules="[val => !!val || 'Это обязательное поле']"/>
         </div>
         <div class="flex justify-between no-wrap q-mb-md">
           <q-input class=" q-mr-sm" filled v-model="newAddress.flat" type="number" dense label="Кв " />
