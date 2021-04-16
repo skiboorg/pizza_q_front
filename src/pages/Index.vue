@@ -22,18 +22,6 @@
         </swiper>
     </section>
     <div v-if="categories.length>0" class="container">
-      <div>
-
-<!--        <section>-->
-<!--          <h3 class="f-raleway-900">{{categories[selected_category].name}}</h3>-->
-<!--          <div class="products-grid">-->
-
-<!--           <ItemCard   v-if="!item.is_for_meat && item.is_active && !item.is_gift"-->
-<!--                        v-for="item in categories[selected_category].items"-->
-<!--                        :item="item"-->
-<!--                        :key="item.id"/>-->
-<!--          </div>-->
-<!--        </section>-->
 
         <section  :data-index="index" :id="`catID_${category.id}`" v-for="(category,index) in categories" :key="category.id" class="">
           <h3 class="f-raleway-900">{{category.name}}</h3>
@@ -63,7 +51,7 @@
                         :key="item.id"/>
           </div>
         </section>
-      </div>
+
     </div>
     <div v-else class="container">
       <section >
