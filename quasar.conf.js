@@ -1,6 +1,5 @@
 module.exports = function (/* ctx */) {
   return {
-    preFetch: true,
     bin: {
    linuxAndroidStudio: "/home/xxx/android-studio/bin/studio.sh"
   },
