@@ -3,6 +3,7 @@ import VueYandexMetrika from 'vue-yandex-metrika'
 
 
 export default async ({ app, router, Vue, store, ssrContext }) => {
+  console.log(process.env.NODE_ENV)
   Vue.use(VueYandexMetrika, {
     id: '75118636',
         clickmap:true,
@@ -10,7 +11,8 @@ export default async ({ app, router, Vue, store, ssrContext }) => {
         router:router,
         accurateTrackBounce:true,
         webvisor:true,
-        env: 'production',
+        env: process.env.NODE_ENV,
+        // env: 'production',
         ecommerce:"dataLayer"
 })
 }

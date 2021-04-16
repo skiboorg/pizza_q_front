@@ -10,10 +10,9 @@ export default async ({ app, router, Vue, store, ssrContext }) => {
     let token = cookies.get('auth_token')
   Vue.prototype.$cook = cookies
    store.dispatch('products/fetchItems')
-
+    store.dispatch('cart/fetchCart')
   if (token) {
    await store.dispatch('auth/getUser')
-    store.dispatch('cart/fetchCart')
   }
   Vue.prototype.$user = store.state.auth
   console.info('boot: init exited')
