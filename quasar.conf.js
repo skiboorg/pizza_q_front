@@ -13,7 +13,7 @@ module.exports = function (/* ctx */) {
       'init',
       //{ path: 'lazy', server: false },
       { path: 'ya_map', server: false },
-      //{ path: 'ya_metrika', server: false },
+      { path: 'ya_metrika', server: false },
       { path: 'fbp', server: false },
     ],
     css: [
