@@ -40,7 +40,7 @@
             v-model="pizzaSize"
             toggle-color="primary"
             :options="[
-        {label: '22 см', value: 22},
+        {label: '28 см', value: 22},
         {label: '33 см', value: 33},]"/>
           <p class="no-margin">{{weight}} г</p>
         </div>
