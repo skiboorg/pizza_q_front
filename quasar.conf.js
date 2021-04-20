@@ -1,8 +1,5 @@
 module.exports = function (/* ctx */) {
   return {
-    bin: {
-   linuxAndroidStudio: "/home/xxx/android-studio/bin/studio.sh"
-  },
     supportTS: false,
     // https://quasar.dev/quasar-cli/prefetch-feature
     boot: [
@@ -11,10 +8,10 @@ module.exports = function (/* ctx */) {
       'slider',
       'init',
       //{ path: 'lazy', server: false },
-      { path: 'ya_map', server: false },
+      //{ path: 'ya_map', server: false },
       { path: 'ya_metrika', server: false },
       { path: 'fbp', server: false },
-      { path: 'gtag', server: false },
+     // { path: 'gtag', server: false },
     ],
     css: [
       'app.sass',
@@ -107,7 +104,7 @@ module.exports = function (/* ctx */) {
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
-      pwa: true
+      pwa: false
     },
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
