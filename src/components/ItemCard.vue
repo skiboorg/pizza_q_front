@@ -7,7 +7,7 @@
 <!--      :contain="item.is_pizza"-->
 <!--        :cover="!item.is_pizza"-->
       <q-img
-        :contain="!$q.screen.lt.sm"
+        contain
         :ratio="1"
         class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"
         :src="item.image"/>
