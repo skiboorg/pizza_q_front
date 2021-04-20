@@ -52,10 +52,10 @@ export default {
       tab: 'menu'
     }
   },
-  computed:{
-    ...mapGetters('cart',['cart_items_count'])
-
-  }
+  // computed:{
+  //   ...mapGetters('cart',['cart_items_count'])
+  //
+  // }
 }
 </script>
 

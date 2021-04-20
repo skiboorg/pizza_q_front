@@ -167,7 +167,7 @@ export default {
   },
   computed:{
     ...mapGetters('city',['cities','currentCity']),
-    ...mapGetters('products',['categories']),
+    //...mapGetters('products',['categories']),
     is_visible: {
       get(){
         return this.$store.state.componentState.right_menu

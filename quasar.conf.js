@@ -5,7 +5,6 @@ module.exports = function (/* ctx */) {
   },
     supportTS: false,
     // https://quasar.dev/quasar-cli/prefetch-feature
-    preFetch: true,
     boot: [
       'axios',
       'scroll',
@@ -36,8 +35,8 @@ module.exports = function (/* ctx */) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-       // API: 'http://91.210.171.192:8000'
-          API: 'http://localhost:8000'
+        API: 'https://meat-coal.ru'
+        //  API: 'http://localhost:8000'
       },
 
       // transpile: false,
@@ -48,7 +47,9 @@ module.exports = function (/* ctx */) {
       // transpileDependencies: [],
 
       // rtl: false, // https://quasar.dev/options/rtl-support
-      preloadChunks: true,
+      //preloadChunks: true,
+
+
       gzip: true,
       minify:true,
       // analyze: true,
@@ -105,7 +106,7 @@ module.exports = function (/* ctx */) {
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
-      pwa: false
+      pwa: true
     },
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
@@ -114,12 +115,12 @@ module.exports = function (/* ctx */) {
       workboxOptions: {}, // only for GenerateSW
       manifest: {
         name: `Мясо на углях`,
-        short_name: `ru.coal.meat`,
-        description: `A Quasar Framework app`,
+        short_name: `Мясо на углях`,
+        description: `Мясо на углях`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
-        theme_color: '#027be3',
+        theme_color: '#000',
         icons: [
           {
             src: 'icons/icon-128x128.png',
