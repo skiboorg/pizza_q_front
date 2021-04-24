@@ -79,7 +79,7 @@
 
           <p v-if="item.selected_size > 0 " class="no-margin "
              :class="[headerCart ? 'text-caption' : 'text-body1 text-primary text-bold']">
-            {{item.quantity * item.item.min_unit}} {{item.item.unit_name}} {{item.selected_size}} см
+            {{item.quantity * item.item.min_unit}} {{item.item.unit_name}} {{item.selected_size===22 ? '28' : '33'}} см
           </p>
           <p v-else class="no-margin"
              :class="[headerCart ? 'text-caption' : 'text-body1 text-primary text-bold']">
