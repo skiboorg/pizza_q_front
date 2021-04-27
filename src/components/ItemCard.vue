@@ -146,6 +146,20 @@ export default {
         ],
         content_ids: this.item.id,
       });
+      window.dataLayer.push({
+    "ecommerce": {
+        "add": {
+            "products": [
+                {
+                    "id": this.item.id,
+                    "name": this.item.name,
+                    "price": this.item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price,
+                    "quantity": 1
+                }
+            ]
+        }
+    }
+});
     },
   },
   computed:{
