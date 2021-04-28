@@ -9,7 +9,7 @@ module.exports = function (/* ctx */) {
       'init',
       //{ path: 'lazy', server: false },
       //{ path: 'ya_map', server: false },
-      { path: 'ya_metrika', server: false },
+      //{ path: 'ya_metrika', server: false },
       { path: 'fbp', server: false },
      // { path: 'gtag', server: false },
     ],
@@ -50,7 +50,7 @@ module.exports = function (/* ctx */) {
 
       gzip: true,
       minify:true,
-      analyze: true,
+      // analyze: true,
 
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,

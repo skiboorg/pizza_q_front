@@ -141,7 +141,7 @@ export default {
         contents: [
           {
             id: this.item.id,
-            quantity: 1
+            quantity: this.units
           }
         ],
         content_ids: this.item.id,
@@ -153,8 +153,8 @@ export default {
                 {
                     "id": this.item.id,
                     "name": this.item.name,
-                    "price": this.item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price,
-                    "quantity": 1
+                    "price": this.item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price * this.units,
+                    "quantity": this.units
                 }
             ]
         }
