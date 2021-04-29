@@ -138,7 +138,6 @@ export default {
   async created() {
     const response = await this.$api.get(`/api/items/get_banners`)
     this.banners = response.data
-    console.log(window.dataLayer)
 
   },
   // mounted() {
