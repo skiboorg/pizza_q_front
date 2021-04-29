@@ -3,4 +3,4 @@ import VueFacebookPixel from 'vue-facebook-pixel'
 
 Vue.use(VueFacebookPixel)
 
-Vue.analytics.fbq.init('445940943377030')
+//Vue.analytics.fbq.init('445940943377030')
