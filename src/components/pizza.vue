@@ -13,7 +13,7 @@
 
         <q-btn dense  @click="closeModal" size="md" flat round icon="close"/>
       </q-toolbar>
-  <p class="text-caption q-px-md">Каллорий: {{pizza.belki}} Белки: {{pizza.belki}} Жиры: {{pizza.fat}} Углеводы: {{pizza.uglevod}}</p>
+      <p class="text-caption q-px-md">Каллорий: {{pizza.belki}} Белки: {{pizza.belki}} Жиры: {{pizza.fat}} Углеводы: {{pizza.uglevod}}</p>
 
 
       <q-card-section class="q-py-none">
@@ -49,28 +49,28 @@
         <q-no-ssr>
           <swiper ref="itemModalSlider" :options="itemModalSliderOption">
             <swiper-slide v-for="(ingredient,index) in pizza.additional_ingridients" :key="ingredient.id">
-               <q-card
-                 class="add-items cursor-pointer"
-                 @click="toggleAdditionIngridient(index,ingredient.price.find(x => x.city === $q.cookies.get('city_id')).price)"
-                 flat>
-            <q-img
-              style="width: 130px;height: 65px"
-              :src="ingredient.image"
-              contain
-            />
-            <div class="text-center relative-position">
-              <p class="text-caption q-mb-none">{{ingredient.name}}</p>
-              <p class="text-caption text-bold">{{ingredient.price.find(x => x.city === $q.cookies.get('city_id')).price}}р</p>
-              <q-badge
-                class="cursor-pointer"
+              <q-card
+                class="add-items cursor-pointer"
+                @click="toggleAdditionIngridient(index,ingredient.price.find(x => x.city === $q.cookies.get('city_id')).price)"
+                flat>
+                <q-img
+                  style="width: 130px;height: 65px"
+                  :src="ingredient.image"
+                  contain
+                />
+                <div class="text-center relative-position">
+                  <p class="text-caption q-mb-none">{{ingredient.name}}</p>
+                  <p class="text-caption text-bold">{{ingredient.price.find(x => x.city === $q.cookies.get('city_id')).price}}р</p>
+                  <q-badge
+                    class="cursor-pointer"
 
-                v-if="ingredient.is_added" style="position: absolute; bottom: 0;right: 0" color="positive">
-                <q-icon name="done" color="white" />
-              </q-badge>
+                    v-if="ingredient.is_added" style="position: absolute; bottom: 0;right: 0" color="positive">
+                    <q-icon name="done" color="white" />
+                  </q-badge>
 
-            </div>
+                </div>
 
-          </q-card>
+              </q-card>
             </swiper-slide>
 
 
@@ -82,7 +82,7 @@
       </q-card-section>
 
       <q-card-section class="q-pt-none">
-<q-separator class="q-my-sm"/>
+        <q-separator class="q-my-sm"/>
         <p class="h4 text-bold ">Сумма: {{total_price}} р</p>
         <q-btn
           color="primary"
@@ -191,6 +191,19 @@ export default {
         caption: this.pizza.name,
         color: 'positive'
       })
+      window.dataLayer.push({
+        "ecommerce": {
+          "add": {
+            "products": [
+              {
+                "id": this.pizza.id,
+                "name": this.pizza.name,
+                "quantity": 1
+              }
+            ]
+          }
+        }
+      });
       this.$analytics.fbq.event('AddToCart',{
         value: this.total_price,
         currency: 'RUB',

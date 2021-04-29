@@ -422,12 +422,34 @@ export default {
           promo:this.cart_promo,
           source:'site'
         })
-      console.log(response.data)
-      await this.fetchCart()
+
        this.$analytics.fbq.event('Purchase', {
         value: this.items_in_cart.total_price - this.cart_bonuses - this.cart_promo + this.delivery_price,
         currency: 'RUB'
       })
+      let items =[]
+      for (let i of this.items_in_cart.items){
+        let item = {
+          "id": i.id,
+                    "name": i.item.name,
+                    "price": i.price,
+                    "category": i.item.category.name,
+
+                    "quantity": i.quantity
+            }
+              items.push(item)
+            }
+            window.dataLayer.push({
+          "ecommerce": {
+              "purchase": {
+                  // "actionField": {
+                  //     "id" : "TRX987"
+                  // },
+                  "products": items
+              }
+          }
+      });
+      await this.fetchCart()
       if (response.data.formUrl){
         console.log('redirect ',response.data.formUrl)
         // this.changePaymentUrl(response.data.formUrl)
@@ -440,6 +462,8 @@ export default {
         this.$user.loggedIn ?  this.$user.fetchUser() : null
         this.$router.push(`/order_self/${this.orderCode}`)
       }
+
+
     },
     createOrder(){
       this.$refs.orderForm.submit()
