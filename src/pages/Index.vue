@@ -71,6 +71,26 @@
     </div>
     <PizzaConstructor/>
     <Pizza/>
+     <q-dialog
+
+    v-model="show_delivery_modal"
+    transition-show="fade"
+
+    transition-hide="fade">
+       <q-card>
+        <q-card-section>
+          <div class="text-h6">Уважаемые клиенты!</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          Доставка работает для вас с 10.30 до 22.30
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Понятно" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+     </q-dialog>
   </q-page>
 </template>
 
@@ -95,6 +115,7 @@ export default {
     return{
       tab:0,
       fullHeight: false,
+      show_delivery_modal: false,
       selectedCategory:1,
       banners:[],
       anim:null,
@@ -140,12 +161,10 @@ export default {
     this.banners = response.data
 
   },
-  // mounted() {
-  //   if (this.$router.currentRoute.hash){
-  //     console.log(this.$router.currentRoute.hash)
-  //     this.$scrollTo(this.$router.currentRoute.hash, 200, {offset: -90})
-  //   }
-  // },
+  mounted() {
+     let time = new Date().toLocaleTimeString()
+       this.show_delivery_modal = time > '22:30:00' || time < '10:30:00'
+  },
   updated(){
     if (this.$router.currentRoute.hash){
       console.log(this.$router.currentRoute.hash)
@@ -167,7 +186,7 @@ export default {
     ...mapGetters('componentState',['selected_category']),
     homeTopSlider() {
       return this.$refs.homeTopSlider.$swiper
-    }
+    },
 
   }
 }
