@@ -20,7 +20,8 @@
            </div>
            <div class="col-6 text-center">
                <p class="text-grey-6 text-body2 no-margin">ВРЕМЯ ДОСТАВКИ</p>
-             <p class="text-bold text-h5  no-margin" >55 минут</p>
+             <p class="text-bold text-h5  no-margin" >в течении 2х часов</p>
+<!--             <p class="text-bold text-h5  no-margin" >55 минут</p>-->
            </div>
          </div>
         </div>
