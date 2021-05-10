@@ -83,7 +83,7 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          Доставка работает для вас с 10.30 до 22.30
+          Доставка работает для вас с 10.30 до 22.00
         </q-card-section>
 
         <q-card-actions align="right">
@@ -163,7 +163,7 @@ export default {
   },
   mounted() {
      let time = new Date().toLocaleTimeString()
-       this.show_delivery_modal = time > '22:30:00' || time < '10:30:00'
+       this.show_delivery_modal = time > '22:00:00' || time < '10:30:00'
   },
   updated(){
     if (this.$router.currentRoute.hash){
