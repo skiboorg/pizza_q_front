@@ -82,6 +82,15 @@ export const getters = {
   },
   cart_bonuses: (state) => state.bonuses,
   cart_promo: (state) => state.promo,
+  cart_total_price: (state) =>{
+    let price = state.items.total_price - state.bonuses
+    if (state.promo > 0){
+      return parseInt(price - (price * state.promo / 100))
+    }else {
+      return price
+    }
+
+  },
   is_meat_in_cart : (state) =>{
     return state.items.items.filter( x=> x.item.category.is_meat).length
   },

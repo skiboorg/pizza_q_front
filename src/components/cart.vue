@@ -264,7 +264,8 @@
                    icon="add" />
 
       </div>
-      <p class="text-h6 text-bold">Сумма заказа: {{items_in_cart.total_price - cart_promo - cart_bonuses}} р</p>
+<!--      <p class="text-h6 text-bold">Сумма заказа: {{items_in_cart.total_price - cart_promo - cart_bonuses}} р</p>-->
+      <p class="text-h6 text-bold">Сумма заказа: {{cart_total_price}} р</p>
       <div class="row">
         <q-btn outline to="/" class=" q-mt-lg col-lg-5 col-md-5 col-sm-5 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0" color="primary" label="Вернуться в меню"/>
       <q-btn  class="text-h5 text-bold q-mt-lg col-lg-5 col-md-5 col-sm-5 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0" color="primary"  size="md"
@@ -335,7 +336,7 @@ export default {
     }
   },
   computed:{
-    ...mapGetters('cart',['cart_items_count','items_in_cart','cart_bonuses','cart_promo','is_meat_in_cart']),
+    ...mapGetters('cart',['cart_items_count','items_in_cart','cart_bonuses','cart_promo','is_meat_in_cart','cart_total_price']),
     ...mapGetters('products',['souses','recommended_items','recommended_items_for_meat']),
 
   },
