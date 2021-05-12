@@ -15,6 +15,7 @@
           <p><router-link class="no-text-decoration text-grey-10" exact-active-class="link-active" exact to="promotions">Акции</router-link></p>
           <p><router-link class="no-text-decoration text-grey-10" exact-active-class="link-active" exact to="about">О нас</router-link></p>
           <p><router-link class="no-text-decoration text-grey-10" exact-active-class="link-active" exact to="delivery">Доставка и оплата</router-link></p>
+          <p><router-link class="no-text-decoration text-grey-10" exact-active-class="link-active" exact to="vacancy">Вакансии</router-link></p>
           <p><router-link class="no-text-decoration text-grey-10" exact-active-class="link-active" exact to="contacts">Контакты</router-link></p>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">

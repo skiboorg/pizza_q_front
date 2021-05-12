@@ -16,6 +16,7 @@ const makeRoutes = (store) => {
         {path: 'order_self/:order_code', component: () => import('pages/order/order_self.vue')},
         {path: 'policy', component: () => import('pages/policy')},
         {path: 'rules', component: () => import('pages/rules')},
+        {path: 'vacancy', component: () => import('pages/vacancy')},
       ]
     },
 

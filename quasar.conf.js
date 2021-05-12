@@ -8,7 +8,7 @@ module.exports = function (/* ctx */) {
       'slider',
       'init',
       //{ path: 'lazy', server: false },
-      //{ path: 'ya_map', server: false },
+      { path: 'ya_map', server: false },
       //{ path: 'ya_metrika', server: false },
       { path: 'fbp', server: false },
      // { path: 'gtag', server: false },
@@ -33,8 +33,8 @@ module.exports = function (/* ctx */) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        //API: 'https://meat-coal.ru'
-         API: 'http://localhost:8000'
+        API: 'https://meat-coal.ru'
+         //API: 'http://localhost:8000'
       },
 
       // transpile: false,

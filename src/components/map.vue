@@ -1,21 +1,21 @@
 <template>
   <div class="row q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 order-lg-first order-md-first order-sm-first order-xs-last">
-<!--        <yandex-map-->
-<!--          :coords="coords"-->
-<!--          class="mb-35"-->
-<!--          :class="'ymapContanerHidden'"-->
-<!--          zoom="14"-->
-<!--          style="width: 100%; height: 100%; padding: 0"-->
-<!--          :cluster-options="{ 1: {clusterDisableClickZoom: true} }"-->
-<!--          :controls="['trafficControl']"-->
-<!--          map-type="map">-->
-<!--          <ymap-marker-->
-<!--            markerId="1"-->
-<!--            marker-type="Placemark"-->
-<!--            :coords="coords">-->
-<!--          </ymap-marker>-->
-<!--        </yandex-map>-->
+        <yandex-map
+          :coords="coords"
+          class="mb-35"
+          :class="'ymapContanerHidden'"
+          zoom="14"
+          style="width: 100%; height: 100%; padding: 0"
+          :cluster-options="{ 1: {clusterDisableClickZoom: true} }"
+          :controls="['trafficControl']"
+          map-type="map">
+          <ymap-marker
+            markerId="1"
+            marker-type="Placemark"
+            :coords="coords">
+          </ymap-marker>
+        </yandex-map>
 
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0 order-lg-last order-md-last order-sm-last order-xs-first">

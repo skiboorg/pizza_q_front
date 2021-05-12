@@ -28,6 +28,17 @@
         <q-item
           clickable
           v-ripple
+          :active="link === 'vac'"
+          @click="link = 'vac', $router.push('/vacancy')"
+          active-class="my-menu-link">
+          <q-item-section avatar>
+            <q-icon name="people_alt" />
+          </q-item-section>
+          <q-item-section>Вакансии</q-item-section>
+        </q-item>
+        <q-item
+          clickable
+          v-ripple
           :active="link === 'delivery'"
           @click="link = 'delivery', $router.push('/delivery')"
           active-class="my-menu-link">
