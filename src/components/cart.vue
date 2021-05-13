@@ -235,15 +235,15 @@
       </swiper>
       </q-no-ssr>
       <q-no-ssr>
-        <div v-if="$user.loggedIn" class="q-mb-none">
-        <p  class="q-mb-none">Баллов будет начислено: {{items_in_cart.total_bonuses}} </p>
-        <q-checkbox size="sm" class="q-mb-sm" left-label  v-model="with_bonuses" :label="`Списать баллы (${$user.user.bonuses} баллов доступно)`" />
-        <q-card-section v-if="!$user.user.promo" class="no-padding">
+        <div  class="q-mb-none">
+        <p v-if="$user.loggedIn" class="q-mb-none">Баллов будет начислено: {{items_in_cart.total_bonuses}} </p>
+        <q-checkbox v-if="$user.loggedIn" size="sm" class="q-mb-sm" left-label  v-model="with_bonuses" :label="`Списать баллы (${$user.user.bonuses} баллов доступно)`" />
+
+          <q-card-section v-if="!cart_promo" class="no-padding">
           <div class="row">
             <q-input style="border: 2px solid #EF2121; border-radius: 6px" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-mb-lg-none q-mb-md-none q-mb-sm-none q-mb-xs-md" outlined v-model="promoCode" label="Введите промокод" dense  />
           <q-btn class="col-lg-2 col-md-2 col-sm-2 col-xs-12 q-ml-lg-md q-ml-md-md q-ml-sm-md q-ml-xs-none" color="primary" :disable="!promoCode" @click="usePromo"  label="Применить"></q-btn>
           </div>
-
         </q-card-section>
       </div>
       </q-no-ssr>
@@ -419,7 +419,10 @@ export default {
           icon: 'announcement',
           color:'positive'
         })
-        await this.getUser(false)
+        if(this.$user.loggedIn){
+          await this.getUser(false)
+        }
+
         this.addPromo(responce.data.discount)
       }
 
