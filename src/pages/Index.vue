@@ -79,15 +79,17 @@
     transition-hide="fade">
        <q-card>
         <q-card-section>
-          <div class="text-h6">Уважаемые клиенты!</div>
+          <div class="text-h6 text-center text-weight-bold">Уважаемые клиенты!</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          Доставка работает для вас с 10.30 до 22.00
+          <p class="text-center">Доставка работает для вас с 10.30 до 22.00</p>
+          <p class="no-margin text-center">С пятницы по субботу, с 16.00 - время доставки может быть увеличено до 2-х часов. Во все остальное время - доставка в течении 1 часа, если опоздаем - от нас гарантированный подарок!</p>
+
         </q-card-section>
 
-        <q-card-actions align="right">
-          <q-btn flat label="Понятно" color="primary" v-close-popup />
+        <q-card-actions align="center">
+          <q-btn  label="Понятно" color="primary" class="q-px-lg" v-close-popup />
         </q-card-actions>
       </q-card>
      </q-dialog>
@@ -163,7 +165,8 @@ export default {
   },
   mounted() {
      let time = new Date().toLocaleTimeString()
-       this.show_delivery_modal = time > '22:00:00' || time < '10:30:00'
+       this.show_delivery_modal = true
+       //this.show_delivery_modal = time > '22:00:00' || time < '10:30:00'
   },
   updated(){
     if (this.$router.currentRoute.hash){

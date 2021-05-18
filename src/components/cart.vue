@@ -167,6 +167,7 @@
 
     <div v-if="!headerCart" class="">
       <div v-if="is_meat_in_cart>0" class="">
+        <p class="meat-warning">Вес готового блюда, при получении, может отличаться от граммовки на сайте на +- 10 грамм, поэтому фактическая стоимость может меняться. </p>
         <p class="text-h6 text-bold">Рекомендуем к шашлыку</p>
           <div class="row q-gutter-lg-md q-gutter-md-md q-gutter-sm-md q-gutter-xs-none q-mb-md">
             <q-card class=" q-px-sm col-lg-3 col-md-3 col-sm-4 col-xs-12 q-mb-xs-sm cursor-pointer"   @click="addToCart(item)" v-for="item in recommended_items_for_meat" :key="item.id">
@@ -213,7 +214,7 @@
       </q-no-ssr>
       <p class="text-h6 text-bold">Рекомендуем к заказу</p>
       <q-no-ssr>
-      <swiper   class="recommended-slider" :options="soucesSliderOption">
+      <swiper   class="recommended-slider q-mb-lg" :options="soucesSliderOption">
         <swiper-slide v-if="items_in_cart.items.filter(x => x.item.id === item.id).length===0" class="recommended-item"  v-for="item in recommended_items" :key="item.id">
           <q-card  class="q-py-sm cursor-pointer" @click="addToCart(item)" >
             <q-card-section horizontal >
@@ -240,7 +241,7 @@
         <q-checkbox v-if="$user.loggedIn" size="sm" class="q-mb-sm" left-label  v-model="with_bonuses" :label="`Списать баллы (${$user.user.bonuses} баллов доступно)`" />
 
           <q-card-section v-if="!cart_promo" class="no-padding">
-          <div class="row">
+          <div class="row q-mb-lg">
             <q-input style="border: 2px solid #EF2121; border-radius: 6px" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-mb-lg-none q-mb-md-none q-mb-sm-none q-mb-xs-md" outlined v-model="promoCode" label="Введите промокод" dense  />
           <q-btn class="col-lg-2 col-md-2 col-sm-2 col-xs-12 q-ml-lg-md q-ml-md-md q-ml-sm-md q-ml-xs-none" color="primary" :disable="!promoCode" @click="usePromo"  label="Применить"></q-btn>
           </div>
@@ -449,5 +450,7 @@ export default {
     min-height: 94px
   .cart-slider
     height: 98px
+  .meat-warning
+    font-size: 12px
 
 </style>
