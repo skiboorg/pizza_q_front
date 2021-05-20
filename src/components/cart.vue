@@ -167,7 +167,7 @@
 
     <div v-if="!headerCart" class="">
       <div v-if="is_meat_in_cart>0" class="">
-        <p class="meat-warning">Вес готового блюда, при получении, может отличаться от граммовки на сайте на +- 10 грамм, поэтому фактическая стоимость может меняться. </p>
+        <p class="meat-warning">При оплате семги и баранины на сайте, просим обратить ваше внимание, что фактический вес готового блюда, при получении, может отличаться от стандартной граммовки на сайте, поэтому фактическая стоимость может меняться. Просим уточнять фактический вес этих блюд у операторов. </p>
         <p class="text-h6 text-bold">Рекомендуем к шашлыку</p>
           <div class="row q-gutter-lg-md q-gutter-md-md q-gutter-sm-md q-gutter-xs-none q-mb-md">
             <q-card class=" q-px-sm col-lg-3 col-md-3 col-sm-4 col-xs-12 q-mb-xs-sm cursor-pointer"   @click="addToCart(item)" v-for="item in recommended_items_for_meat" :key="item.id">
