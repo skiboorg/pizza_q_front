@@ -102,7 +102,8 @@
         </q-card-section>
         <q-card-section class="no-padding col-3 flex column justify-between items-end" >
 <!--          <q-btn v-if="!item.item.is_gift || headerCart" @click="changeQuantity('delete_item',item.code)" flat outline round dense icon="delete_outline" class="q-mr-sm"/>-->
-          <q-icon @click="changeQuantity('delete_item',item.code,item.id)" class="cursor-pointer inline-block " size="25px" name="delete_outline"/>
+          <q-icon v-if="!item.item.is_gift" @click="changeQuantity('delete_item',item.code,item.id)" class="cursor-pointer inline-block " size="25px" name="delete_outline"/>
+          <div v-else class=""></div>
           <div class="">
             <q-no-ssr>
               <p v-if="$user.loggedIn && !item.item.is_gift" class="no-margin text-caption ">+{{item.bonuses}} бал.</p>
