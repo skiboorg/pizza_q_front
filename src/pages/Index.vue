@@ -165,7 +165,7 @@ export default {
   },
   mounted() {
      let time = new Date().toLocaleTimeString()
-       this.show_delivery_modal = true
+       //this.show_delivery_modal = true
        //this.show_delivery_modal = time > '22:00:00' || time < '10:30:00'
   },
   updated(){
