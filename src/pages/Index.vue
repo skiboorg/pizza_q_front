@@ -26,25 +26,27 @@
         <section  :data-index="index" :id="`catID_${category.id}`" v-for="(category,index) in categories" :key="category.id" class="">
           <h3 class="f-raleway-900">{{category.name}}</h3>
           <div class="products-grid">
-            <q-card  v-if="category.is_pizza" class="q-mx-sm q-mb-sm item-card" flat >
-              <q-card-section :horizontal="$q.screen.lt.sm" class="q-mb-sm no-padding">
-                <q-img
-                  :ratio="1"
-                  contain
-                  class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"
-                  src="~assets/constr.webp"/>
-              <q-card-section class="q-pa-lg-md q-pa-md-md q-py-sm-none q-px-sm-sm q-py-xs-none q-px-xs-sm col-lg-7 col-md-7 col-sm-7 col-xs-8">
-                  <p class="text-subtitle1 lh-100 text-bold ">Пицца-конструктор</p>
-                   <p class="text-caption text-grey q-mb-sm ingridient-items">Выберите половинки пицц и соберите свою!</p>
-                  <q-btn unelevated
-                         @click="changeConstructorVisible(true)"
-                         color="primary"
-                         class="in-cart-btn full-width"
-                         label="Собрать" />
 
-                </q-card-section>
-              </q-card-section>
-            </q-card>
+<!--            <q-card  v-if="category.is_pizza" class="q-mx-sm q-mb-sm item-card" flat >-->
+<!--              <q-card-section :horizontal="$q.screen.lt.sm" class="q-mb-sm no-padding">-->
+<!--                <q-img-->
+<!--                  :ratio="1"-->
+<!--                  contain-->
+<!--                  class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"-->
+<!--                  src="~assets/constr.webp"/>-->
+<!--              <q-card-section class="q-pa-lg-md q-pa-md-md q-py-sm-none q-px-sm-sm q-py-xs-none q-px-xs-sm col-lg-7 col-md-7 col-sm-7 col-xs-8">-->
+<!--                  <p class="text-subtitle1 lh-100 text-bold ">Пицца-конструктор</p>-->
+<!--                   <p class="text-caption text-grey q-mb-sm ingridient-items">Выберите половинки пицц и соберите свою!</p>-->
+<!--                  <q-btn unelevated-->
+<!--                         @click="changeConstructorVisible(true)"-->
+<!--                         color="primary"-->
+<!--                         class="in-cart-btn full-width"-->
+<!--                         label="Собрать" />-->
+
+<!--                </q-card-section>-->
+<!--              </q-card-section>-->
+<!--            </q-card>-->
+
             <ItemCard   v-if="!item.is_for_meat && item.is_active && !item.is_gift"
                         v-for="item in category.items"
                         :item="item"
