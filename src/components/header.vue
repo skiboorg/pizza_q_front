@@ -7,7 +7,7 @@
         <q-avatar @click="$router.push('/')" rounded :size="$q.screen.lt.md ? '50px' : '70px'" class="bg-black q-mr-md">
           <img class="q-pa-sm cursor-pointer" src="~assets/logo_big.svg">
         </q-avatar>
-        <div class="">
+        <div class="lt-md">
           <q-space/>
           <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" href="tel:+73494927190">+7 (3494) 92 71 90</a></p>
           <q-space/>
