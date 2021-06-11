@@ -7,7 +7,11 @@
           <span class="text-bold">Фактический адрес: </span> 629307, Новый Уренгой, ул.Железнодорожная, 12<br>
           <span class="text-bold">Электронная почта: </span> <a class="no-text-decoration text-grey-10 text-decoration-dash" href="mailto:info@meat-coal.ru">info@meat-coal.ru</a><br>
           <q-no-ssr>
-            <span class="text-bold ">Телефоны: </span> <a class="no-text-decoration text-grey-10 text-decoration-dash zphone" href="tel:+73494292407">+7 (3494) 29 24 07</a> | <a class="no-text-decoration text-grey-10 text-decoration-dash zphone" href="tel:+73494292507">+7 (3494) 29 25 07</a>.
+            <span class="text-bold ">Телефоны: </span>
+            <a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73494927190">+7(3494) 92 71 90 </a> |
+            <a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73494927820">+7(3494) 92 78 20 </a> |
+            <a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73494927870">+7(3494) 92 78 70 </a> |
+            <a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73494927890">+7(3494) 92 78 90 </a>.
           </q-no-ssr>
         <p style="line-height: 30px">
           <span class="text-bold">Реквизиты:</span><br>

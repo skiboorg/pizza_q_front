@@ -7,6 +7,11 @@
         <q-avatar @click="$router.push('/')" rounded :size="$q.screen.lt.md ? '50px' : '70px'" class="bg-black q-mr-md">
           <img class="q-pa-sm cursor-pointer" src="~assets/logo_big.svg">
         </q-avatar>
+        <div class="">
+          <q-space/>
+          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" href="tel:+73494927190">+7 (3494) 92 71 90</a></p>
+          <q-space/>
+        </div>
         <div class="gt-sm">
           <p class="no-margin text-bold">Новый Уренгой</p>
           <p  class="no-margin text-caption text-bold">Сеть мясных кафе</p>
@@ -23,7 +28,7 @@
         <q-space/>
         <div class="gt-sm">
           <q-no-ssr>
-          <p class="text-bold text-h6 no-margin zphone"><a class="text-primary" style="text-decoration: unset" href="tel:+73494292407">+7 (3494) 29 24 07</a></p>
+          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" href="tel:+73494927190">+7 (3494) 92 71 90</a></p>
           </q-no-ssr>
         </div>
         <q-btn @click="changeRightMenuVisible(true)" flat round dense icon="menu" class="q-mr-sm lt-md"/>

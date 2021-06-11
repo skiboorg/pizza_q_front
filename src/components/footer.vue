@@ -8,7 +8,7 @@
         </q-avatar>
           <p>Новый Уренгой,<br>ул.Железнодорожная д.12</p>
           <q-no-ssr>
-          <p class="text-bold zphone"><a class="no-text-decoration text-grey-10 " href="tel:+73494292407">+7 (3494) 29 24 07</a> </p>
+          <p class="text-bold zphone"><a class="no-text-decoration text-grey-10 " href="tel:+73494927190">+7 (3494) 92 71 90</a> </p>
           </q-no-ssr>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
