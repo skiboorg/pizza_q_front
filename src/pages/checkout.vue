@@ -99,7 +99,7 @@
          <p class="text-bold text-primary text-h6">{{orderData.delivery_type==='Курьером' ? 'Доставка в течении 1 часа' : 'Заказ можно будет забрать течении 1 часа'}}</p>
           <p class="text-bold text-h6">Оплата</p>
           <div class="flex column items-start q-mb-lg">
-            <q-radio v-if="orderData.delivery_type==='Курьером'" class="q-mb-sm" dense  v-model="orderData.payment" val="cash" label="Наличными курьеру" />
+            <q-radio  class="q-mb-sm" dense  v-model="orderData.payment" val="cash" label="Наличными при получении" />
             <div v-if="orderData.payment==='cash'" class="flex items-center">
               <p style="flex-basis: 40%">С какой суммы подготовить сдачу?</p>
               <q-input  type="number" class="q-mr-sm" style="flex-basis: 20%" dense  outlined v-model="orderData.cashback" ></q-input>

@@ -2,6 +2,7 @@
   <q-page padding>
     <q-no-ssr>
       <div class="container-sm">
+      <p class="text-bold text-h5">Ваш ID: {{$user.user.id}}</p>
       <p class="text-bold text-h5">Баллов начислено: {{$user.user.bonuses}}</p>
       <q-tabs
         v-model="tab"
