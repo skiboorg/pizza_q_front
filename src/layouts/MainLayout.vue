@@ -108,6 +108,10 @@
 
 
       </q-list>
+      <div class="flex-center column items-start">
+            <a target="_blank" href="https://apps.apple.com/us/app/meat-coal/id1572409729"><img class="store-img" src="~assets/ios.png" alt=""></a>
+            <a target="_blank" href="https://play.google.com/store/apps/details?id=ru.meat.coal.app"><img class="store-img" src="~assets/play.png" alt=""></a>
+          </div>
 <!--      <div  class="q-px-sm">-->
 
 <!--        <p class="text-bold">Ваш город</p>-->

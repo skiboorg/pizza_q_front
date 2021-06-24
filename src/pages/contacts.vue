@@ -20,6 +20,10 @@
           <span class="text-bold">ОГРНИП</span> 31889010017895<br>
           <span class="text-bold">Юридический адрес: </span> 129123, г. Москва, 115533, г.Москва, 1-ый Нагатинский проезд, 11-434<br>
         </p>
+        <div class="flex  items-start">
+            <a target="_blank" href="https://apps.apple.com/us/app/meat-coal/id1572409729"><img class="store-img" src="~assets/ios.png" alt=""></a>
+            <a target="_blank" href="https://play.google.com/store/apps/details?id=ru.meat.coal.app"><img class="store-img" src="~assets/play.png" alt=""></a>
+          </div>
       </div>
 
       <Map/>

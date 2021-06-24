@@ -19,15 +19,21 @@
           <p><router-link class="no-text-decoration text-grey-10" exact-active-class="link-active" exact to="contacts">Контакты</router-link></p>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-          <p>Связаться с нами</p>
-          <q-avatar rounded size="50px" >
+          <p class="q-mb-sm">Связаться с нами</p>
+          <div class="q-mb-md">
+            <q-avatar rounded size="50px" >
             <a href="https://vk.com/public199319645" target="_blank"><img class="q-pa-sm cursor-pointer" src="~assets/vk-icon.svg"></a>
 
         </q-avatar>
           <q-avatar rounded size="50px" >
             <a href="https://www.instagram.com/myaso_na_uglyah_89/" target="_blank"><img class="q-pa-sm cursor-pointer" src="~assets/inst-icon.svg"></a>
-
         </q-avatar>
+          </div>
+
+          <div class="flex column items-start">
+            <a target="_blank" href="https://apps.apple.com/us/app/meat-coal/id1572409729"><img class="store-img" src="~assets/ios.png" alt=""></a>
+            <a target="_blank" href="https://play.google.com/store/apps/details?id=ru.meat.coal.app"><img class="store-img" src="~assets/play.png" alt=""></a>
+          </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
            <p><router-link class="no-text-decoration text-grey-10" exact-active-class="link-active" exact to="policy">Политика конфиденциальности</router-link></p>
@@ -65,5 +71,8 @@ export default {
 
 .link-active
   color: $primary !important
-
+.store-img
+  width: 200px
+  height: auto
+  object-fit: contain
 </style>
