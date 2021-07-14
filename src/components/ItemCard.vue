@@ -1,6 +1,6 @@
 <template>
 
-  <q-card  class="q-mb-sm q-mx-sm no-padding item-card" :flat="$q.screen.lt.sm" >
+  <q-card v-if="item.prices.filter(x => x.city === this.$q.cookies.get('city_id')).length" class="q-mb-sm q-mx-sm no-padding item-card" :flat="$q.screen.lt.sm" >
     <q-card-section :horizontal="$q.screen.lt.sm" class="q-mb-sm no-padding " style="position: relative">
       <!--      <img  :src="item.image" class="col-5 no-border-radius" style="object-fit: contain;position: relative;z-index: 0">-->
 <!--      <img :style="{'object-fit': item.is_pizza ? 'contain' : 'cover' }" class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image" v-lazy="item.image" alt="">-->
@@ -42,6 +42,7 @@
         </div>
         <div class="row justify-between items-center">
           <div class="">
+            {{item.prices.filter(x => x.city === this.$q.cookies.get('city_id')).length}}
             <p class="no-margin"><span style="text-decoration: line-through;color: #7A7878; font-weight: normal" v-if="item.prices.find(x => x.city === this.$q.cookies.get('city_id')).old_price>0">{{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).old_price}}р <br></span></p>
            <p v-if="item.is_pizza" class="item-card__price col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold no-margin ">от {{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price}} р</p>
            <p v-else class="item-card__price col-lg-3 col-md-3 col-sm-3 col-xs-3 text-bold no-margin ">{{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price}} р</p>

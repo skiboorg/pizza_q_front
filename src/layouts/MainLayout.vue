@@ -112,43 +112,45 @@
             <a target="_blank" href="https://apps.apple.com/us/app/meat-coal/id1572409729"><img class="store-img" src="~assets/ios.png" alt=""></a>
             <a target="_blank" href="https://play.google.com/store/apps/details?id=ru.meat.coal.app"><img class="store-img" src="~assets/play.png" alt=""></a>
           </div>
-<!--      <div  class="q-px-sm">-->
+      <div  class="q-px-sm">
 
-<!--        <p class="text-bold">Ваш город</p>-->
-<!--        <q-btn-dropdown-->
-<!--          split-->
-<!--          color="primary"-->
-<!--          disable-main-btn-->
-<!--          class="full-width q-mb-md"-->
-<!--          push-->
-<!--          no-caps>-->
-<!--          <template v-slot:label>-->
-<!--            <div class="row items-center no-wrap">-->
-<!--              <q-icon left name="location_city" />-->
-<!--              <div class="text-center">-->
-<!--                {{currentCity.name}}-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </template>-->
+        <p class="text-bold">Ваш город</p>
+        <q-btn-dropdown
+          split
+          color="primary"
+          disable-main-btn
+          class="full-width q-mb-md"
+          push
+          no-caps>
+          <template v-slot:label>
+            <div class="row items-center no-wrap">
+              <q-icon left name="location_city" />
+              <div class="text-center">
+                {{currentCity.name}}
+              </div>
+            </div>
+          </template>
 
-<!--          <q-list>-->
-<!--            <q-item v-for="city in cities" :key="city.id" clickable v-close-popup @click="changeCity(city.id)">-->
+          <q-list>
+            <q-item v-for="city in cities" :key="city.id" clickable v-close-popup @click="changeCity(city.id)">
 
-<!--              <q-item-section>-->
-<!--                <q-item-label>{{city.name}}</q-item-label>-->
-<!--                <q-item-label caption v>{{city.info}}</q-item-label>-->
-<!--              </q-item-section>-->
-<!--              <q-item-section side v-if="city.id === $q.cookies.get('city_id')">-->
-<!--                <q-icon name="check" color="positive" />-->
-<!--              </q-item-section>-->
-<!--            </q-item>-->
+              <q-item-section>
+                <q-item-label>{{city.name}}</q-item-label>
+                <q-item-label caption v>{{city.info}}</q-item-label>
+              </q-item-section>
+              <q-item-section side v-if="city.id === $q.cookies.get('city_id')">
+                <q-icon name="check" color="positive" />
+              </q-item-section>
+            </q-item>
 
 
-<!--          </q-list>-->
-<!--        </q-btn-dropdown>-->
-<!--        <p class="q-mb-sm text-bold">{{currentCity.adresses.length>1 ? 'Адреса кафе' : 'Адрес кафе'}}</p>-->
+          </q-list>
+        </q-btn-dropdown>
+
+<!--        <p class="q-mb-sm text-bold">Адреса кафе</p>-->
 <!--        <p class="q-mb-none" v-for="adress in currentCity.adresses" :key="adress.id">{{adress.address}}</p>-->
-<!--      </div>-->
+
+      </div>
 
     </q-drawer>
     </q-no-ssr>
@@ -158,6 +160,7 @@
       <!--        </transition>-->
     </q-page-container>
         <Footer/>
+
   </q-layout>
 </template>
 
@@ -200,9 +203,9 @@ export default {
     ...mapActions('componentState',['changeRightMenuVisible','changeAuthModalVisible']),
     async changeCity(id){
       this.changeMainCity(id)
-      //await this.fetchItems()
+      await this.fetchItems()
       await this.$api.post(`api/cart/erase_cart/${this.$q.cookies.get('session_id')}`)
-      //await this.fetchCart()
+      await this.fetchCart()
     },
     async logout(){
       this.logoutUser()

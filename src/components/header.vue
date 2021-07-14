@@ -9,11 +9,12 @@
         </q-avatar>
         <div class="lt-md">
           <q-space/>
-          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" href="tel:+73494927190">+7 (3494) 92 71 90</a></p>
+          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" :href="`tel:${city.main_phone}`">{{city.main_phone}}</a></p>
           <q-space/>
         </div>
         <div class="gt-sm">
-          <p class="no-margin text-bold">Новый Уренгой</p>
+         <p @click="is_city_not_selected=!is_city_not_selected"  class="no-margin text-bold text-decoration-dash cursor-pointer">{{city.name}}</p>
+
           <p  class="no-margin text-caption text-bold">Сеть мясных кафе</p>
         </div>
         <q-space/>
@@ -28,7 +29,7 @@
         <q-space/>
         <div class="gt-sm">
           <q-no-ssr>
-          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" href="tel:+73494927190">+7 (3494) 92 71 90</a></p>
+          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" :href="`tel:${city.main_phone}`">{{city.main_phone}}</a></p>
           </q-no-ssr>
         </div>
         <q-btn @click="changeRightMenuVisible(true)" flat round dense icon="menu" class="q-mr-sm lt-md"/>
@@ -81,6 +82,24 @@
       </div>
     </div>
     <AuthModal/>
+    <q-dialog v-model="is_city_not_selected" persistent>
+      <q-card style="width: 500px; max-width: 90vw;">
+        <q-card-section  class="row bg-primary text-white items-center q-py-sm">
+          <div class="text-h6">Выберете Ваш город</div>
+
+
+        </q-card-section>
+
+        <q-card-section >
+          <div class="q-mb-sm" v-for="city in cities" :key="city.id">
+            <p class="cursor-pointer q-mb-none inline-block text-decoration-dash"  @click="changeCity(city.id)">
+            {{city.name}}
+          </p>
+          </div>
+
+       </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-header>
 </template>
 
@@ -98,17 +117,29 @@ export default {
       tab:0,
       right_menu: false,
       cart: false,
+      is_city_not_selected:true,
       currentCityIsOK:true,
       lastScrollPosition:null,
       scrollPosition:null,
       scrollUp:false,
+      city:{}
     }
   },
   mounted() {
     window.addEventListener('scroll', this.updateScroll);
+    if (this.$q.cookies.get('city_selected')){
+      console.log('selected')
+      this.is_city_not_selected=false
+      this.$q.cookies.set('city_selected',true)
+    }else {
+      console.log('not selected')
+      this.is_city_not_selected=true
+    }
+    this.city = this.currentCity
+
   },
   computed:{
-    ...mapGetters('city',['cities',]), //'currentCity'
+    ...mapGetters('city',['cities','currentCity']),
     ...mapGetters('products',['categories']),
     ...mapGetters('cart',['cart_items_count','items_in_cart']),
     is_index_page(){
@@ -130,9 +161,15 @@ export default {
     },
     async changeCity(id){
       this.changeMainCity(id)
+      this.$q.cookies.set('city_selected',true)
+      this.is_city_not_selected=false
       await this.fetchItems()
+      this.city = this.currentCity
       await this.$api.post(`api/cart/erase_cart/${this.$q.cookies.get('session_id')}`)
       await this.fetchCart()
+
+      !process.env.SERVER ? window.location.reload() : null
+      this.$router.push('/')
     },
     async logout(){
       this.logoutUser()

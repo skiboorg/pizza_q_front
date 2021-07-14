@@ -7,20 +7,20 @@
          <div class="row q-col-gutter-lg">
            <div class="col-6 text-center">
              <p class="text-grey-6 text-body2 no-margin">ДОСТАВКА РАБОТАЕТ</p>
-             <p class="text-bold text-h5 no-margin" >c 10:30 до 22:00</p>
+             <p class="text-bold text-h5 no-margin" >{{current_City.delivery_times}}</p>
 
            </div>
            <div class="col-6 text-center">
              <p class="text-grey-6 text-body2 no-margin">СУММА ЗАКАЗА</p>
-             <p class="text-bold text-h5  no-margin" >от 100 руб</p>
+             <p class="text-bold text-h5  no-margin" >{{current_City.delivery_from_price}}</p>
            </div>
            <div class="col-6 text-center">
                <p class="text-grey-6 text-body2 no-margin">ЦЕНА ДОСТАВКИ</p>
-             <p class="text-bold text-h5  no-margin" >100 руб</p>
+             <p class="text-bold text-h5  no-margin" >{{current_City.delivery_price}}</p>
            </div>
            <div class="col-6 text-center">
                <p class="text-grey-6 text-body2 no-margin">ВРЕМЯ ДОСТАВКИ</p>
-         <p class="text-bold text-h5  no-margin" >1 час</p>
+         <p class="text-bold text-h5  no-margin" >{{current_City.delivery_time}}</p>
            </div>
          </div>
         </div>
@@ -52,34 +52,35 @@
         <p class="no-margin">Оплата картой курьеру</p>
       </div>
     </div>
-    <div class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">
-      <p>Если товар доставляется курьером, то оплата осуществляется наличными курьеру в руки, либо банковской картой
-        через мобильный терминал. При получении товара обязательно проверьте комплектацию товара и наличие товарного чека.</p>
-      <p>Для выбора оплаты товара с помощью банковской карты на соответствующей странице необходимо нажать кнопку
-        Оплата заказа банковской картой. Оплата происходит через ПАО СБЕРБАНК с использованием банковских карт следующих платёжных систем:</p>
-      <div style="max-width: 700px; margin: 0 auto 20px" class="flex items-center justify-evenly">
-        <img src="~assets/mir.png" alt="">
-        <img src="~assets/visa.png" alt="">
-        <img src="~assets/mastercard.png" alt="">
-        <img src="~assets/jcb.png" alt="">
-      </div>
-      <p>Для оплаты (ввода реквизитов Вашей карты) Вы будете перенаправлены на платёжный шлюз ПАО СБЕРБАНК.
-        Соединение с платёжным шлюзом и передача информации осуществляется в защищённом режиме с использованием протокола
-        шифрования SSL. В случае если Ваш банк поддерживает технологию безопасного проведения интернет-платежей
-        Verified By Visa, MasterCard SecureCode, MIR Accept, J-Secure, для проведения платежа также может потребоваться
-        ввод специального пароля.</p>
-      <p>Настоящий сайт поддерживает 256-битное шифрование. Конфиденциальность сообщаемой персональной
-        информации обеспечивается ПАО СБЕРБАНК. Введённая информация не будет предоставлена третьим лицам за
-        исключением случаев, предусмотренных законодательством РФ. Проведение платежей по банковским картам
-        осуществляется в строгом соответствии с требованиями платёжных систем МИР, Visa Int., MasterCard Europe Sprl, JCB.</p>
-      <p>В случае возникновения проблем с онлайн оплатой на сайте, звоните по номерам:
-        <a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73494292407">+7 (3494) 29 24 07</a> |
-        <a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73494292507">+7 (3494) 29 25 07</a></p>
-      <p>Условия возврата товара указаны в
-        <router-link class="no-text-decoration text-grey-10 text-decoration-dash" to="rules">правилах оказания услуг</router-link></p>
-      <p>Порядок обработки персональных данных указан в разделе
-        <router-link class="no-text-decoration text-grey-10 text-decoration-dash" to="policy">политика конфиденциальности</router-link></p>
-    </div>
+<!--    <div class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">-->
+<!--      <p>Если товар доставляется курьером, то оплата осуществляется наличными курьеру в руки, либо банковской картой-->
+<!--        через мобильный терминал. При получении товара обязательно проверьте комплектацию товара и наличие товарного чека.</p>-->
+<!--      <p>Для выбора оплаты товара с помощью банковской карты на соответствующей странице необходимо нажать кнопку-->
+<!--        Оплата заказа банковской картой. Оплата происходит через ПАО СБЕРБАНК с использованием банковских карт следующих платёжных систем:</p>-->
+<!--      <div style="max-width: 700px; margin: 0 auto 20px" class="flex items-center justify-evenly">-->
+<!--        <img src="~assets/mir.png" alt="">-->
+<!--        <img src="~assets/visa.png" alt="">-->
+<!--        <img src="~assets/mastercard.png" alt="">-->
+<!--        <img src="~assets/jcb.png" alt="">-->
+<!--      </div>-->
+<!--      <p>Для оплаты (ввода реквизитов Вашей карты) Вы будете перенаправлены на платёжный шлюз ПАО СБЕРБАНК.-->
+<!--        Соединение с платёжным шлюзом и передача информации осуществляется в защищённом режиме с использованием протокола-->
+<!--        шифрования SSL. В случае если Ваш банк поддерживает технологию безопасного проведения интернет-платежей-->
+<!--        Verified By Visa, MasterCard SecureCode, MIR Accept, J-Secure, для проведения платежа также может потребоваться-->
+<!--        ввод специального пароля.</p>-->
+<!--      <p>Настоящий сайт поддерживает 256-битное шифрование. Конфиденциальность сообщаемой персональной-->
+<!--        информации обеспечивается ПАО СБЕРБАНК. Введённая информация не будет предоставлена третьим лицам за-->
+<!--        исключением случаев, предусмотренных законодательством РФ. Проведение платежей по банковским картам-->
+<!--        осуществляется в строгом соответствии с требованиями платёжных систем МИР, Visa Int., MasterCard Europe Sprl, JCB.</p>-->
+<!--      <p>В случае возникновения проблем с онлайн оплатой на сайте, звоните по номерам:-->
+<!--        <a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73494292407">+7 (3494) 29 24 07</a> |-->
+<!--        <a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73494292507">+7 (3494) 29 25 07</a></p>-->
+<!--      <p>Условия возврата товара указаны в-->
+<!--        <router-link class="no-text-decoration text-grey-10 text-decoration-dash" to="rules">правилах оказания услуг</router-link></p>-->
+<!--      <p>Порядок обработки персональных данных указан в разделе-->
+<!--        <router-link class="no-text-decoration text-grey-10 text-decoration-dash" to="policy">политика конфиденциальности</router-link></p>-->
+<!--    </div>-->
+    <div class="" v-html="current_City.payment_text"></div>
    <Map/>
   </div>
 
@@ -89,19 +90,26 @@
 
 <script>
 import Map from "components/map";
-import {mapActions} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 export default {
   components:{
     Map
   },
   data() {
     return {
+      current_City:{}
 
     };
   },
+  mounted() {
+    this.current_City = this.currentCity
+  },
   methods:{
     ...mapActions('componentState',['changeAuthModalVisible'])
-  }
+  },
+  computed:{
+    ...mapGetters('city',['currentCity']),
+}
 
 
 }

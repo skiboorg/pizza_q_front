@@ -6,9 +6,9 @@
           <q-avatar @click="$router.push('/')" rounded :size="$q.screen.lt.md ? '50px' : '70px'" class="bg-black q-mb-lg">
           <img class="q-pa-sm cursor-pointer" src="~assets/logo_big.svg">
         </q-avatar>
-          <p>Новый Уренгой,<br>ул.Железнодорожная д.12</p>
+          <p>{{current_City.name}}</p>
           <q-no-ssr>
-          <p class="text-bold zphone"><a class="no-text-decoration text-grey-10 " href="tel:+73494927190">+7 (3494) 92 71 90</a> </p>
+          <p class="text-bold zphone"><a class="no-text-decoration text-grey-10 " :href="`tel:${current_City.main_phone}`">{{current_City.main_phone}}</a> </p>
           </q-no-ssr>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
@@ -22,11 +22,11 @@
           <p class="q-mb-sm">Связаться с нами</p>
           <div class="q-mb-md">
             <q-avatar rounded size="50px" >
-            <a href="https://vk.com/public199319645" target="_blank"><img class="q-pa-sm cursor-pointer" src="~assets/vk-icon.svg"></a>
+            <a :href="current_City.vk_link" target="_blank"><img class="q-pa-sm cursor-pointer" src="~assets/vk-icon.svg"></a>
 
         </q-avatar>
           <q-avatar rounded size="50px" >
-            <a href="https://www.instagram.com/myaso_na_uglyah_89/" target="_blank"><img class="q-pa-sm cursor-pointer" src="~assets/inst-icon.svg"></a>
+            <a :href="current_City.inst_link" target="_blank"><img class="q-pa-sm cursor-pointer" src="~assets/inst-icon.svg"></a>
         </q-avatar>
           </div>
 
@@ -56,9 +56,16 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      tab: 'menu'
+      tab: 'menu',
+      current_City:{}
     }
   },
+  mounted() {
+    this.current_City = this.currentCity
+  },
+computed:{
+    ...mapGetters('city',['currentCity']),
+}
   // computed:{
   //   ...mapGetters('cart',['cart_items_count'])
   //

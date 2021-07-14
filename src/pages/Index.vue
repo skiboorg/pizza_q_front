@@ -161,7 +161,7 @@ export default {
     }
   },
   async created() {
-    const response = await this.$api.get(`/api/items/get_banners`)
+    const response = await this.$api.get(`/api/items/get_banners?city_id=${this.$q.cookies.get('city_id')}`)
     this.banners = response.data
 
   },

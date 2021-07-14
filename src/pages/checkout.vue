@@ -418,6 +418,7 @@ export default {
       const response = await this.$api.post('/api/order/new_order',
         {
           session_id:this.$q.cookies.get('session_id'),
+          city_id:this.$q.cookies.get('city_id'),
           data:this.orderData,
           bonuses:this.cart_bonuses,
           promo:this.cart_promo,

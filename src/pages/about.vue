@@ -9,7 +9,7 @@
       </div>
       <q-img
         cover
-        src="~assets/about/1.jpg"
+        :src="current_City.about_image"
         :ratio="16/9"
         class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md rounded-borders"
       />
@@ -35,7 +35,7 @@
       </div>
       <q-img
         cover
-        src="~assets/about/3.jpg"
+        :src="current_City.about_kitchen"
         :ratio="16/9"
         class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md rounded-borders"
       />
@@ -59,7 +59,7 @@
       </div>
       <div class="row items-center q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">
         <div class=" relative-position col-lg-5 col-md-5 col-sm-5 col-xs-12 ">
-          <img class="absolute-right z-max" src="~assets/about/delivery.svg" alt="">
+          <img style="z-index: 10" class="absolute-right " src="~assets/about/delivery.svg" alt="">
           <q-img
             cover
             src="~assets/about/del.jpg"
@@ -79,7 +79,7 @@
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 q-mb-lg-none q-mb-md-none q-mb-sm-none q-mb-xs-md">
           <p class="text-h4 f-raleway-900">8. Повара высшей категории</p>
           <p class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">Для вас готовят профессиональные повара, с широкой рецептурной базой и любовью к своему делу.</p>
-          <div class="row q-col-gutter-sm">
+          <div v-if="current_City.is_show_peoples" class="row q-col-gutter-sm">
             <q-card flat class="my-card col-4">
               <q-img src="~assets/about/p1.jpg" basic >
                 <div class="absolute-bottom text-subtitle2 text-center">
@@ -130,7 +130,7 @@
 
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0 ">
           <p class="text-h4 f-raleway-900">9. Уютное кафе</p>
-          <p class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">150 квадратных метров обеденной зоны и 20 столов, парковка на 20+ автомобилей, вежливый и дружелюбный персонал.</p>
+          <p class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">{{current_City.about_p9_text}}</p>
           <p class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md text-bold">Будем рады видеть вас в нашем кафе!</p>
 
           <div class="row q-col-gutter-sm">
@@ -157,15 +157,23 @@
 
 <script>
 import Map from "components/map";
+import {mapGetters} from "vuex";
 export default {
   components:{
     Map
   },
   data() {
     return {
+      current_City:{}
 
     };
   },
+  mounted() {
+    this.current_City = this.currentCity
+  },
+computed:{
+    ...mapGetters('city',['currentCity']),
+}
 
 
 }

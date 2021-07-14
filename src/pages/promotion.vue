@@ -32,7 +32,7 @@ export default {
     };
   },
   async beforeMount() {
-     const responce =  await this.$api.get('/api/promotion/get_all')
+     const responce =  await this.$api.get(`/api/promotion/get_all?city_id=${this.$q.cookies.get('city_id')}`)
     this.promotions = responce.data
   },
 
