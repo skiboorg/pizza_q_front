@@ -3,65 +3,7 @@
   <div v-if="cart_items_count>0" class="q-pa-sm">
 
 
-    <q-card flat v-for="constructor in items_in_cart.pizza_constructors"
-            :key="constructor.id">
-      <q-card-section horizontal :class="[headerCart ? 'q-mb-sm' : 'q-mb-md']">
-        <q-img
-          :ratio="16/9"
-          :style="{'height':  headerCart ? '90px' : 'auto'}"
-          contain
-          class="col-2 no-border-radius"
-          :src="constructor.items[0].image"
-        /> <q-img
-        :ratio="16/9"
-        :style="{'height':  headerCart ? '90px' : 'auto'}"
-        contain
-        class="col-2 no-border-radius"
-        :src="constructor.items[1].image"
-      />
-       <q-card-section class=" col-5 q-py-none q-pl-sm q-pr-none  "
-                        :class="[!headerCart ? 'flex justify-between' : '']">
 
-         <p v-if="headerCart" class="no-margin text-caption text-bold">Пицца из половинок</p>
-          <p v-else class="no-margin text-h6 text-bold">Пицца из половинок</p>
-          <p :class="[headerCart ? 'text-caption' : 'text-body1 text-primary text-bold']">{{constructor.items[0].name}} + {{constructor.items[1].name}} {{constructor.quantity}} шт </p>
-          <div class="units-add flex justify-lg-start justify-md-start justify-sm-between justify-xs-between items-end">
-            <q-btn
-              @click="changeQuantity('remove_constructor_quantity',constructor.code, constructor.id)"
-              outline
-              round
-              size="xs"
-              color="primary"
-              icon="remove" />
-            <p class="item-quantity q-ma-none bg-grey-1 q-pa-sm q-mx-lg-sm q-mx-md-sm q-mx-sm-none q-mx-xs-none">1 шт</p>
-            <q-btn
-              @click="changeQuantity('add_constructor_quantity',constructor.code, constructor.id)"
-              outline
-              round
-              size="xs"
-              color="primary"
-              icon="add" />
-          </div>
-        </q-card-section>
-        <q-card-section class="no-padding col-3 flex column justify-between items-end" >
-<!--          <q-btn  @click="changeQuantity('delete_cart_constructor',constructor.code)" flat round dense icon="delete_outline" class="q-mr-sm"/>-->
-          <q-icon @click="changeQuantity('delete_cart_constructor',constructor.code,constructor.id)" class="cursor-pointer inline-block " size="25px" name="delete_outline"/>
-          <div class="">
-            <q-no-ssr>
-              <q-no-ssr>
-            <p v-if="$user.loggedIn" class="no-margin text-caption ">+{{constructor.bonuses}} бал.</p>
-              </q-no-ssr>
-            </q-no-ssr>
-            <p class="no-margin text-body1 text-bold">{{constructor.price}} р</p>
-          </div>
-
-        </q-card-section>
-      </q-card-section>
-      <q-separator spaced/>
-      <q-inner-loading :showing="current_id===constructor.id">
-        <q-spinner-tail size="50px" color="primary" />
-      </q-inner-loading>
-    </q-card>
     <q-card flat v-for="item in items_in_cart.items"
             :key="item.id">
       <q-card-section horizontal :class="[headerCart ? 'q-mb-sm' : 'q-mb-md']">
@@ -167,7 +109,7 @@
     </q-card>
 
     <div v-if="!headerCart" class="">
-      <div v-if="is_meat_in_cart>0" class="">
+      <div v-if="is_meat_in_cart>0 && recommended_items_for_meat.length>0" class="">
         <p class="meat-warning">При оплате семги и баранины на сайте, просим обратить ваше внимание, что фактический вес готового блюда, при получении, может отличаться от стандартной граммовки на сайте, поэтому фактическая стоимость может меняться. Просим уточнять фактический вес этих блюд у операторов. </p>
         <p class="text-h6 text-bold">Рекомендуем к шашлыку</p>
           <div class="row q-gutter-lg-md q-gutter-md-md q-gutter-sm-md q-gutter-xs-none q-mb-md">
@@ -190,9 +132,9 @@
           </div>
 
       </div>
-      <p class="text-h6 text-bold">Cоусы</p>
+      <p v-if="souses.length>0" class="text-h6 text-bold">Cоусы</p>
       <q-no-ssr>
-        <swiper   class="cart-slider" :options="soucesSliderOption">
+        <swiper v-if="souses.length>0"  class="cart-slider" :options="soucesSliderOption">
           <swiper-slide v-if="items_in_cart.souces.filter(x => x.item.id === souse.id).length===0" v-for="souse in souses" :key="souse.id">
             <q-card  class="cursor-pointer slider-card " @click="addSouseToCart(souse)" >
 
@@ -213,9 +155,9 @@
           <div class="swiper-button-next" slot="button-next"></div>
         </swiper>
       </q-no-ssr>
-      <p class="text-h6 text-bold">Рекомендуем к заказу</p>
+      <p v-if="recommended_items.length>0" class="text-h6 text-bold">Рекомендуем к заказу</p>
       <q-no-ssr>
-      <swiper   class="recommended-slider q-mb-lg" :options="soucesSliderOption">
+      <swiper  v-if="recommended_items.length>0" class="recommended-slider q-mb-lg" :options="soucesSliderOption">
         <swiper-slide v-if="items_in_cart.items.filter(x => x.item.id === item.id).length===0" class="recommended-item"  v-for="item in recommended_items" :key="item.id">
           <q-card  class="q-py-sm cursor-pointer" @click="addToCart(item)" >
             <q-card-section horizontal >
