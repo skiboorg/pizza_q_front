@@ -6,9 +6,9 @@
           <q-avatar @click="$router.push('/')" rounded :size="$q.screen.lt.md ? '50px' : '70px'" class="bg-black q-mb-lg">
           <img class="q-pa-sm cursor-pointer" src="~assets/logo_big.svg">
         </q-avatar>
-          <p>{{current_City.name}}</p>
+          <p>{{currentCity.name}}</p>
           <q-no-ssr>
-          <p class="text-bold zphone"><a class="no-text-decoration text-grey-10 " :href="`tel:${current_City.main_phone}`">{{current_City.main_phone}}</a> </p>
+          <p class="text-bold zphone"><a class="no-text-decoration text-grey-10 " :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a> </p>
           </q-no-ssr>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
@@ -22,11 +22,11 @@
           <p class="q-mb-sm">Связаться с нами</p>
           <div class="q-mb-md">
             <q-avatar rounded size="50px" >
-            <a :href="current_City.vk_link" target="_blank"><img class="q-pa-sm cursor-pointer" src="~assets/vk-icon.svg"></a>
+            <a :href="currentCity.vk_link" target="_blank"><img class="q-pa-sm cursor-pointer" src="~assets/vk-icon.svg"></a>
 
         </q-avatar>
           <q-avatar rounded size="50px" >
-            <a :href="current_City.inst_link" target="_blank"><img class="q-pa-sm cursor-pointer" src="~assets/inst-icon.svg"></a>
+            <a :href="currentCity.inst_link" target="_blank"><img class="q-pa-sm cursor-pointer" src="~assets/inst-icon.svg"></a>
         </q-avatar>
           </div>
 

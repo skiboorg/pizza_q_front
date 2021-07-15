@@ -9,7 +9,7 @@
         </q-avatar>
         <div class="lt-md">
           <q-space/>
-          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" :href="`tel:${city.main_phone}`">{{city.main_phone}}</a></p>
+          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a></p>
           <q-space/>
         </div>
         <div class="gt-sm">
@@ -29,7 +29,7 @@
         <q-space/>
         <div class="gt-sm">
           <q-no-ssr>
-          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" :href="`tel:${city.main_phone}`">{{city.main_phone}}</a></p>
+          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a></p>
           </q-no-ssr>
         </div>
         <q-btn @click="changeRightMenuVisible(true)" flat round dense icon="menu" class="q-mr-sm lt-md"/>
