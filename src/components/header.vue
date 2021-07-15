@@ -125,7 +125,8 @@ export default {
       city:{}
     }
   },
-  mounted() {
+
+  beforeMount() {
     window.addEventListener('scroll', this.updateScroll);
     if (this.$q.cookies.get('city_selected')){
       console.log('selected')

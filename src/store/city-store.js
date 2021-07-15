@@ -8,7 +8,8 @@ const state = () => ({
   city_info:null,
   is_city_selected:false,
   promos:[],
-  banners:[]
+  banners:[],
+  currentCity:{}
 })
 
 const mutations = {
@@ -27,6 +28,9 @@ const mutations = {
   updateBanners(state,data){
     state.banners = data
   },
+  updateCurrentCity(state,data){
+    state.currentCity = data
+  },
 
 }
 
@@ -35,37 +39,43 @@ const actions = {
     console.log('fetchCity')
     if (this._vm.$cook.get('city_selected')){
       console.log('1')
-
     }else {
-       console.log("this._vm.$cook.get('city_selected'",this._vm.$cook.get('city_selected'))
+
       this._vm.$cook.set('city_selected',false)
     }
 
 
     const city_id = this._vm.$cook.get('city_id')
     const city_selected = this._vm.$cook.get('city_selected')
+
     city_selected ? commit('updateCitySelected',true) : null
 
     const response = await this._vm.$api.get(`/api/items/get_cities`)
     console.log('response city',response.data)
     if (!city_id){
        dispatch('changeMainCity',response.data.find(x => x.is_main === true).id)
+      commit('updateCurrentCity', response.data.find(x => x.is_main === true))
     }else{
-      const response = await this._vm.$api.get(`/api/items/get_banners?city_id=${city_id}`)
-      commit('updateBanners', response.data)
+
+      commit('updateCurrentCity', response.data.find(x => x.id === city_id))
+
+      const response_banner = await this._vm.$api.get(`/api/items/get_banners?city_id=${city_id}`)
+      commit('updateBanners', response_banner.data)
       const responce_promo =  await this._vm.$api.get(`/api/promotion/get_all?city_id=${city_id}`)
       commit('updatePromos', responce_promo.data)
     }
     commit('updateCity',response.data)
 
   },
-  async changeMainCity({commit}, data) {
+  async changeMainCity({commit,getters}, data) {
     console.log('changeMainCity')
     let city_in_cookie = this._vm.$cook.get('city_id')
     if (city_in_cookie !== data){
       Cookies.set('city_id',data)
       commit('updateMainCity', data)
       commit('updateCitySelected',true)
+
+      commit('updateCurrentCity', getters['cities'].find(x => x.id === data))
 
       const response = await this._vm.$api.get(`/api/items/get_banners?city_id=${data}`)
       commit('updateBanners', response.data)
@@ -84,12 +94,7 @@ const getters = {
   banners: (state) => state.banners,
   is_city_selected: (state) => state.is_city_selected,
   mainCity: (state) => state.main_city,
-  currentCity: (state) =>{
-    if (!process.env.SERVER){
-       return  state.cities.find(x => x.id === Cookies.get('city_id')) ? state.cities.find(x => x.id === Cookies.get('city_id')) : []
-    }
-
-  }
+  currentCity: (state) =>state.currentCity
 }
 
 
