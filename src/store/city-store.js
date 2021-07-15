@@ -7,6 +7,8 @@ const state = () => ({
   main_city:null,
   city_info:null,
   is_city_selected:false,
+  promos:[],
+  banners:[]
 })
 
 const mutations = {
@@ -18,6 +20,12 @@ const mutations = {
   },
   updateCitySelected(state,data){
     state.is_city_selected = data
+  },
+  updatePromos(state,data){
+    state.promos = data
+  },
+  updateBanners(state,data){
+    state.banners = data
   },
 
 }
@@ -42,17 +50,28 @@ const actions = {
     console.log('response city',response.data)
     if (!city_id){
        dispatch('changeMainCity',response.data.find(x => x.is_main === true).id)
+    }else{
+      const response = await this._vm.$api.get(`/api/items/get_banners?city_id=${city_id}`)
+      commit('updateBanners', response.data)
+      const responce_promo =  await this._vm.$api.get(`/api/promotion/get_all?city_id=${city_id}`)
+      commit('updatePromos', responce_promo.data)
     }
     commit('updateCity',response.data)
 
   },
-  changeMainCity({commit}, data) {
+  async changeMainCity({commit}, data) {
     console.log('changeMainCity')
     let city_in_cookie = this._vm.$cook.get('city_id')
     if (city_in_cookie !== data){
       Cookies.set('city_id',data)
       commit('updateMainCity', data)
       commit('updateCitySelected',true)
+
+      const response = await this._vm.$api.get(`/api/items/get_banners?city_id=${data}`)
+      commit('updateBanners', response.data)
+      const responce_promo =  await this._vm.$api.get(`/api/promotion/get_all?city_id=${data}`)
+      commit('updatePromos', responce_promo.data)
+
 
       console.log('setMainCity',data)
     }
@@ -61,6 +80,8 @@ const actions = {
 
 const getters = {
   cities: (state) => state.cities,
+  promos: (state) => state.promos,
+  banners: (state) => state.banners,
   is_city_selected: (state) => state.is_city_selected,
   mainCity: (state) => state.main_city,
   currentCity: (state) =>{

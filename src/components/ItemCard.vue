@@ -42,7 +42,7 @@
         </div>
         <div class="row justify-between items-center">
           <div class="">
-            {{item.prices.filter(x => x.city === this.$q.cookies.get('city_id')).length}}
+<!--            {{item.prices.filter(x => x.city === this.$q.cookies.get('city_id')).length}}-->
             <p class="no-margin"><span style="text-decoration: line-through;color: #7A7878; font-weight: normal" v-if="item.prices.find(x => x.city === this.$q.cookies.get('city_id')).old_price>0">{{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).old_price}}р <br></span></p>
            <p v-if="item.is_pizza" class="item-card__price col-lg-4 col-md-4 col-sm-4 col-xs-4 text-bold no-margin ">от {{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price}} р</p>
            <p v-else class="item-card__price col-lg-3 col-md-3 col-sm-3 col-xs-3 text-bold no-margin ">{{item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price}} р</p>

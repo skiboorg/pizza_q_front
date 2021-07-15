@@ -119,9 +119,10 @@ export default {
     return{
       tab:0,
       fullHeight: false,
+
       show_delivery_modal: false,
       selectedCategory:1,
-      banners:[],
+
       anim:null,
       sliderHomeTopOption: {
         slidesPerView: 2,
@@ -161,14 +162,15 @@ export default {
     }
   },
   async created() {
-    const response = await this.$api.get(`/api/items/get_banners?city_id=${this.$q.cookies.get('city_id')}`)
-    this.banners = response.data
+    // const response = await this.$api.get(`/api/items/get_banners?city_id=${this.$q.cookies.get('city_id')}`)
+    // this.banners = response.data
 
   },
   mounted() {
      let time = new Date().toLocaleTimeString()
        //this.show_delivery_modal = true
        //this.show_delivery_modal = time > '22:00:00' || time < '10:30:00'
+
   },
   updated(){
     if (this.$router.currentRoute.hash){
@@ -189,6 +191,7 @@ export default {
   computed:{
     ...mapGetters('products',['categories']),
     ...mapGetters('componentState',['selected_category']),
+    ...mapGetters('city',['banners']),
     homeTopSlider() {
       return this.$refs.homeTopSlider.$swiper
     },

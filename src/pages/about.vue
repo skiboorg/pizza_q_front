@@ -130,7 +130,7 @@
 
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0 ">
           <p class="text-h4 f-raleway-900">9. Уютное кафе</p>
-          <p class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md">{{current_City.about_p9_text}}</p>
+          <div v-html="current_City.about_p9_text"></div>
           <p class="q-mb-lg-xl q-mb-md-xl q-mb-sm-xl q-mb-xs-md text-bold">Будем рады видеть вас в нашем кафе!</p>
 
           <div class="row q-col-gutter-sm">

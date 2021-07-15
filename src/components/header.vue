@@ -160,15 +160,14 @@ export default {
       this.$router.push('/cart')
     },
     async changeCity(id){
-      this.changeMainCity(id)
+      await this.changeMainCity(id)
       this.$q.cookies.set('city_selected',true)
       this.is_city_not_selected=false
       await this.fetchItems()
       this.city = this.currentCity
       await this.$api.post(`api/cart/erase_cart/${this.$q.cookies.get('session_id')}`)
       await this.fetchCart()
-
-      !process.env.SERVER ? window.location.reload() : null
+      //!process.env.SERVER ? window.location.reload() : null
       this.$router.push('/')
     },
     async logout(){
