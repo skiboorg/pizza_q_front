@@ -1,6 +1,6 @@
 <template>
 
-  <q-page class="q-mb-xl" v-html="current_City.rules_text">
+  <q-page class="q-mb-xl" v-html="currentCity.rules_text">
 
 
   </q-page>

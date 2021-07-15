@@ -1,6 +1,6 @@
 <template>
 
-  <q-page class="q-pa-sm q-mb-lg" v-html="current_City.policy_text">
+  <q-page class="q-pa-sm q-mb-lg" v-html="currentCity.policy_text">
 
 
   </q-page>

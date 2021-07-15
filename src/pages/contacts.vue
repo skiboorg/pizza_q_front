@@ -3,7 +3,7 @@
     <div class="container">
       <h1 class="text-h3 f-raleway-900">Контакты</h1>
       <q-no-ssr>
-         <div class="" v-html="current_City.contacts_text"></div>
+         <div class="" v-html="currentCity.contacts_text"></div>
 
         <div class="flex  items-start">
             <a target="_blank" href="https://apps.apple.com/us/app/meat-coal/id1572409729"><img class="store-img" src="~assets/ios.png" alt=""></a>

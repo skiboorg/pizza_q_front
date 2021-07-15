@@ -7,20 +7,20 @@
          <div class="row q-col-gutter-lg">
            <div class="col-6 text-center">
              <p class="text-grey-6 text-body2 no-margin">ДОСТАВКА РАБОТАЕТ</p>
-             <p class="text-bold text-h5 no-margin" >{{current_City.delivery_times}}</p>
+             <p class="text-bold text-h5 no-margin" >{{currentCity.delivery_times}}</p>
 
            </div>
            <div class="col-6 text-center">
              <p class="text-grey-6 text-body2 no-margin">СУММА ЗАКАЗА</p>
-             <p class="text-bold text-h5  no-margin" >{{current_City.delivery_from_price}}</p>
+             <p class="text-bold text-h5  no-margin" >{{currentCity.delivery_from_price}}</p>
            </div>
            <div class="col-6 text-center">
                <p class="text-grey-6 text-body2 no-margin">ЦЕНА ДОСТАВКИ</p>
-             <p class="text-bold text-h5  no-margin" >{{current_City.delivery_price}}</p>
+             <p class="text-bold text-h5  no-margin" >{{currentCity.delivery_price}}</p>
            </div>
            <div class="col-6 text-center">
                <p class="text-grey-6 text-body2 no-margin">ВРЕМЯ ДОСТАВКИ</p>
-         <p class="text-bold text-h5  no-margin" >{{current_City.delivery_time}}</p>
+         <p class="text-bold text-h5  no-margin" >{{currentCity.delivery_time}}</p>
            </div>
          </div>
         </div>
@@ -80,7 +80,7 @@
 <!--      <p>Порядок обработки персональных данных указан в разделе-->
 <!--        <router-link class="no-text-decoration text-grey-10 text-decoration-dash" to="policy">политика конфиденциальности</router-link></p>-->
 <!--    </div>-->
-    <div class="" v-html="current_City.payment_text"></div>
+    <div class="" v-html="currentCity.payment_text"></div>
    <Map/>
   </div>
 

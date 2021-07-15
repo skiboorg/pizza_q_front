@@ -13,7 +13,7 @@
           <q-space/>
         </div>
         <div class="gt-sm">
-         <p @click="is_city_not_selected=!is_city_not_selected"  class="no-margin text-bold text-decoration-dash cursor-pointer">{{city.name}}</p>
+         <p @click="is_city_not_selected=!is_city_not_selected"  class="no-margin text-bold text-decoration-dash cursor-pointer">{{currentCity.name}}</p>
 
           <p  class="no-margin text-caption text-bold">Сеть мясных кафе</p>
         </div>
