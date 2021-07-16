@@ -109,7 +109,7 @@
     </q-card>
 
     <div v-if="!headerCart" class="">
-      <div v-if="is_meat_in_cart>0 && recommended_items_for_meat.length>0" class="">
+      <div v-if="is_meat_in_cart>0" class="">
         <p class="meat-warning">При оплате семги и баранины на сайте, просим обратить ваше внимание, что фактический вес готового блюда, при получении, может отличаться от стандартной граммовки на сайте, поэтому фактическая стоимость может меняться. Просим уточнять фактический вес этих блюд у операторов. </p>
         <p class="text-h6 text-bold">Рекомендуем к шашлыку</p>
           <div class="row q-gutter-lg-md q-gutter-md-md q-gutter-sm-md q-gutter-xs-none q-mb-md">
@@ -135,7 +135,8 @@
       <p v-if="souses.length>0" class="text-h6 text-bold">Cоусы</p>
       <q-no-ssr>
         <swiper v-if="souses.length>0"  class="cart-slider" :options="soucesSliderOption">
-          <swiper-slide v-if="items_in_cart.souces.filter(x => x.item.id === souse.id).length===0" v-for="souse in souses" :key="souse.id">
+<!--          v-if="items_in_cart.souces.filter(x => x.item.id === souse.id).length===0"-->
+          <swiper-slide  v-for="souse in souses" :key="souse.id">
             <q-card  class="cursor-pointer slider-card " @click="addSouseToCart(souse)" >
 
               <q-card-section horizontal class="no-padding">
@@ -155,10 +156,10 @@
           <div class="swiper-button-next" slot="button-next"></div>
         </swiper>
       </q-no-ssr>
-      <p v-if="recommended_items.length>0" class="text-h6 text-bold">Рекомендуем к заказу</p>
+      <p  class="text-h6 text-bold">Рекомендуем к заказу</p>
       <q-no-ssr>
-      <swiper  v-if="recommended_items.length>0" class="recommended-slider q-mb-lg" :options="soucesSliderOption">
-        <swiper-slide v-if="items_in_cart.items.filter(x => x.item.id === item.id).length===0" class="recommended-item"  v-for="item in recommended_items" :key="item.id">
+      <swiper   class="recommended-slider q-mb-lg" :options="soucesSliderOption">
+        <swiper-slide v-if="item.prices.filter(x => x.city === $q.cookies.get('city_id')).length" class="recommended-item"  v-for="item in recommended_items" :key="item.id">
           <q-card  class="q-py-sm cursor-pointer" @click="addToCart(item)" >
             <q-card-section horizontal >
               <q-img

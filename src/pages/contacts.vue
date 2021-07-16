@@ -5,7 +5,7 @@
       <q-no-ssr>
          <div class="" v-html="currentCity.contacts_text"></div>
 
-        <div class="flex  items-start">
+        <div class="flex  items-start q-mb-lg">
             <a target="_blank" href="https://apps.apple.com/us/app/meat-coal/id1572409729"><img class="store-img" src="~assets/ios.png" alt=""></a>
             <a target="_blank" href="https://play.google.com/store/apps/details?id=ru.meat.coal.app"><img class="store-img" src="~assets/play.png" alt=""></a>
           </div>

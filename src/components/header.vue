@@ -83,7 +83,7 @@
     </div>
     <AuthModal/>
     <q-dialog v-model="is_city_not_selected" persistent>
-      <q-card style="width: 500px; max-width: 90vw;">
+      <q-card style="width: 300px; max-width: 90vw;">
         <q-card-section  class="row bg-primary text-white items-center q-py-sm">
           <div class="text-h6">Выберете Ваш город</div>
 
