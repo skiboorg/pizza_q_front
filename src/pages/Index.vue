@@ -14,45 +14,45 @@
           <path d="M14.759 9.8418L20.9409 16.9997L14.759 24.1576" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </div>
-        <swiper ref="homeTopSlider" :options="sliderHomeTopOption">
-          <swiper-slide class="home-page-slider__item" v-for="banner in banners" :key="banner.id">
-            <div class=""><img style="max-width: 100%; height: auto" :src="banner.image" alt="" ></div>
-          </swiper-slide >
-          <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
+      <swiper ref="homeTopSlider" :options="sliderHomeTopOption">
+        <swiper-slide class="home-page-slider__item" v-for="banner in banners" :key="banner.id">
+          <div class=""><img style="max-width: 100%; height: auto" :src="banner.image" alt="" ></div>
+        </swiper-slide >
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
     </section>
     <div v-if="categories.length>0" class="container">
 
-        <section  :data-index="index" :id="`catID_${category.id}`" v-for="(category,index) in categories" :key="category.id" class="">
-          <h3 class="f-raleway-900">{{category.name}}</h3>
-          <div class="products-grid">
+      <section  :data-index="index" :id="`catID_${category.id}`" v-for="(category,index) in categories" :key="category.id" class="">
+        <h3 class="f-raleway-900">{{category.name}}</h3>
+        <div class="products-grid">
 
-<!--            <q-card  v-if="category.is_pizza" class="q-mx-sm q-mb-sm item-card" flat >-->
-<!--              <q-card-section :horizontal="$q.screen.lt.sm" class="q-mb-sm no-padding">-->
-<!--                <q-img-->
-<!--                  :ratio="1"-->
-<!--                  contain-->
-<!--                  class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"-->
-<!--                  src="~assets/constr.webp"/>-->
-<!--              <q-card-section class="q-pa-lg-md q-pa-md-md q-py-sm-none q-px-sm-sm q-py-xs-none q-px-xs-sm col-lg-7 col-md-7 col-sm-7 col-xs-8">-->
-<!--                  <p class="text-subtitle1 lh-100 text-bold ">Пицца-конструктор</p>-->
-<!--                   <p class="text-caption text-grey q-mb-sm ingridient-items">Выберите половинки пицц и соберите свою!</p>-->
-<!--                  <q-btn unelevated-->
-<!--                         @click="changeConstructorVisible(true)"-->
-<!--                         color="primary"-->
-<!--                         class="in-cart-btn full-width"-->
-<!--                         label="Собрать" />-->
+          <!--            <q-card  v-if="category.is_pizza" class="q-mx-sm q-mb-sm item-card" flat >-->
+          <!--              <q-card-section :horizontal="$q.screen.lt.sm" class="q-mb-sm no-padding">-->
+          <!--                <q-img-->
+          <!--                  :ratio="1"-->
+          <!--                  contain-->
+          <!--                  class="col-lg-5 col-md-5 col-sm-5 col-xs-4 item-card__image"-->
+          <!--                  src="~assets/constr.webp"/>-->
+          <!--              <q-card-section class="q-pa-lg-md q-pa-md-md q-py-sm-none q-px-sm-sm q-py-xs-none q-px-xs-sm col-lg-7 col-md-7 col-sm-7 col-xs-8">-->
+          <!--                  <p class="text-subtitle1 lh-100 text-bold ">Пицца-конструктор</p>-->
+          <!--                   <p class="text-caption text-grey q-mb-sm ingridient-items">Выберите половинки пицц и соберите свою!</p>-->
+          <!--                  <q-btn unelevated-->
+          <!--                         @click="changeConstructorVisible(true)"-->
+          <!--                         color="primary"-->
+          <!--                         class="in-cart-btn full-width"-->
+          <!--                         label="Собрать" />-->
 
-<!--                </q-card-section>-->
-<!--              </q-card-section>-->
-<!--            </q-card>-->
+          <!--                </q-card-section>-->
+          <!--              </q-card-section>-->
+          <!--            </q-card>-->
 
-            <ItemCard   v-if="!item.is_for_meat && item.is_active && !item.is_gift"
-                        v-for="item in category.items"
-                        :item="item"
-                        :key="item.id"/>
-          </div>
-        </section>
+          <ItemCard   v-if="!item.is_for_meat && item.is_active && !item.is_gift"
+                      v-for="item in category.items"
+                      :item="item"
+                      :key="item.id"/>
+        </div>
+      </section>
 
     </div>
     <div v-else class="container">
@@ -71,22 +71,22 @@
         </div>
       </section>
     </div>
-    <PizzaConstructor/>
+
     <Pizza/>
-     <q-dialog
-
-    v-model="show_delivery_modal"
-    transition-show="fade"
-
-    transition-hide="fade">
-       <q-card>
+    <q-dialog
+      v-model="show_delivery_modal"
+      transition-show="fade"
+      transition-hide="fade">
+      <q-card>
         <q-card-section>
           <div class="text-h6 text-center text-weight-bold">Уважаемые клиенты!</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          <p class="text-center">Доставка работает для вас с 10.30 до 22.00</p>
-          <p class="no-margin text-center">С пятницы по субботу, с 16.00 - время доставки может быть увеличено до 2-х часов. Во все остальное время - доставка в течении 1 часа, если опоздаем - от нас гарантированный подарок!</p>
+          <p class="text-center">Часы работы доставки: <br>
+            с 10.00 до 22.30
+          </p>
+          <p class="no-margin text-center">Все заказы, поступившие в нерабочее время, обрабатываются на следующий день.</p>
 
         </q-card-section>
 
@@ -94,7 +94,7 @@
           <q-btn  label="Понятно" color="primary" class="q-px-lg" v-close-popup />
         </q-card-actions>
       </q-card>
-     </q-dialog>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -167,9 +167,9 @@ export default {
 
   },
   mounted() {
-     let time = new Date().toLocaleTimeString()
-       //this.show_delivery_modal = true
-       //this.show_delivery_modal = time > '22:00:00' || time < '10:30:00'
+    let time = new Date().toLocaleTimeString()
+    //this.show_delivery_modal = true
+    this.show_delivery_modal = time > '22:30:00' || time < '10:00:00'
 
   },
   updated(){
