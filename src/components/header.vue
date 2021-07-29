@@ -65,8 +65,10 @@
             <q-badge v-if="cart_items_count>0" floating rounded>{{cart_items_count}}</q-badge>
             <q-menu  fit :offset="[0, 12]" @mouseleave="cart=false" v-model="cart"  self="top end" anchor="bottom end">
               <Cart class="cart" :headerCart="true"/>
-
+              <p class="q-mb-none text-caption text-primary text-right q-px-sm" v-if="is_apply_promo">Цена с учетом акции</p>
               <div v-if="cart_items_count>0" class="flex justify-between items-center q-px-sm">
+
+
                 <p class="no-margin text-h6 text-bold">Сумма</p>
                 <p class="no-margin text-h6 text-bold text-primary">{{items_in_cart.total_price}} р</p>
               </div>
@@ -142,7 +144,7 @@ export default {
   computed:{
     ...mapGetters('city',['cities','currentCity']),
     ...mapGetters('products',['categories']),
-    ...mapGetters('cart',['cart_items_count','items_in_cart']),
+    ...mapGetters('cart',['cart_items_count','items_in_cart','is_apply_promo']),
     is_index_page(){
       return this.$route.path === '/'
     }

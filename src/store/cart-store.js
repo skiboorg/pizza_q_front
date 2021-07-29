@@ -10,7 +10,9 @@ const state = () => ({
     "total_bonuses": 0,
     "created_at": "",
     "updated_at": "",
+    "is_apply_promo":false,
     "persons": 1,
+
     "client": null,
     "guest": null},
   bonuses:0,
@@ -46,6 +48,7 @@ const actions = {
       }
       const response_cart = await this._vm.$api.get(`/api/cart/get_cart?session_id=${session_id}`)
       commit('updateCart', response_cart.data)
+    console.log('response_cart.data',response_cart.data)
       //commit('setCategories', cats.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i))
 
 
@@ -76,6 +79,7 @@ const actions = {
 }
 
 export const getters = {
+  is_apply_promo:(state) => state.items.is_apply_promo,
   items_in_cart: (state) => state.items,
   cart_items_count: (state) => {
     return (state.items.items.length + state.items.souces.length + state.items.pizza_constructors.length)

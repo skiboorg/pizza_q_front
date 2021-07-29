@@ -111,9 +111,9 @@
           </div>
 
           <q-btn v-if="orderData.delivery_type==='Курьером'" color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
-                 :label="`Подтвердить заказ на ${cart_total_price  + delivery_price} р` "/>
+                 :label="`Подтвердить заказ на ${cart_total_price  + delivery_price} р ${is_apply_promo ? '(С учетом акции и доставки)' : '(С учетом доставки)'}` "/>
           <q-btn v-else color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
-                 :label="`Подтвердить заказ на ${cart_total_price} р` "/>
+                 :label="`Подтвердить заказ на ${cart_total_price} р ${is_apply_promo ? '(С учетом акции)' : ''}` "/>
 
 
           <p class="text-caption text-grey-6">Нажимая на кнопку, вы даете согласие на обработку персональных данных</p>
@@ -263,8 +263,9 @@
               </div>
               <div  class="flex items-center justify-between">
                 <p class="text-bold text-h6 text-primary no-margin">Итого:</p>
-                <p class="text-bold text-h6 text-primary no-margin">{{cart_total_price + delivery_price}} р</p>
+                <p class="text-bold text-h6 text-primary no-margin"><span class="q-mb-none text-caption text-primary  " v-if="is_apply_promo">(С учетом акции)</span>{{cart_total_price + delivery_price}} р</p>
               </div>
+
 
 
 
@@ -369,7 +370,7 @@ export default {
   },
 
   computed:{
-    ...mapGetters('cart',['cart_items_count','items_in_cart','cart_bonuses','cart_promo','cart_total_price']),
+    ...mapGetters('cart',['cart_items_count','items_in_cart','cart_bonuses','cart_promo','cart_total_price','is_apply_promo']),
     ...mapGetters('city',['cities','currentCity']),
     delivery_price(){
       return  this.orderData.delivery_type==='Курьером' ? 100 : 0
