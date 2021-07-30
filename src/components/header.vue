@@ -9,7 +9,9 @@
         </q-avatar>
         <div class="lt-md">
           <q-space/>
-          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a></p>
+          <q-no-ssr>
+          <p class="text-bold text-h6 no-margin"><a class="text-primary zphone" style="text-decoration: unset" :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a></p>
+          </q-no-ssr>
           <q-space/>
         </div>
         <div class="gt-sm">
@@ -19,7 +21,7 @@
         </div>
         <q-space/>
         <q-tabs dense class="gt-sm" inline-label v-model="tab" shrink :indicator-color="tab==='tab5' ? 'white' : 'primary'">
-          <q-route-tab name="tab1" to="promotions"  label="Акции" />
+          <q-route-tab  name="tab1" to="promotions"  label="Акции" />
           <q-route-tab name="tab2" to="delivery" label="Доставка и оплата" />
           <q-route-tab name="tab3" to="vacancy" label="Вакансии" />
           <q-route-tab name="tab4" to="contacts" label="Контакты" />
@@ -29,7 +31,7 @@
         <q-space/>
         <div class="gt-sm">
           <q-no-ssr>
-          <p class="text-bold text-h6 no-margin"><a class="text-primary" style="text-decoration: unset" :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a></p>
+          <p class="text-bold text-h6 no-margin zphone"><a class="text-primary " style="text-decoration: unset" :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a></p>
           </q-no-ssr>
         </div>
         <q-btn @click="changeRightMenuVisible(true)" flat round dense icon="menu" class="q-mr-sm lt-md"/>
@@ -170,8 +172,8 @@ export default {
       this.city = this.currentCity
       await this.$api.post(`api/cart/erase_cart/${this.$q.cookies.get('session_id')}`)
       await this.fetchCart()
-      //!process.env.SERVER ? window.location.reload() : null
-      this.$router.push('/')
+      !process.env.SERVER ? window.location.reload() : null
+      //this.$router.push('/')
     },
     async logout(){
       this.logoutUser()

@@ -10,6 +10,7 @@ const state = () => ({
   promos:[],
   banners:[],
   currentCity:{}
+
 })
 
 const mutations = {
@@ -38,7 +39,7 @@ const actions = {
   async fetchCity({commit,state,dispatch}){
     console.log('fetchCity')
     if (this._vm.$cook.get('city_selected')){
-      console.log('1')
+      //console.log('1')
     }else {
 
       this._vm.$cook.set('city_selected',false)
@@ -51,13 +52,19 @@ const actions = {
     city_selected ? commit('updateCitySelected',true) : null
 
     const response = await this._vm.$api.get(`/api/items/get_cities`)
-    console.log('response city',response.data)
+    //console.log('response city',response.data)
     if (!city_id){
        dispatch('changeMainCity',response.data.find(x => x.is_main === true).id)
       commit('updateCurrentCity', response.data.find(x => x.is_main === true))
+
+      this._vm.$cook.set('metrika_id',response.data.find(x => x.is_main === true).metrika_id)
+      this._vm.$cook.set('call_tracker_id',response.data.find(x => x.is_main === true).call_tracker_id)
     }else{
 
       commit('updateCurrentCity', response.data.find(x => x.id === city_id))
+
+      this._vm.$cook.set('metrika_id',response.data.find(x => x.id === city_id).metrika_id)
+      this._vm.$cook.set('call_tracker_id',response.data.find(x => x.id === city_id).call_tracker_id)
 
       const response_banner = await this._vm.$api.get(`/api/items/get_banners?city_id=${city_id}`)
       commit('updateBanners', response_banner.data)
@@ -68,22 +75,26 @@ const actions = {
 
   },
   async changeMainCity({commit,getters}, data) {
-    console.log('changeMainCity')
+    //console.log('changeMainCity')
     let city_in_cookie = this._vm.$cook.get('city_id')
     if (city_in_cookie !== data){
-      Cookies.set('city_id',data)
+      this._vm.$cook.remove('city_id')
+      this._vm.$cook.remove('metrika_id')
+      this._vm.$cook.remove('call_tracker_id')
+      this._vm.$cook.set('city_id',data)
       commit('updateMainCity', data)
       commit('updateCitySelected',true)
 
       commit('updateCurrentCity', getters['cities'].find(x => x.id === data))
-
+      this._vm.$cook.set('metrika_id',getters['cities'].find(x => x.id === data).metrika_id)
+      this._vm.$cook.set('call_tracker_id',getters['cities'].find(x => x.id === data).call_tracker_id)
       const response = await this._vm.$api.get(`/api/items/get_banners?city_id=${data}`)
       commit('updateBanners', response.data)
       const responce_promo =  await this._vm.$api.get(`/api/promotion/get_all?city_id=${data}`)
       commit('updatePromos', responce_promo.data)
 
 
-      console.log('setMainCity',data)
+      //console.log('setMainCity',data)
     }
   }
 }
@@ -94,7 +105,8 @@ const getters = {
   banners: (state) => state.banners,
   is_city_selected: (state) => state.is_city_selected,
   mainCity: (state) => state.main_city,
-  currentCity: (state) =>state.currentCity
+  currentCity: (state) =>state.currentCity,
+
 }
 
 

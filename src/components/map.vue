@@ -30,11 +30,11 @@
       <p class="text-h5 text-bold q-mb-sm q-mt-lg">Свяжитесь с нами</p>
       <div class="flex items-center justify-start">
         <img class="q-mr-md" src="~assets/red-phone-icon.png" alt="">
-
-           <p v-if="currentCity.id===1" class="q-mb-sm q-mr-md"><a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73494292407">+7 (3494) 29 24 07</a></p>
-          <p v-if="currentCity.id===1" class="q-mb-sm q-mr-md"><a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73494292507">+7 (3494) 29 25 07</a></p>
-          <p v-if="currentCity.id===2" class="q-mb-sm q-mr-md"><a class="no-text-decoration text-grey-10 text-decoration-dash" href="tel:+73452925577">+7 (3452) 92-55-77</a></p>
-
+<q-no-ssr>
+           <p v-if="currentCity.id===1" class="q-mb-sm q-mr-md"><a class="no-text-decoration text-grey-10 text-decoration-dash zphone" href="tel:+73494292407">+7 (3494) 29 24 07</a></p>
+          <p v-if="currentCity.id===1" class="q-mb-sm q-mr-md"><a class="no-text-decoration text-grey-10 text-decoration-dash zphone" href="tel:+73494292507">+7 (3494) 29 25 07</a></p>
+          <p v-if="currentCity.id===2" class="q-mb-sm q-mr-md"><a class="no-text-decoration text-grey-10 text-decoration-dash zphone" href="tel:+73452925577">+7 (3452) 92-55-77</a></p>
+</q-no-ssr>
 
       </div>
 

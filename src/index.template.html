@@ -26,6 +26,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#000000">
   <link rel="icon" type="image/ico" href="favicon.ico">
+<script>(function(w, c){(w[c]=w[c]||[]).push(function(){new zTracker({"id":"<% if (ctx.mode.ssr) { %>{{ call_tracker_id }}<% } %>",
+  "metrics":{"metrika":"<% if (ctx.mode.ssr) { %>{{ metrika_id }}<% }%>","ga":"674-111-9147"}});});})(window, "zTrackerCallbacks");
+</script>
+<script async id="zd_ct_phone_script" src="https://my.zadarma.com/js/ct_phone.min.js"></script>
 </head>
 <body>
 
@@ -34,8 +38,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <div id="q-app"></div>
-<script>(function(w, c){(w[c]=w[c]||[]).push(function(){new zTracker({"id":"7b7ce214ea679f243e415294cd718e406620","metrics":{"metrika":"75118636","ga":"674-111-9147"}});});})(window, "zTrackerCallbacks");</script>
-<script async id="zd_ct_phone_script" src="https://my.zadarma.com/js/ct_phone.min.js"></script>
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6QRPS51LFN"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -51,7 +54,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
 (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-ym(75118636, "init", {
+ym(<% if (ctx.mode.ssr) { %>{{ metrika_id }}<% }%>, "init", {
 clickmap:true,
 trackLinks:true,
 accurateTrackBounce:true,
@@ -59,7 +62,7 @@ webvisor:true,
 ecommerce:"dataLayer"
 });
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/75118636" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/<% if (ctx.mode.ssr) { %>{{ metrika_id }}<% }%>" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
 
 <script>

@@ -42,7 +42,7 @@ const actions = {
     let city_id = this._vm.$cook.get('city_id')
 
     if(state.items.length===0){
-      console.log('fetchItems')
+      //console.log('fetchItems')
       await this.dispatch('city/fetchCity')
       city_id = this._vm.$cook.get('city_id')
 
@@ -65,7 +65,7 @@ const actions = {
   },
   async fetchPizza({state},data){
     const response = await api.get(`/api/items/get_item_by_id/${data}`)
-    console.log(response.data)
+    //console.log(response.data)
   },
 
 

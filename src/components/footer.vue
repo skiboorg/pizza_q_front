@@ -8,7 +8,7 @@
         </q-avatar>
           <p>{{currentCity.name}}</p>
           <q-no-ssr>
-          <p class="text-bold zphone"><a class="no-text-decoration text-grey-10 " :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a> </p>
+          <p class="text-bold zphone"><a class="no-text-decoration text-grey-10 zphone" :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a> </p>
           </q-no-ssr>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">

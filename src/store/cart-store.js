@@ -37,7 +37,7 @@ const mutations = {
 const actions = {
   async fetchCart({commit,state,dispatch}){
 
-      console.log('fetchCart')
+      //console.log('fetchCart')
 
       let session_id = this._vm.$cook.get('session_id')
      // let session_id = Cookies.get('session_id')
@@ -48,7 +48,7 @@ const actions = {
       }
       const response_cart = await this._vm.$api.get(`/api/cart/get_cart?session_id=${session_id}`)
       commit('updateCart', response_cart.data)
-    console.log('response_cart.data',response_cart.data)
+    //console.log('response_cart.data',response_cart.data)
       //commit('setCategories', cats.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i))
 
 
