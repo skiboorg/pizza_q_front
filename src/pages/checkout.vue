@@ -115,6 +115,7 @@
           <q-btn v-else color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
                  :label="`Подтвердить заказ на ${cart_total_price} р ${is_apply_promo ? '(С учетом акции)' : ''}` "/>
 
+             <div v-if="delivery_price>0" class="lt-sm"><p class="text-caption text-primary">Минимальная стоимость доставки 100 руб (в радиусе 3 км от кафе). Точную стоимость доставки можно узнать у оператора.</p></div>
 
           <p class="text-caption text-grey-6">Нажимая на кнопку, вы даете согласие на обработку персональных данных</p>
 
@@ -261,6 +262,7 @@
                 <p class="text-bold text-body1 no-margin">Доставка:</p>
                 <p class="text-bold text-body1 no-margin">+ {{delivery_price}} р</p>
               </div>
+              <div v-if="delivery_price>0" class=""><p class="text-caption text-primary">Минимальная стоимость доставки 100 руб (в радиусе 3 км от кафе).<br>Точную стоимость доставки можно узнать у оператора.</p></div>
               <div  class="flex items-center justify-between">
                 <p class="text-bold text-h6 text-primary no-margin">Итого:</p>
                 <p class="text-bold text-h6 text-primary no-margin"><span class="q-mb-none text-caption text-primary  " v-if="is_apply_promo">(С учетом акции)</span>{{cart_total_price + delivery_price}} р</p>
