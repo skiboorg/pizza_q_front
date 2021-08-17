@@ -224,7 +224,7 @@ export default {
       this.price_22 = this.pizza.prices.find(x => x.city === this.$q.cookies.get('city_id')).price
       this.price_33 = this.pizza.prices.find(x => x.city === this.$q.cookies.get('city_id')).price_33
       this.basePrice = this.price_22
-      console.log(this.pizza)
+      //console.log(this.pizza)
 
     },
     toggleAdditionIngridient (index,price) {
@@ -259,11 +259,11 @@ export default {
     pizzaSize: function (val){
 
       if (val === 22){
-        console.log('22')
+        //console.log('22')
         this.basePrice = this.price_22
       }
       else {
-        console.log('33')
+        //console.log('33')
         this.basePrice = this.price_33
       }
     }

@@ -30,7 +30,7 @@ const mutations = {
   },
   updateCart(state,data){
     state.items = data
-    console.log(state)
+    //console.log(state)
   }
 }
 

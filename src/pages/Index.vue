@@ -174,7 +174,7 @@ export default {
   },
   updated(){
     if (this.$router.currentRoute.hash){
-      console.log(this.$router.currentRoute.hash)
+      //console.log(this.$router.currentRoute.hash)
       this.$scrollTo(this.$router.currentRoute.hash, 200, {offset: -90})
     }
   },

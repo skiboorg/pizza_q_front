@@ -133,11 +133,11 @@ export default {
   beforeMount() {
     window.addEventListener('scroll', this.updateScroll);
     if (this.$q.cookies.get('city_selected')){
-      console.log('selected')
+      //console.log('selected')
       this.is_city_not_selected=false
       this.$q.cookies.set('city_selected',true)
     }else {
-      console.log('not selected')
+      //console.log('not selected')
       this.is_city_not_selected=true
     }
     this.city = this.currentCity

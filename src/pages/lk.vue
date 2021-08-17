@@ -96,7 +96,7 @@ export default {
     ... mapActions('auth',['getUser']),
     async userDataSave(){
       const responce = await this.$api.post('/api/user/update',{userData:this.userData})
-      console.log(responce.data)
+      //console.log(responce.data)
       await  this.getUser(false)
     },
      async userAddressSave(){

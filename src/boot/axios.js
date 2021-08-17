@@ -9,9 +9,9 @@ export default ({ app, router, Vue, store, ssrContext }) => {
     : Cookies
   let token = cookies.get('auth_token')
   if (token) {
-    console.log('Token exists')
+    //console.log('Token exists')
     api.defaults.headers.common['Authorization'] = 'Token ' + token
-    console.log(api.defaults.headers.common)
+    //console.log(api.defaults.headers.common)
   }
   Vue.prototype.$api = api
 }

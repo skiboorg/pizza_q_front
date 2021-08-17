@@ -310,7 +310,7 @@ export default {
       await this.fetchCart()
     },
     async changeQuantity (type,code,id){
-      console.log(type,code,id)
+      //console.log(type,code,id)
       this.current_id = id
       let data = {
         session_id:this.$q.cookies.get('session_id'),
@@ -351,7 +351,7 @@ export default {
         {
           code:this.promoCode,
         })
-      console.log()
+      //console.log()
       if (!responce.data.status){
         this.$q.notify({
           message: 'Промокод не найден',

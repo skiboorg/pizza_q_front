@@ -41,7 +41,7 @@ const actions = {
   },
   async getUser ({commit,dispatch},redirect){
     const response = await api.get( '/api/user/me/')
-    console.log('getUser', response)
+    //console.log('getUser', response)
     commit('updateUser', response.data)
     commit('updateUserStatus', true)
     await this.dispatch('cart/fetchCart')
@@ -53,7 +53,7 @@ const actions = {
   logoutUser({commit}){
     api.post( '/auth/token/logout/')
       .then(response=>{
-        console.log('logoutUser', response)
+        //console.log('logoutUser', response)
         api.defaults.headers.common['Authorization'] = null
         this._vm.$cook.remove('auth_token')
         commit('updateUser', {})

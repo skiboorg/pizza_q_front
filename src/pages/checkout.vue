@@ -47,7 +47,6 @@
             <div class="q-mb-sm " v-for="address in adresses" :key="address.id">
               <q-radio dense   v-model="orderData.cafe_address"  :val="address.address" :label="address.address" />
             </div>
-
             <!--      <div ref="map" style="height: 300px" class="q-mb-sm">-->
 
             <!--        <yandex-map-->
@@ -64,10 +63,7 @@
             <!--            :coords="coordinates">-->
             <!--          </ymap-marker>-->
             <!--        </yandex-map>-->
-
-
           </div>
-
           <!--    </div>-->
           <q-input
             class="q-mb-md"
@@ -92,9 +88,7 @@
               </template>
             </q-input>
             <q-select dense style="flex-basis: 49%" filled v-model="orderData.time" :options="delivery_time" label="Время" />
-
           </div>
-
 <!--          <p class="text-bold text-primary text-h6">{{orderData.delivery_type==='Курьером' ? 'Доставка в районе 60 минут' : 'Заказ можно будет забрать примерно через 40 минут'}}</p>-->
          <p class="text-bold text-primary text-h6">{{orderData.delivery_type==='Курьером' ? 'Доставка в течении 1 часа' : 'Заказ можно будет забрать течении 1 часа'}}</p>
           <p class="text-bold text-h6">Оплата</p>
@@ -107,19 +101,13 @@
             </div>
             <q-radio class="q-mb-sm" dense  v-model="orderData.payment" val="online" label="Онлайн" />
             <q-radio v-if="orderData.delivery_type==='Курьером'" dense  v-model="orderData.payment" val="courier_card" label="Картой курьеру" />
-
-          </div>
-
+         </div>
           <q-btn v-if="orderData.delivery_type==='Курьером'" color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
                  :label="`Подтвердить заказ на ${cart_total_price  + delivery_price} р ${is_apply_promo ? '(С учетом акции и доставки)' : '(С учетом доставки)'}` "/>
           <q-btn v-else color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
                  :label="`Подтвердить заказ на ${cart_total_price} р ${is_apply_promo ? '(С учетом акции)' : ''}` "/>
-
              <div v-if="delivery_price>0" class="lt-sm"><p class="text-caption text-primary">Минимальная стоимость доставки 100 руб (в радиусе 3 км от кафе). Точную стоимость доставки можно узнать у оператора.</p></div>
-
           <p class="text-caption text-grey-6">Нажимая на кнопку, вы даете согласие на обработку персональных данных</p>
-
-
           <Payment/>
         </div><!--        col-6-->
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 gt-xs offset-lg-1 offset-md-1 offset-sm-1">
@@ -190,18 +178,13 @@
                        :class="[headerCart ? 'text-caption' : 'text-body1 text-primary text-bold']">
                       {{item.quantity * item.item.min_unit}} {{item.item.unit_name}}
                     </p>
-
-
-
                   </q-card-section>
                   <q-card-section class="no-padding col-3 flex column justify-between items-end" >
                     <!--          <q-btn v-if="!item.item.is_gift || headerCart" @click="changeQuantity('delete_item',item.code)" flat outline round dense icon="delete_outline" class="q-mr-sm"/>-->
-
                     <div class="">
                       <p v-if="$user.loggedIn && !item.item.is_gift" class="no-margin text-caption ">+{{item.bonuses}} бал.</p>
                       <p class="no-margin text-body1 text-bold">{{item.price}} р</p>
                     </div>
-
                   </q-card-section>
                 </q-card-section>
                 <q-separator spaced />
@@ -243,7 +226,6 @@
               </q-card>
             </q-card-section>
             <q-card-section>
-
               <p class="text-bold text-body1">Кол-во персон: {{items_in_cart.persons}}</p>
               <div class="flex items-center justify-between">
                 <p class="text-bold text-body1 no-margin">Сумма заказа:</p>
@@ -267,11 +249,6 @@
                 <p class="text-bold text-h6 text-primary no-margin">Итого:</p>
                 <p class="text-bold text-h6 text-primary no-margin"><span class="q-mb-none text-caption text-primary  " v-if="is_apply_promo">(С учетом акции)</span>{{cart_total_price + delivery_price}} р</p>
               </div>
-
-
-
-
-
             </q-card-section>
           </q-card>
         </div><!--        col-6-->
@@ -336,7 +313,7 @@ export default {
   watch:{
 
     selectedAddress(val){
-      console.log(val)
+      //console.log(val)
       this.orderData.street = val.street
       this.orderData.house = val.house
       this.orderData.flat = val.flat
@@ -402,9 +379,10 @@ export default {
   },
   methods:{
     ...mapActions('cart',['fetchCart']),
+    ... mapActions('auth',['getUser']),
     ...mapActions('componentState',['changePaymentVisible','changePaymentUrl']),
     map_init() {
-      console.log(this.$refs)
+      //console.log(this.$refs)
       this.myMap = new ymaps.Map(this.$refs.map, {
         center: [55.76, 37.64], // Москва
         zoom: 10
@@ -416,7 +394,7 @@ export default {
       return date >= new Date().toISOString().split('T')[0].replace('-','/').replace('-','/')
     },
     async placeOrder(){
-      console.log('new order')
+      //console.log('new order')
       this.$q.loading.show()
       const response = await this.$api.post('/api/order/new_order',
         {
@@ -456,7 +434,7 @@ export default {
       });
       await this.fetchCart()
       if (response.data.formUrl){
-        console.log('redirect ',response.data.formUrl)
+        //console.log('redirect ',response.data.formUrl)
         // this.changePaymentUrl(response.data.formUrl)
         // this.changePaymentVisible(true)
         window.location.href = response.data.formUrl
@@ -464,7 +442,7 @@ export default {
         this.orderCode = response.data.code
         this.$q.loading.hide()
         this.orderPlaced = true
-        this.$user.loggedIn ?  this.$user.fetchUser() : null
+        this.$user.loggedIn ?  await  this.getUser(false) : null
         this.$router.push(`/order_self/${this.orderCode}`)
       }
 

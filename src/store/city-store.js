@@ -37,7 +37,7 @@ const mutations = {
 
 const actions = {
   async fetchCity({commit,state,dispatch}){
-    console.log('fetchCity')
+    //console.log('fetchCity')
     if (this._vm.$cook.get('city_selected')){
       //console.log('1')
     }else {

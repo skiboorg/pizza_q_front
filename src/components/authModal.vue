@@ -189,7 +189,7 @@ export default {
       }
     },
     async userRestorerAction(){
-      console.log('userRestorerAction')
+      //console.log('userRestorerAction')
       this.loading=true
       if (!this.sended_sms){
         await this.send_sms()
@@ -212,9 +212,9 @@ export default {
 
     },
     async send_sms(){
-      console.log('sms')
+      //console.log('sms')
       const response = await  this.$api.post(`api/user/send_code_sms`,{phone:this.userRegister.phone})
-      console.log(response.data)
+      //console.log(response.data)
       if (response.data.code){
         this.$q.notify({
           message: 'На ваш номер отправлено SMS с кодом подтверждения',
