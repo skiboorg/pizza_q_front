@@ -328,6 +328,12 @@ export default {
           item_id:item.id,
           city_id:this.$q.cookies.get('city_id')
         })
+      this.$q.notify({
+        position: this.$q.screen.lt.sm ? 'bottom' : 'bottom-right',
+        message: 'Добавлено в корзину',
+        caption: item.name,
+        color: 'positive'
+      })
       await this.fetchCart()
 
     },
@@ -343,6 +349,12 @@ export default {
           is_meat: false
         })
       await this.fetchCart()
+      this.$q.notify({
+        position: this.$q.screen.lt.sm ? 'bottom' : 'bottom-right',
+        message: 'Добавлено в корзину',
+        caption: item.name,
+        color: 'positive'
+      })
 
     },
     async usePromo (){

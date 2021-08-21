@@ -30,7 +30,11 @@
 
 
           </q-form>
-          <q-btn color="primary" class="full-width " @click="userDataSave" label="Сохранить"/>
+          <div class="flex justify-between">
+            <q-btn color="positive" class=" " @click="userDataSave" label="Сохранить"/>
+            <q-btn color="primary" class=" " @click="userLogout" label="Выйти"/>
+          </div>
+
         </q-tab-panel>
 
         <q-tab-panel name="location_on">
@@ -94,6 +98,7 @@ export default {
   },
   methods:{
     ... mapActions('auth',['getUser']),
+    ...mapActions('auth',['logoutUser']),
     async userDataSave(){
       const responce = await this.$api.post('/api/user/update',{userData:this.userData})
       //console.log(responce.data)
@@ -107,6 +112,10 @@ export default {
       await this.$api.delete(`/api/user/delete_address/${id}`)
      await  this.getUser(false)
     },
+    userLogout(){
+      this.logoutUser()
+      this.$router.push('/')
+    }
   }
 }
 </script>
