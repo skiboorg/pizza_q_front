@@ -107,41 +107,41 @@
           <q-item-section>Контакты</q-item-section>
         </q-item>
         <q-separator spaced />
-        <q-item
-          v-if="$user.loggedIn"
-          clickable
-          v-ripple
-          :active="link === 'lk'"
-           @click="link = 'lk', $router.push('/lk')"
-          active-class="my-menu-link">
-          <q-item-section avatar>
-            <q-icon name="person" />
-          </q-item-section>
-          <q-item-section>Личный кабинет</q-item-section>
-        </q-item>
-        <q-item
-          v-if="$user.loggedIn"
-          clickable
-          v-ripple
-          :active="link === 'logout'"
-          @click="logoutUser"
-          active-class="my-menu-link">
-          <q-item-section avatar>
-            <q-icon name="logout" />
-          </q-item-section>
-          <q-item-section>Выход</q-item-section>
-        </q-item>
-        <q-item
-          v-else
-          clickable
-          v-ripple
-          @click="changeRightMenuVisible(false), changeAuthModalVisible(true)"
-          active-class="my-menu-link">
-          <q-item-section avatar>
-            <q-icon name="login" />
-          </q-item-section>
-          <q-item-section>Личный кабинет</q-item-section>
-        </q-item>
+<!--        <q-item-->
+<!--          v-if="$user.loggedIn"-->
+<!--          clickable-->
+<!--          v-ripple-->
+<!--          :active="link === 'lk'"-->
+<!--           @click="link = 'lk', $router.push('/lk')"-->
+<!--          active-class="my-menu-link">-->
+<!--          <q-item-section avatar>-->
+<!--            <q-icon name="person" />-->
+<!--          </q-item-section>-->
+<!--          <q-item-section>Личный кабинет</q-item-section>-->
+<!--        </q-item>-->
+<!--        <q-item-->
+<!--          v-if="$user.loggedIn"-->
+<!--          clickable-->
+<!--          v-ripple-->
+<!--          :active="link === 'logout'"-->
+<!--          @click="logoutUser"-->
+<!--          active-class="my-menu-link">-->
+<!--          <q-item-section avatar>-->
+<!--            <q-icon name="logout" />-->
+<!--          </q-item-section>-->
+<!--          <q-item-section>Выход</q-item-section>-->
+<!--        </q-item>-->
+<!--        <q-item-->
+<!--          v-else-->
+<!--          clickable-->
+<!--          v-ripple-->
+<!--          @click="changeRightMenuVisible(false), changeAuthModalVisible(true)"-->
+<!--          active-class="my-menu-link">-->
+<!--          <q-item-section avatar>-->
+<!--            <q-icon name="login" />-->
+<!--          </q-item-section>-->
+<!--          <q-item-section>Личный кабинет</q-item-section>-->
+<!--        </q-item>-->
 
 
       </q-list>

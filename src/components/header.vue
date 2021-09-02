@@ -1,6 +1,6 @@
 <template>
-  <q-header class="header bg-white text-black q-py-sm"
-            :class="[scrollPosition > 90 && !scrollUp ? 'header-sticky shadow-3':'', scrollPosition > 90 ? 'shadow-3':'']">
+  <q-header class="header bg-white text-black q-pt-sm"
+            :class="[scrollPosition > 90 && !scrollUp ? 'header-sticky shadow-2':'', scrollPosition > 90 ? 'shadow-2':'']">
     <div class="container">
 
       <q-toolbar class="q-pb-md ">
@@ -25,8 +25,8 @@
           <q-route-tab name="tab2" to="/delivery" label="Доставка и оплата" />
           <q-route-tab name="tab3" to="/vacancy" label="Вакансии" />
           <q-route-tab name="tab4" to="/contacts" label="Контакты" />
-          <q-tab v-if="!$user.loggedIn" name="tab5" @click="changeAuthModalVisible(true)" icon="login"  label="Личный кабинет" />
-          <q-route-tab  v-else name="tab5" to="/lk" icon="person" label="Личный кабинет" />
+<!--          <q-tab v-if="!$user.loggedIn" name="tab5" @click="changeAuthModalVisible(true)" icon="login"  label="Личный кабинет" />-->
+<!--          <q-route-tab  v-else name="tab5" to="/lk" icon="person" label="Личный кабинет" />-->
         </q-tabs>
         <q-space/>
         <div class="gt-sm">
@@ -44,11 +44,11 @@
             outside-arrows
             mobile-arrows
             dense
-            active-color="white"
-            indicator-color="transparent"
+
+            indicator-color="primary"
             :ripple="false"
             no-caps
-            class=" menu-tabs bg-white text-caption q-tabs__content--align-justify">
+            class="  bg-white text-caption q-tabs__content--align-justify">
             <q-tab :name="index"
                    class="text-uppercase  "
                    :ripple="false"
@@ -56,7 +56,7 @@
                    v-for="(item,index) in categories"
                    :key="item.id"
                    @click="changeSelectedCategory(index), is_index_page
-                   ? $scrollTo('#catID_'+item.id, 200, {offset: -90})
+                   ? $scrollTo('#catID_'+item.id, 200, {offset: !scrollUp ? -150 : -80})
                    : $router.push(`/#catID_${item.id}`)"
             />
             <!--                    @click="selectedCategory=item.id"-->
@@ -196,7 +196,7 @@ export default {
   position: sticky
   transition: all .2s linear
 .header-sticky
-  top: -86px
+  top: -94px
 .cart
   width: 320px
   max-height: 335px
