@@ -17,7 +17,7 @@ const makeRoutes = (store) => {
         {path: 'policy', component: () => import('pages/policy')},
         {path: 'rules', component: () => import('pages/rules')},
         {path: 'vacancy', component: () => import('pages/vacancy')},
-        {path: 'admin', component: () => import('pages/admin')},
+        {path: 'orders', component: () => import('pages/admin')},
       ]
     },
 

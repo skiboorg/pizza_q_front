@@ -31,7 +31,7 @@
 
           </q-form>
           <div class="flex justify-between">
-            <q-btn v-if="$user.user.is_staff" color="warning" @click="$router.push('/admin')" label="Админка"/>
+            <q-btn v-if="$user.user.is_staff" color="warning" @click="$router.push('/orders')" label="Админка"/>
             <q-btn color="positive" class=" " @click="userDataSave" label="Сохранить"/>
 
             <q-btn color="primary" class=" " @click="userLogout" label="Выйти"/>
