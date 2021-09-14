@@ -25,8 +25,8 @@
           <q-route-tab name="tab2" to="/delivery" label="Доставка и оплата" />
           <q-route-tab name="tab3" to="/vacancy" label="Вакансии" />
           <q-route-tab name="tab4" to="/contacts" label="Контакты" />
-<!--          <q-tab v-if="!$user.loggedIn" name="tab5" @click="changeAuthModalVisible(true)" icon="login"  label="Личный кабинет" />-->
-<!--          <q-route-tab  v-else name="tab5" to="/lk" icon="person" label="Личный кабинет" />-->
+          <q-tab v-if="!$user.loggedIn" name="tab5" @click="changeAuthModalVisible(true)" icon="login"  label="Личный кабинет" />
+          <q-route-tab  v-else name="tab5" to="/lk" icon="person" label="Личный кабинет" />
         </q-tabs>
         <q-space/>
         <div class="gt-sm">

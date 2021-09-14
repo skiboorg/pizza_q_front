@@ -35,11 +35,14 @@
               />
             </template>
           </q-input>
-          <q-btn size="md" label="Войти" type="submit" color="primary" class="q-my-sm full-width"/>
+          <q-btn  label="Войти" type="submit" color="primary" padding="15px" class="full-width"/>
         </q-form>
         <p class="text-caption text-grey-6 q-mb-sm text-center">
-          Еще нет аккаунта? <span class="text-grey-10 text-bold cursor-pointer" @click="authModalTab='registerTab'">Зарегистрироваться</span></p>
-        <p class="text-grey-10 text-caption text-center text-bold cursor-pointer" @click="authModalTab='restoreTab'">Забыли пароль?</p>
+          Зарегистрироваться Вы можете в мобильном приложении
+        </p>
+<!--        <p class="text-caption text-grey-6 q-mb-sm text-center">-->
+<!--          Еще нет аккаунта? <span class="text-grey-10 text-bold cursor-pointer" @click="authModalTab='registerTab'">Зарегистрироваться</span></p>-->
+<!--        <p class="text-grey-10 text-caption text-center text-bold cursor-pointer" @click="authModalTab='restoreTab'">Забыли пароль?</p>-->
 
 
 
@@ -97,11 +100,13 @@
             v-model="input_sms"
             v-if="sended_sms"
             label="Код подтверждения *"
-            mask="####"
+            mask="######"
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Введите код подтверждения',
              val => val===sended_sms || 'Неверный код подтверждения']"
           />
+            <p class="text-caption">На указанный номер телефона поступит звонок. Последние 6 цифр номера, с которого пришел звонок, будут являться кодом подтверждения</p>
+
           <q-btn size="md" :loading="loading" :label="sended_sms ? 'Регистрация':'Подтвердить номер'" type="submit" color="primary" class="q-my-sm full-width"/>
         </q-form>
         <p class="text-caption text-grey-6 q-mb-sm text-center">
@@ -128,7 +133,7 @@
             :dense="!$q.screen.gt.md"
             v-model="input_sms"
             label="Код из SMS *"
-            mask="####"
+            mask="######"
             lazy-rules
             :rules="[ val => val === sended_sms || 'Код не верный']"
           />
@@ -159,14 +164,14 @@ export default {
         password:null,
       },
       userRegister:{
-        phone:null,
-        password1:null,
-        password2:null,
+        phone:'+79682717070',
+        password1:'1111',
+        password2:'1111',
       },
 
       authModalTab:'loginTab',
-      restoreText:'Введите номер телефона, использованный при регистрации. На него придет смс-сообщение с кодом,' +
-        ' необходимым для восстановления пароля',
+      restoreText:'Введите номер телефона, использованный при регистрации. На него поступит звонок.' +
+        ' Последние 6 цифр номера, с которого пришел звонок, будут являться кодом подтверждения',
       restoreStep:1,
       restorePhone:null,
       restoreCode:null,
@@ -185,6 +190,7 @@ export default {
 
       }else {
         this.loading=false
+        this.sended_sms = null
         await this.completeRegistration()
       }
     },
@@ -206,27 +212,30 @@ export default {
         this.userLogin.phone = this.userRegister.phone
         this.userRegister.phone = null
         this.authModalTab = 'loginTab'
-
       }
-
-
     },
     async send_sms(){
       //console.log('sms')
-      const response = await  this.$api.post(`api/user/send_code_sms`,{phone:this.userRegister.phone})
+
+      const response = await  this.$api.post(`api/user/send_code_sms`,
+        {
+          phone:this.userRegister.phone,
+          r:this.$q.cookies.get('session_id')
+        })
+      //todo сброс пароля
       //console.log(response.data)
-      if (response.data.code){
+      if (response.data.id){
         this.$q.notify({
-          message: 'На ваш номер отправлено SMS с кодом подтверждения',
+          message: 'Ожидайте звонка на Ваш номер',
           position: this.$q.screen.lt.sm ? 'bottom' : 'bottom-right',
           color:'positive',
           icon: 'announcement'
         })
-        this.sended_sms= response.data.code
+        this.sended_sms= response.data.id
         this.loading=false
       }else {
         this.$q.notify({
-          message: 'Телефон указан не верно',
+          message: 'Телефон указан не верно или превышен лимит сообщений',
           position: this.$q.screen.lt.sm ? 'bottom' : 'bottom-right',
           icon: 'error',
           color:'red'
@@ -251,7 +260,7 @@ export default {
         this.authModalTab='loginTab'
       }catch (e) {
         this.$q.notify({
-          message: 'Проверьте введеные данные',
+          message: 'Аккаунт с таким номерм уже существует',
           position: this.$q.screen.lt.sm ? 'bottom' : 'bottom-right',
            color:'red',
           icon: 'announcement'

@@ -16,7 +16,7 @@
       >
         <q-tab name="person" icon="person"  label="Личные даные" />
         <q-tab name="location_on" icon="location_on" label="Адреса доставки" />
-        <q-tab name="password" icon="password" label="Сменить пароль" />
+<!--        <q-tab name="password" icon="password" label="Сменить пароль" />-->
       </q-tabs>
 
       <q-separator />
@@ -31,7 +31,9 @@
 
           </q-form>
           <div class="flex justify-between">
+            <q-btn v-if="$user.user.is_staff" color="warning" @click="$router.push('/admin')" label="Админка"/>
             <q-btn color="positive" class=" " @click="userDataSave" label="Сохранить"/>
+
             <q-btn color="primary" class=" " @click="userLogout" label="Выйти"/>
           </div>
 
@@ -77,6 +79,11 @@
 import {mapActions} from "vuex";
 
 export default {
+  preFetch ({ store, redirect }) {
+  if (!store.state.auth.loggedIn) {
+    redirect({ path: '/' })
+  }
+},
   data () {
     return {
       tab: 'person',

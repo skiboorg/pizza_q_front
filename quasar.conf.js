@@ -1,5 +1,6 @@
 module.exports = function (/* ctx */) {
   return {
+    preFetch: true,
     supportTS: false,
     // https://quasar.dev/quasar-cli/prefetch-feature
     boot: [
@@ -33,8 +34,8 @@ module.exports = function (/* ctx */) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        //API: 'https://meat-coal.ru'
-         API: 'http://localhost:8000'
+        API: 'https://meat-coal.ru',
+         //API: 'http://localhost:8000'
       },
 
       // transpile: false,
