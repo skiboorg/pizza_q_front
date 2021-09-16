@@ -35,10 +35,14 @@
             </q-item-section>
             <q-item-section>
               <q-item-label >
-                <q-chip v-if="order.is_delivered" dense color="green" text-color="white" icon="done">Доставлен</q-chip>
-                <q-chip v-else-if="order.is_delivery_in_progress" dense color="warning" text-color="white" icon="directions_run">Доставляется</q-chip>
-                <q-chip v-else-if="order.is_assing" dense color="warning" text-color="white" icon="hail">Передан курьеру</q-chip>
-                <q-chip v-else dense color="red" text-color="white" icon="close">Не передан курьеру</q-chip>
+                <div v-if="order.status">
+                  <q-chip v-if="order.status.is_delivered" dense color="green" text-color="white" icon="done">{{order.status.status}}</q-chip>
+                  <q-chip v-else-if="order.status.is_delivery_in_progress" dense color="warning" text-color="white" icon="directions_run">{{order.status.status}}</q-chip>
+                  <q-chip v-else-if="order.status.is_assing" dense color="warning" text-color="white" icon="hail">{{order.status.status}}</q-chip>
+                </div>
+                <div v-else><q-chip dense color="red" text-color="white" icon="close">Не передан курьеру</q-chip></div>
+
+
               </q-item-label>
               <q-item-label caption>Статус доставки</q-item-label>
             </q-item-section>
@@ -84,7 +88,7 @@
                     </div></div>
                    <q-separator vertical></q-separator>
                     <div class="col-4  q-pl-md">
-                      <div v-if="!order.is_assing ">
+                      <div v-if="!order.status ">
                           <q-select dense class="q-mb-sm" filled v-model="courier" :options="couriers" label="Курьеры" />
                           <q-btn no-caps class="q-mb-lg " @click="assignOrder" :loading="is_loading" :disable="!courier" color="positive" label="Назначить заказ"/>
                       </div>

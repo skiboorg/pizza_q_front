@@ -4,21 +4,23 @@
       <h3 class="f-raleway-900">Оформление заказа</h3>
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-          <p class="q-mb-sm text-bold text-h6">Доставка</p>
+          <p  class="q-mb-sm text-bold text-h6 q-mb-lg-lg q-mb-md">Тип доставки : {{orderData.delivery_type}}</p>
           <q-btn-toggle
+            v-if="current_City.id===1"
             v-model="orderData.delivery_type"
             toggle-color="primary"
             class="q-mb-lg"
             :options="[
-        {label: 'Курьером', value: 'Курьером'},
-        {label: 'Самовывоз', value: 'Самовывоз'},
-      ]"
+                {label: 'Курьером', value: 'Курьером'},
+                {label: 'Самовывоз', value: 'Самовывоз'},
+            ]"
           />
 
           <div  class="checkout-form">
 
             <q-form ref="orderForm" @submit="placeOrder" class="q-gutter-sd q-mb-lg">
               <q-input filled v-model="orderData.name" dense label="Ваше имя *" :rules="[val => !!val || 'Это обязательное поле']"/>
+              <p class="text-bold text-primary">Начало номера телефона необходимо вводить без учета 8 или +7</p>
               <q-input pattern="[0-9]*" filled v-model="orderData.phone" dense label="Телефон *" mask="+7 (###) ###-##-##" lazy-rules
                        :rules="[val => !!val  || 'Это обязательное поле', val => val.length > 17 || 'Телефон введен не полностью']"/>
               <q-checkbox class="q-mb-md" dense v-model="orderData.need_callback" label="Перезвоните мне для уточнения деталей заказа" />
@@ -268,6 +270,7 @@ export default {
   },
   data() {
     return {
+      current_City : {},
       myMap: null,
       current_id:null,
       headerCart:true,
@@ -283,7 +286,7 @@ export default {
         '17:30','18:00', '18:30', '19:00', '19:30','20:00', '20:30','21:00', '21:30', '22:00', '22:30'],
       orderData:{
         pizzaSize:22,
-        delivery_type:'Курьером',
+        delivery_type: 'Самовывоз',
         cafe_address:null,
         payment:'cash',
         need_callback:false,
@@ -330,7 +333,7 @@ export default {
   },
   mounted() {
     this.orderData.cafe_address = this.currentCity.adresses[0].address
-
+    this.current_City = this.currentCity
     let hour = new Date().getHours()
     let minute = new Date().getMinutes()
     let is_not_half_hour = minute < 30
@@ -351,6 +354,10 @@ export default {
   computed:{
     ...mapGetters('cart',['cart_items_count','items_in_cart','cart_bonuses','cart_promo','cart_total_price','is_apply_promo']),
     ...mapGetters('city',['cities','currentCity']),
+    cityID(){
+      return this.currentCity.id
+
+    },
     delivery_price(){
       return  this.orderData.delivery_type==='Курьером' ? 100 : 0
     },

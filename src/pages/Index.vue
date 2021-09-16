@@ -83,10 +83,9 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          <p class="text-center">Часы работы доставки: <br>
-            с 10.00 до 22.30
-          </p>
-          <p class="no-margin text-center">Все заказы, поступившие в нерабочее время, обрабатываются на следующий день.</p>
+
+          <div v-html="currentCity.modalText"></div>
+
 
         </q-card-section>
 
@@ -168,8 +167,8 @@ export default {
   },
   mounted() {
     let time = new Date().toLocaleTimeString()
-    //this.show_delivery_modal = true
-    this.show_delivery_modal = time > '22:30:00' || time < '10:00:00'
+    this.show_delivery_modal = true
+    //this.show_delivery_modal = time > '22:30:00' || time < '10:00:00'
 
   },
   updated(){
@@ -191,7 +190,7 @@ export default {
   computed:{
     ...mapGetters('products',['categories']),
     ...mapGetters('componentState',['selected_category']),
-    ...mapGetters('city',['banners']),
+    ...mapGetters('city',['banners','currentCity']),
     homeTopSlider() {
       return this.$refs.homeTopSlider.$swiper
     },
