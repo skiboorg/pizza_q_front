@@ -94,6 +94,26 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+     <q-dialog
+      v-model="modal"
+      transition-show="fade"
+      transition-hide="fade">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6 text-center text-weight-bold">Уважаемые клиенты!</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+
+          <p>В данный момент проводятся технические работы на сайте и могут быть сбои в заказах, пожалуйста, уточняйте отправленный через сайт заказ - у оператора по телефону.</p>
+
+        </q-card-section>
+
+        <q-card-actions align="center">
+          <q-btn  label="Понятно" color="primary" class="q-px-lg" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -119,6 +139,7 @@ export default {
       tab:0,
       fullHeight: false,
 
+      modal: true,
       show_delivery_modal: false,
       selectedCategory:1,
 
