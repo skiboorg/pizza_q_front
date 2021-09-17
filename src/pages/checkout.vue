@@ -1,6 +1,7 @@
 <template>
   <q-page class="q-pa-sm q-mb-lg">
-    <div class="container">
+
+    <div v-if="cart_total_price>0" class="container">
       <h3 class="f-raleway-900">Оформление заказа</h3>
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
@@ -256,6 +257,14 @@
         </div><!--        col-6-->
       </div><!--        row -->
     </div>
+     <q-page v-else class="flex items-center justify-center column">
+    <div class="container-sm text-center">
+       <img src="~assets/empty-cart.svg" >
+    <p class="text-h6">Корзина пуста</p>
+      <q-btn color="primary" @click="$router.push('/')" label="открыть меню"/>
+    </div>
+
+  </q-page>
   </q-page>
 </template>
 
