@@ -139,7 +139,7 @@ export default {
       tab:0,
       fullHeight: false,
 
-      modal: true,
+      modal: false,
       show_delivery_modal: false,
       selectedCategory:1,
 

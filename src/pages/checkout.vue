@@ -6,8 +6,9 @@
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
           <p  class="q-mb-sm text-bold text-h6 q-mb-lg-lg q-mb-md">Тип доставки : {{orderData.delivery_type}}</p>
+<!--             v-if="current_City.id===1"-->
           <q-btn-toggle
-            v-if="current_City.id===1"
+
             v-model="orderData.delivery_type"
             toggle-color="primary"
             class="q-mb-lg"
