@@ -190,6 +190,7 @@ export default {
     this.current_City = this.currentCity
     let time = new Date().toLocaleTimeString()
     //this.show_delivery_modal = true
+    console.log(this.current_City.id)
     this.current_City.id===2 ? this.modal = true : null
     this.show_delivery_modal = time > '22:30:00' || time < '10:00:00'
 
