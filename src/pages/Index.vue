@@ -104,8 +104,7 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-
-          <p>В данный момент проводятся технические работы на сайте и могут быть сбои в заказах, пожалуйста, уточняйте отправленный через сайт заказ - у оператора по телефону.</p>
+<p>   Кафе по техническим причинам не работает. <br> Приносим извинения за доставленные неудобства.</p>
 
         </q-card-section>
 
@@ -136,6 +135,7 @@ export default {
   },
   data(){
     return{
+      current_City : {},
       tab:0,
       fullHeight: false,
 
@@ -187,8 +187,10 @@ export default {
 
   },
   mounted() {
+    this.current_City = this.currentCity
     let time = new Date().toLocaleTimeString()
     //this.show_delivery_modal = true
+    this.current_City.id===2 ? this.modal = true : null
     this.show_delivery_modal = time > '22:30:00' || time < '10:00:00'
 
   },
