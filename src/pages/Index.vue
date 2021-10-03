@@ -186,7 +186,7 @@ export default {
     // this.banners = response.data
 
   },
-  mounted() {
+  beforeMount() {
     this.current_City = this.currentCity
     let time = new Date().toLocaleTimeString()
     //this.show_delivery_modal = true
