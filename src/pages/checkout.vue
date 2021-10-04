@@ -17,12 +17,13 @@
                 {label: 'Самовывоз', value: 'Самовывоз'},
             ]"
           />
+          <p class="text-primary text-bold">Уважаемые клиенты! Пожалуйста, вводите свой номер телефона корректно, без 8-ки или +7, система автоматически подставит +7 в начале, как только начнете вводить цифры.</p>
 
           <div  class="checkout-form">
 
             <q-form ref="orderForm" @submit="placeOrder" class="q-gutter-sd q-mb-lg">
               <q-input filled v-model="orderData.name" dense label="Ваше имя *" :rules="[val => !!val || 'Это обязательное поле']"/>
-              <p class="text-bold text-primary">Начало номера телефона необходимо вводить без учета 8 или +7</p>
+              <p class="text-bold text-primary">Пожалуйста, введите корректный номер, без 8-ки или +7</p>
               <q-input pattern="[0-9]*" filled v-model="orderData.phone" dense label="Телефон *" mask="+7 (###) ###-##-##" lazy-rules
                        :rules="[val => !!val  || 'Это обязательное поле', val => val.length > 17 || 'Телефон введен не полностью']"/>
               <q-checkbox class="q-mb-md" dense v-model="orderData.need_callback" label="Перезвоните мне для уточнения деталей заказа" />
