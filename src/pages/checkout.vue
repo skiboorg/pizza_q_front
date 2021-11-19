@@ -1,4 +1,5 @@
 <template>
+  <q-no-ssr>
   <q-page class="q-pa-sm q-mb-lg">
 
     <div v-if="cart_total_price>0" class="container">
@@ -50,7 +51,7 @@
           <div v-show="orderData.delivery_type!=='Курьером'" class="">
             <p class="text-bold text-h6">Адрес кафе</p>
             <div class="q-mb-sm " v-for="address in adresses" :key="address.id">
-              <q-radio dense   v-model="orderData.cafe_address"  :val="address.address" :label="address.address" />
+              <q-radio dense   v-model="orderData.cafe_address"  :val="address" :label="address.address" />
             </div>
             <!--      <div ref="map" style="height: 300px" class="q-mb-sm">-->
 
@@ -268,6 +269,7 @@
 
   </q-page>
   </q-page>
+  </q-no-ssr>
 </template>
 
 <script>
@@ -343,7 +345,7 @@ export default {
     }
   },
   mounted() {
-    this.orderData.cafe_address = this.currentCity.adresses[0].address
+    this.orderData.cafe_address = this.currentCity.adresses[0]
     this.current_City = this.currentCity
     let hour = new Date().getHours()
     let minute = new Date().getMinutes()
