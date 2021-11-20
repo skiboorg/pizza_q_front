@@ -161,7 +161,7 @@
       <swiper   class="recommended-slider q-mb-lg" :options="soucesSliderOption">
         <swiper-slide v-if="item.prices.filter(x => x.city === $q.cookies.get('city_id')).length" class="recommended-item"  v-for="item in recommended_items" :key="item.id">
           <q-card  class="q-py-sm cursor-pointer" @click="addToCart(item)" >
-            <q-card-section horizontal >
+            <q-card-section horizontal class="q-pa-none">
               <q-img
                   contain
                   :ratio="4/3"
