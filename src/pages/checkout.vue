@@ -453,6 +453,7 @@ export default {
           }
       });
       await this.fetchCart()
+      ym(86828132,'reachGoal','lead')
       if (response.data.formUrl){
         //console.log('redirect ',response.data.formUrl)
         // this.changePaymentUrl(response.data.formUrl)
