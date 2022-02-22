@@ -9,7 +9,7 @@
           <p  class="q-mb-sm text-bold text-h6 q-mb-lg-lg q-mb-md">Тип доставки : {{orderData.delivery_type}}</p>
 <!--             v-if="current_City.id===1"-->
           <q-btn-toggle
-            v-if="current_City.id===1"
+
             v-model="orderData.delivery_type"
             toggle-color="primary"
             class="q-mb-lg"
