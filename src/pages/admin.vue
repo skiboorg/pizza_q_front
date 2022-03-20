@@ -1,11 +1,15 @@
 <template>
   <q-page padding>
     <div class="container">
-      <p class="text-h5 text-bold">Заказы с доставкой на {{new Date().toLocaleDateString()}}</p>
+      <p class="text-h5 text-bold">Заказы на {{new Date().toLocaleDateString()}}</p>
 
       <q-list  separator >
         <div :class="{'bg-grey-2':cur_order===index}" v-for="(order,index) in orders" :key="order.id">
           <q-item  >
+            <q-item-section>
+              <q-item-label class="text-bold" :class="{'text-red':order.is_new,'text-green':!order.is_new}"> {{order.is_new ? 'Новый' : 'Просмотрен' }}</q-item-label>
+              <q-item-label caption>Статус</q-item-label>
+            </q-item-section>
             <q-item-section>
               <q-item-label class="text-bold"> {{order.order_code}}</q-item-label>
               <q-item-label caption>Номер заказа</q-item-label>
@@ -13,6 +17,10 @@
             <q-item-section>
               <q-item-label > {{new Date(order.created_at).toLocaleTimeString() }}</q-item-label>
               <q-item-label caption>Создан</q-item-label>
+            </q-item-section>
+              <q-item-section>
+              <q-item-label > {{order.delivery_type}}</q-item-label>
+              <q-item-label caption>Тип доставки</q-item-label>
             </q-item-section>
             <q-item-section>
               <q-item-label class="">
@@ -22,7 +30,7 @@
               </q-item-label>
               <q-item-label caption>Тип оплаты</q-item-label>
             </q-item-section>
-            <q-item-section>
+            <q-item-section style="display: none">
               <q-item-label >
                 <q-chip v-if="order.is_payed" dense color="green" text-color="white" icon="done">Оплачен</q-chip>
                 <q-chip v-else dense color="red" text-color="white" icon="close">Не оплачен</q-chip>
@@ -33,7 +41,7 @@
               <q-item-label class=""> {{ new Date(order.date).toLocaleDateString() }} / {{ order.time }}</q-item-label>
               <q-item-label caption>Дата/Время доставки</q-item-label>
             </q-item-section>
-            <q-item-section>
+            <q-item-section style="display: none">
               <q-item-label >
                 <div v-if="order.status">
                   <q-chip v-if="order.status.is_delivered" dense color="green" text-color="white" icon="done">{{order.status.status}}</q-chip>
@@ -60,7 +68,7 @@
               <q-expansion-item
                 group="somegroup"
                 label="Информация о заказе"
-                @click="cur_order=index, courier=null"
+                @click="openOrder(order.id,index)"
                 header-class="bg-grey-2 text-dark">
                 <q-card>
                  <q-card-section class="q-pa-md" horizontal>
@@ -87,7 +95,7 @@
                     <p class="q-mb-none text-caption">{{order.comment}}</p>
                     </div></div>
                    <q-separator vertical></q-separator>
-                    <div class="col-4  q-pl-md">
+                    <div style="display: none" class="col-4  q-pl-md">
                       <div v-if="!order.status ">
                           <q-select dense class="q-mb-sm" filled v-model="courier" :options="couriers" label="Курьеры" />
                           <q-btn no-caps class="q-mb-lg " @click="assignOrder" :loading="is_loading" :disable="!courier" color="positive" label="Назначить заказ"/>
@@ -146,18 +154,36 @@ export default {
   async beforeMount() {
 
     await this.getOrders()
-    await this.getCouriers()
+    // await this.getCouriers()
   },
    mounted() {
-  //   this.intervalID = setInterval(async function(){
-  //       await this.getOrders()
-  //   }.bind(this), 5000);
+
+    this.intervalID = setInterval(async function(){
+        await this.getOrders()
+      this.checkOrders()
+    }.bind(this), 5000);
 
    },
   destroyed() {
     clearInterval(this.intervalID)
   },
   methods:{
+    checkOrders(){
+      let audio = new Audio('m.mp3')
+
+      for(let x of this.orders){
+        if (x.is_new){
+          audio.play()
+          break
+        }
+      }
+
+    },
+    async openOrder(id,index){
+      this.cur_order=index
+        await api.get(`/api/order/set_order_view?id=${id}`)
+        await this.getOrders()
+    },
     async getOrders(){
       const resp = await api.get(`/api/order/get_orders?city_id=${this.currentCity.id}`)
       this.orders = resp.data
@@ -177,6 +203,7 @@ export default {
   },
   computed:{
     ...mapGetters('city',['cities','currentCity']),
+
   },
 }
 </script>
