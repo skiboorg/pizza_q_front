@@ -53,6 +53,7 @@
             <div class="q-mb-sm " v-for="address in adresses" :key="address.id">
               <q-radio dense   v-model="orderData.cafe_address"  :val="address" :label="address.address" />
             </div>
+            <p class="text-bold text-primary">Вы делаете заказ по городу {{current_City.name}}. Пожалуйста, перед отправкой заказа убедитесь, что вам нужен именно этот город.</p>
             <!--      <div ref="map" style="height: 300px" class="q-mb-sm">-->
 
             <!--        <yandex-map-->
