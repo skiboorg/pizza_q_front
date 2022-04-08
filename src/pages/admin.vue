@@ -10,6 +10,10 @@
               <q-item-label class="text-bold" :class="{'text-red':order.is_new,'text-green':!order.is_new}"> {{order.is_new ? 'Новый' : 'Просмотрен' }}</q-item-label>
               <q-item-label caption>Статус</q-item-label>
             </q-item-section>
+            <q-item-section style="    flex-basis: 175px;">
+              <q-item-label> {{order.cafe_address}}</q-item-label>
+              <q-item-label caption>Точка выдачи</q-item-label>
+            </q-item-section>
             <q-item-section>
               <q-item-label class="text-bold"> {{order.order_code}}</q-item-label>
               <q-item-label caption>Номер заказа</q-item-label>
