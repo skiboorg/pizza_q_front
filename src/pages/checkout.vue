@@ -100,12 +100,12 @@
          <p class="text-bold text-primary text-body1">{{orderData.delivery_type==='Курьером' ? 'В будни время доставки: в течении 1 ч, в выходные и праздничные дни - время доставки увеличено до 1 ч 40 мин' : 'Заказ можно будет забрать течении 1 часа'}}</p>
           <p class="text-bold text-h6">Оплата</p>
           <div class="flex column items-start q-mb-lg">
-            <q-radio  class="q-mb-sm" dense  v-model="orderData.payment" val="cash" label="Наличными при получении" />
-            <div v-if="orderData.payment==='cash'" class="flex items-center">
-              <p style="flex-basis: 40%">С какой суммы подготовить сдачу?</p>
-              <q-input  type="number" class="q-mr-sm" style="flex-basis: 20%" dense  outlined v-model="orderData.cashback" ></q-input>
-              <q-checkbox left-label v-model="orderData.no_cashback">Без сдачи</q-checkbox>
-            </div>
+<!--            <q-radio  class="q-mb-sm" dense  v-model="orderData.payment" val="cash" label="Наличными при получении" />-->
+<!--            <div v-if="orderData.payment==='cash'" class="flex items-center">-->
+<!--              <p style="flex-basis: 40%">С какой суммы подготовить сдачу?</p>-->
+<!--              <q-input  type="number" class="q-mr-sm" style="flex-basis: 20%" dense  outlined v-model="orderData.cashback" ></q-input>-->
+<!--              <q-checkbox left-label v-model="orderData.no_cashback">Без сдачи</q-checkbox>-->
+<!--            </div>-->
             <q-radio class="q-mb-sm" dense  v-model="orderData.payment" val="online" label="Онлайн" />
             <q-radio v-if="orderData.delivery_type==='Курьером'" dense  v-model="orderData.payment" val="courier_card" label="Картой курьеру" />
          </div>
@@ -309,7 +309,7 @@ export default {
         pizzaSize:22,
         delivery_type: 'Самовывоз',
         cafe_address:null,
-        payment:'cash',
+        payment:'online',
         need_callback:false,
         no_cashback:true,
         comment:null,
