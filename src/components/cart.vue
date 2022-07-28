@@ -187,7 +187,7 @@
           <q-card-section v-if="!cart_promo" class="no-padding">
           <div class="row q-mb-lg">
             <q-input style="border: 2px solid #EF2121; border-radius: 6px" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-mb-lg-none q-mb-md-none q-mb-sm-none q-mb-xs-md" outlined v-model="promoCode" label="Введите промокод" dense  />
-          <q-btn class="col-lg-2 col-md-2 col-sm-2 col-xs-12 q-ml-lg-md q-ml-md-md q-ml-sm-md q-ml-xs-none" color="primary" :disable="!promoCode" @click="usePromo"  label="Применить"></q-btn>
+          <q-btn no-caps unelevated  class="col-lg-2 col-md-2 col-sm-2 col-xs-12 q-ml-lg-md q-ml-md-md q-ml-sm-md q-ml-xs-none" color="primary" :disable="!promoCode" @click="usePromo"  label="Применить"></q-btn>
           </div>
         </q-card-section>
       </div>
@@ -195,7 +195,7 @@
     </div>
 
     <div v-if="!headerCart" class="">
-      <q-separator spaced/>
+      <q-separator spaced="md"/>
       <div class="flex items-center q-mb-md">
         <p class="text-h6 text-bold q-mb-none q-mr-md">Количество персон  </p>
         <q-btn @click="updatePerson('del_person')"
@@ -214,7 +214,7 @@
       <p class="text-h6 text-bold">Сумма заказа: {{cart_total_price}} р  <span class="q-mb-none text-body1 text-primary  " v-if="is_apply_promo">(Цена с учетом акции)</span></p>
       <div class="row">
         <q-btn outline to="/" class=" q-mt-lg col-lg-5 col-md-5 col-sm-5 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0" color="primary" label="Вернуться в меню"/>
-      <q-btn  class="text-h5 text-bold q-mt-lg col-lg-5 col-md-5 col-sm-5 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0" color="primary"  size="md"
+      <q-btn no-caps unelevated  class="text-h5 text-bold q-mt-lg col-lg-5 col-md-5 col-sm-5 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0" color="primary"  size="md"
            @click="openCheckoutPage"
            label="Оформить заказ "/>
       </div>

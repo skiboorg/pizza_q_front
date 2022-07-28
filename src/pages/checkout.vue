@@ -9,6 +9,8 @@
           <p  class="q-mb-sm text-bold text-h6 q-mb-lg-lg q-mb-md">Тип доставки : {{orderData.delivery_type}}</p>
 <!--             v-if="current_City.id===1"-->
           <q-btn-toggle
+            unelevated
+            no-caps
 
             v-model="orderData.delivery_type"
             toggle-color="primary"
@@ -106,22 +108,23 @@
 <!--              <q-input  type="number" class="q-mr-sm" style="flex-basis: 20%" dense  outlined v-model="orderData.cashback" ></q-input>-->
 <!--              <q-checkbox left-label v-model="orderData.no_cashback">Без сдачи</q-checkbox>-->
 <!--            </div>-->
-            <q-radio class="q-mb-sm" dense  v-model="orderData.payment" val="online" label="Онлайн" />
+            <q-radio v-if="orderData.delivery_type==='Курьером'" class="q-mb-sm" dense  v-model="orderData.payment" val="online" label="Онлайн" />
             <q-radio v-if="orderData.delivery_type==='Курьером'" dense  v-model="orderData.payment" val="courier_card" label="Картой курьеру" />
+            <q-radio v-if="orderData.delivery_type==='Самовывоз'" dense  v-model="orderData.payment" val="cash" label="Картой при получении" />
          </div>
-          <q-btn v-if="orderData.delivery_type==='Курьером'" color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
+          <q-btn no-caps unelevated v-if="orderData.delivery_type==='Курьером'" color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
                  :label="`Подтвердить заказ на ${cart_total_price  + delivery_price} р ${is_apply_promo ? '(С учетом акции и доставки)' : '(С учетом доставки)'}` "/>
-          <q-btn v-else color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
+          <q-btn no-caps unelevated v-else color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
                  :label="`Подтвердить заказ на ${cart_total_price} р ${is_apply_promo ? '(С учетом акции)' : ''}` "/>
              <div v-if="delivery_price>0" class="lt-sm"><p class="text-caption text-primary">Минимальная стоимость доставки 100 руб (в радиусе 3 км от кафе). Точную стоимость доставки можно узнать у оператора.</p></div>
           <p class="text-caption text-grey-6">Нажимая на кнопку, вы даете согласие на обработку персональных данных</p>
-          <p class="text-bold text-negative">График работы кафе в праздники:<br><br>
+<!--          <p class="text-bold text-negative">График работы кафе в праздники:<br><br>-->
 
-31 декабря 2021 года кафе работают с 10.00 до 19.00<br>
+<!--31 декабря 2021 года кафе работают с 10.00 до 19.00<br>-->
 
-01.01.2022 г - работает только кафе по адресу: Железнодорожников, 12, его время работы: с 15.00 до 22.00<br><br>
+<!--01.01.2022 г - работает только кафе по адресу: Железнодорожников, 12, его время работы: с 15.00 до 22.00<br><br>-->
 
-Со второго января все кафе работают в обычном режиме, с 10.00 до 22.00</p>
+<!--Со второго января все кафе работают в обычном режиме, с 10.00 до 22.00</p>-->
           <Payment/>
         </div><!--        col-6-->
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 gt-xs offset-lg-1 offset-md-1 offset-sm-1">
@@ -309,7 +312,7 @@ export default {
         pizzaSize:22,
         delivery_type: 'Самовывоз',
         cafe_address:null,
-        payment:'online',
+        payment: 'cash',
         need_callback:false,
         no_cashback:true,
         comment:null,
@@ -336,6 +339,7 @@ export default {
   },
   watch:{
 
+
     selectedAddress(val){
       //console.log(val)
       this.orderData.street = val.street
@@ -346,7 +350,13 @@ export default {
       this.orderData.floor = val.floor
     },
     'orderData.delivery_type'(val){
-      val === 'Самовывоз' ? this.orderData.payment = 'online' : 'cash'
+
+      if (val === 'Самовывоз'){
+        this.orderData.payment = 'cash'
+
+      } else{
+        this.orderData.payment = 'online'
+      }
 
       //this.currentMark = new ymaps.Placemark(this.coordinates);
       //this.myMap.geoObjects.add(this.currentMark)

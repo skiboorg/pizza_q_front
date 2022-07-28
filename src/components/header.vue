@@ -75,7 +75,7 @@
                 <p class="no-margin text-h6 text-bold text-primary">{{items_in_cart.total_price}} р</p>
               </div>
               <div v-if="cart_items_count>0" class="text-center q-pa-sm">
-                <q-btn @click="openCartPage" class="full-width  text-bold " color="primary" label="В корзину"/>
+                <q-btn no-caps unelevated  @click="openCartPage" class="full-width  text-bold " color="primary" label="В корзину"/>
               </div>
             </q-menu>
           </q-chip>
