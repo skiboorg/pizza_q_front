@@ -27,7 +27,9 @@
       <p v-if="currentCity.id===3" @click="coords=[64.910244, 77.781222],selectedAddress=1"
          :class="{'link-active':selectedAddress===1}" class="text-decoration-dash cursor-pointer">Тарко-Сале, ул.Строителей,19</p>
        <p v-if="currentCity.id===4" @click="coords=[65.859078, 74.490612],selectedAddress=1"
-         :class="{'link-active':selectedAddress===1}" class="text-decoration-dash cursor-pointer">Пангоды, ул. Звездная, 19</p>
+         :class="{'link-active':selectedAddress===1}" class=" ">Пангоды, ул. Звездная, 19</p>
+      <p v-if="currentCity.id===5" @click="coords=[65.533689, 72.528215],selectedAddress=1"
+         :class="{'link-active':selectedAddress===1}" class=" ">Надым, ул, Зверева, 20б</p>
 <!--      <p class="text-h5 text-bold">Другие наши кафе по адресам:</p>-->
 <!--      <p @click="coords=[62.236750, 74.532249],selectedAddress=2" class="text-decoration-dash q-mb-sm cursor-pointer" :class="{'link-active':selectedAddress===2}">Когалым, Кирова 9</p><br>-->
 <!--      <p @click="coords=[63.198711, 75.451836],selectedAddress=3" class="text-decoration-dash q-mb-sm cursor-pointer" :class="{'link-active':selectedAddress===3}">Ноябрьск, Дзержинского 12б</p><br>-->
@@ -44,6 +46,8 @@
             <a class="no-text-decoration text-grey-10 text-decoration-dash zphone" href="tel:+73452925577">+7 (908) 863 56 25</a></p>
   <p v-if="currentCity.id===4" class="q-mb-sm q-mr-md">
             <a class="no-text-decoration text-grey-10 text-decoration-dash zphone" href="tel:+73452925577">+7 (951) 994-74-40</a></p>
+    <p v-if="currentCity.id===5" class="q-mb-sm q-mr-md">
+            <a class="no-text-decoration text-grey-10 text-decoration-dash zphone" href="tel:+73499540009">+7 (3499) 54-00-09</a></p>
 </q-no-ssr>
 
       </div>
@@ -76,6 +80,9 @@ export default {
       }
       if (this.currentCity.id===4){
         return [65.859078, 74.490612]
+      }
+      if (this.currentCity.id===5){
+        return [65.533689, 72.528215]
       }
 
     }
