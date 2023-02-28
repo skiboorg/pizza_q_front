@@ -26,9 +26,11 @@
 
             <q-form ref="orderForm" @submit="placeOrder" class="q-gutter-sd q-mb-lg">
               <q-input filled v-model="orderData.name" dense label="Ваше имя *" :rules="[val => !!val || 'Это обязательное поле']"/>
-              <p class="text-bold text-primary">Пожалуйста, введите корректный номер, без 8-ки или +7</p>
+              <p class="text-bold text-primary text-h6">Пожалуйста, введите корректный номер, без 8-ки или +7</p>
               <q-input pattern="[0-9]*" filled v-model="orderData.phone" dense label="Телефон *" mask="+7 (###) ###-##-##" lazy-rules
                        :rules="[val => !!val  || 'Это обязательное поле', val => val.length > 17 || 'Телефон введен не полностью']"/>
+               <q-input pattern="[0-9]*" filled v-model="orderData.phone1" dense label="Повторите телефон *" mask="+7 (###) ###-##-##" lazy-rules
+                       :rules="[val => !!val  || 'Это обязательное поле', val => val === orderData.phone|| 'Телефоны не совпадают']"/>
               <q-checkbox class="q-mb-md" dense v-model="orderData.need_callback" label="Перезвоните мне для уточнения деталей заказа" />
               <div v-if="orderData.delivery_type==='Курьером'">
                 <div v-if="$user.loggedIn &&  user_addresses.length>0" class="q-mb-sm">
@@ -114,6 +116,7 @@
          </div>
           <q-btn no-caps unelevated v-if="orderData.delivery_type==='Курьером'" color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
                  :label="`Подтвердить заказ на ${cart_total_price  + delivery_price} р ${is_apply_promo ? '(С учетом акции и доставки)' : '(С учетом доставки)'}` "/>
+
           <q-btn no-caps unelevated v-else color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
                  :label="`Подтвердить заказ на ${cart_total_price} р ${is_apply_promo ? '(С учетом акции)' : ''}` "/>
              <div v-if="delivery_price>0" class="lt-sm"><p class="text-caption text-primary">Минимальная стоимость доставки 120 руб (в радиусе 3 км от кафе). Точную стоимость доставки можно узнать у оператора.</p></div>
@@ -319,6 +322,7 @@ export default {
         cashback:0,
         name: this.$user.loggedIn ? this.$user.user.fio : '',
         phone: this.$user.loggedIn ? this.$user.user.phone : '',
+        phone1: this.$user.loggedIn ? this.$user.user.phone : '',
         street:null,
         house:null,
         flat:null,
