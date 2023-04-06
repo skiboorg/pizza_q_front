@@ -29,8 +29,8 @@
               <p class="text-bold text-primary text-h6">Пожалуйста, введите корректный номер, без 8-ки или +7</p>
               <q-input pattern="[0-9]*" filled v-model="orderData.phone" dense label="Телефон *" mask="+7 (###) ###-##-##" lazy-rules
                        :rules="[val => !!val  || 'Это обязательное поле', val => val.length > 17 || 'Телефон введен не полностью']"/>
-               <q-input pattern="[0-9]*" filled v-model="orderData.phone1" dense label="Повторите телефон *" mask="+7 (###) ###-##-##" lazy-rules
-                       :rules="[val => !!val  || 'Это обязательное поле', val => val === orderData.phone|| 'Телефоны не совпадают']"/>
+               <q-input pattern="[0-9]*" filled v-model="orderData.phone_raw" dense label="Повторите телефон *"
+                       :rules="[val => !!val  || 'Это обязательное поле']"/>
               <q-checkbox class="q-mb-md" dense v-model="orderData.need_callback" label="Перезвоните мне для уточнения деталей заказа" />
               <div v-if="orderData.delivery_type==='Курьером'">
                 <div v-if="$user.loggedIn &&  user_addresses.length>0" class="q-mb-sm">
@@ -322,7 +322,7 @@ export default {
         cashback:0,
         name: this.$user.loggedIn ? this.$user.user.fio : '',
         phone: this.$user.loggedIn ? this.$user.user.phone : '',
-        phone1: this.$user.loggedIn ? this.$user.user.phone : '',
+        phone_raw: this.$user.loggedIn ? this.$user.user.phone : '',
         street:null,
         house:null,
         flat:null,
