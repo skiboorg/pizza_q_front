@@ -110,7 +110,7 @@
 <!--              <q-input  type="number" class="q-mr-sm" style="flex-basis: 20%" dense  outlined v-model="orderData.cashback" ></q-input>-->
 <!--              <q-checkbox left-label v-model="orderData.no_cashback">Без сдачи</q-checkbox>-->
 <!--            </div>-->
-            <q-radio v-if="orderData.delivery_type==='Курьером'" class="q-mb-sm" dense  v-model="orderData.payment" val="online" label="Онлайн" />
+<!--            <q-radio v-if="orderData.delivery_type==='Курьером'" class="q-mb-sm" dense  v-model="orderData.payment" val="online" label="Онлайн" />-->
             <q-radio v-if="orderData.delivery_type==='Курьером'" dense  v-model="orderData.payment" val="courier_card" label="Картой курьеру" />
             <q-radio v-if="orderData.delivery_type==='Самовывоз'" dense  v-model="orderData.payment" val="cash" label="Картой при получении" />
          </div>
@@ -359,7 +359,7 @@ export default {
         this.orderData.payment = 'cash'
 
       } else{
-        this.orderData.payment = 'online'
+        this.orderData.payment = 'courier_card'
       }
 
       //this.currentMark = new ymaps.Placemark(this.coordinates);
