@@ -30,6 +30,7 @@ const mutations = {
     state.banners = data
   },
   updateCurrentCity(state,data){
+    console.log('updateCurrentCity')
     state.currentCity = data
   },
 
@@ -39,7 +40,7 @@ const actions = {
   async fetchCity({commit,state,dispatch}){
     //console.log('fetchCity')
     if (this._vm.$cook.get('city_selected')){
-      //console.log('1')
+      console.log('city_selected',this._vm.$cook.get('city_selected'))
     }else {
 
       this._vm.$cook.set('city_selected',false)

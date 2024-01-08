@@ -11,7 +11,7 @@ module.exports = function (/* ctx */) {
       //{ path: 'lazy', server: false },
       { path: 'ya_map', server: false },
       //{ path: 'ya_metrika', server: false },
-      { path: 'fbp', server: false },
+     // { path: 'fbp', server: false },
      // { path: 'gtag', server: false },
     ],
     css: [

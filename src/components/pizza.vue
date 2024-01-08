@@ -26,6 +26,7 @@
                     v-for="(ingredient,index) in pizza.base_ingridients"
                     :key="ingredient.id"
                     left-label
+                    no-caps
                     :disable="!ingredient.is_can_removed"
                     v-model="pizza.base_ingridients[index].is_removed"
                     :true-value="false"
@@ -38,6 +39,7 @@
           <q-btn-toggle
             class="q-mr-sm"
             v-model="pizzaSize"
+            no-caps
             toggle-color="primary"
             :options="[
         {label: '28 см', value: 22},
@@ -88,7 +90,7 @@
           color="primary"
           :loading="is_loading"
           @click="addToCart"
-
+          no-caps
           label="В корзину" >
           <template v-slot:loading>
             <q-spinner-hourglass class="on-left" />
@@ -204,18 +206,6 @@ export default {
           }
         }
       });
-      this.$analytics.fbq.event('AddToCart',{
-        value: this.total_price,
-        currency: 'RUB',
-        contents: [
-          {
-            id: this.pizza.id,
-            quantity: 1
-          }
-        ],
-        content_ids: this.pizza.id,
-      });
-
       this.closeModal()
     },
     async getPizza(){

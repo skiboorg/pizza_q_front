@@ -21,12 +21,12 @@
         </div>
         <q-space/>
         <q-tabs dense class="gt-sm" inline-label v-model="tab" shrink :indicator-color="tab==='tab5' ? 'white' : 'primary'">
-          <q-route-tab  name="tab1" to="/promotions"  label="Акции" />
-          <q-route-tab name="tab2" to="/delivery" label="Доставка и оплата" />
-          <q-route-tab name="tab3" to="/vacancy" label="Вакансии" />
-          <q-route-tab name="tab4" to="/contacts" label="Контакты" />
-          <q-tab v-if="!$user.loggedIn" name="tab5" @click="changeAuthModalVisible(true)" icon="login"  label="Личный кабинет" />
-          <q-route-tab  v-else name="tab5" to="/lk" icon="person" label="Личный кабинет" />
+          <q-route-tab  no-caps  name="tab1" to="/promotions"  label="Акции" />
+          <q-route-tab  no-caps name="tab2" to="/delivery" label="Доставка и оплата" />
+          <q-route-tab  no-caps name="tab3" to="/vacancy" label="Вакансии" />
+          <q-route-tab  no-caps name="tab4" to="/contacts" label="Контакты" />
+          <q-tab  no-caps v-if="!$user.loggedIn" name="tab5" @click="changeAuthModalVisible(true)" icon="login"  label="Личный кабинет" />
+          <q-route-tab  no-caps v-else name="tab5" to="/lk" icon="person" label="Личный кабинет" />
         </q-tabs>
         <q-space/>
         <div class="gt-sm">
@@ -48,10 +48,11 @@
             indicator-color="primary"
             :ripple="false"
             no-caps
-            class="  bg-white text-caption q-tabs__content--align-justify">
+            class="    text-bold q-tabs__content--align-justify">
             <q-tab :name="index"
-                   class="text-uppercase  "
+                   class="text-bold "
                    :ripple="false"
+                   no-caps
                    :label="item.name"
                    v-for="(item,index) in categories"
                    :key="item.id"
@@ -158,10 +159,6 @@ export default {
     ...mapActions('auth',['logoutUser']),
     ...mapActions('componentState',['changeRightMenuVisible','changeAuthModalVisible','changeSelectedCategory']),
     openCartPage(){
-      this.$analytics.fbq.event('InitiateCheckout',{
-      value: this.items_in_cart.total_price,
-      currency: 'RUB',
-      })
       this.$router.push('/cart')
     },
     async changeCity(id){

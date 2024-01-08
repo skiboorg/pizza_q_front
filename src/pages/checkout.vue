@@ -1,6 +1,7 @@
 <template>
   <q-no-ssr>
   <q-page class="q-pa-sm q-mb-lg">
+{{orderData.cafe_address}}
 
     <div v-if="cart_total_price>0" class="container">
       <h3 class="f-raleway-900">Оформление заказа</h3>
@@ -54,7 +55,7 @@
           </div>
           <div v-show="orderData.delivery_type!=='Курьером'" class="">
             <p class="text-bold text-h6">Адрес кафе</p>
-            <div class="q-mb-sm " v-for="address in adresses" :key="address.id">
+            <div class="q-mb-sm " v-for="address in currentCity.adresses" :key="address.id">
               <q-radio dense   v-model="orderData.cafe_address"  :val="address" :label="address.address" />
             </div>
             <p class="text-bold text-primary">Вы делаете заказ по городу {{current_City.name}}. Пожалуйста, перед отправкой заказа убедитесь, что вам нужен именно этот город.</p>
@@ -119,7 +120,7 @@
 
           <q-btn no-caps unelevated v-else color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
                  :label="`Подтвердить заказ на ${cart_total_price} р ${is_apply_promo ? '(С учетом акции)' : ''}` "/>
-             <div v-if="delivery_price>0" class="lt-sm"><p class="text-caption text-primary">Минимальная стоимость доставки 120 руб (в радиусе 3 км от кафе). Точную стоимость доставки можно узнать у оператора.</p></div>
+             <div v-if="delivery_price>0" class="lt-sm"><p class="text-caption text-primary">Минимальная стоимость доставки 150 руб (в радиусе 3 км от кафе). Точную стоимость доставки можно узнать у оператора.</p></div>
           <p class="text-caption text-grey-6">Нажимая на кнопку, вы даете согласие на обработку персональных данных</p>
 <!--          <p class="text-bold text-negative">График работы кафе в праздники:<br><br>-->
 
@@ -264,7 +265,7 @@
                 <p class="text-bold text-body1 no-margin">Доставка:</p>
                 <p class="text-bold text-body1 no-margin">+ {{delivery_price}} р</p>
               </div>
-              <div v-if="delivery_price>0" class=""><p class="text-caption text-primary">Минимальная стоимость доставки 120 руб (в радиусе 3 км от кафе).<br>Точную стоимость доставки можно узнать у оператора.</p></div>
+              <div v-if="delivery_price>0" class=""><p class="text-caption text-primary">Минимальная стоимость доставки 150 руб (в радиусе 3 км от кафе).<br>Точную стоимость доставки можно узнать у оператора.</p></div>
               <div  class="flex items-center justify-between">
                 <p class="text-bold text-h6 text-primary no-margin">Итого:</p>
                 <p class="text-bold text-h6 text-primary no-margin"><span class="q-mb-none text-caption text-primary  " v-if="is_apply_promo">(С учетом акции)</span>{{cart_total_price + delivery_price}} р</p>
@@ -366,8 +367,12 @@ export default {
       //this.myMap.geoObjects.add(this.currentMark)
     }
   },
+  async beforeMount() {
+    console.log('before')
+    await this.fetchCity()
+    this.orderData.cafe_address = this.currentCity?.adresses[0]
+  },
   mounted() {
-    this.orderData.cafe_address = this.currentCity.adresses[0]
     this.current_City = this.currentCity
     let hour = new Date().getHours()
     let minute = new Date().getMinutes()
@@ -378,12 +383,7 @@ export default {
     //   if (is_not_half_hour)
     //     this.delivery_time.push(`${i}:30`)
     // }
-    this.adresses = this.currentCity.adresses
     this.orderData.time= `${is_not_half_hour ? hour : hour+1}:${is_not_half_hour ? '30' : '00'}`
-    this.$analytics.fbq.event('InitiateCheckout',{
-            value: this.items_in_cart.total_price - this.cart_bonuses - this.cart_promo,
-              currency: 'RUB',
-          })
   },
 
   computed:{
@@ -394,7 +394,7 @@ export default {
 
     },
     delivery_price(){
-      return  this.orderData.delivery_type==='Курьером' ? 120 : 0
+      return  this.orderData.delivery_type==='Курьером' ? 150 : 0
     },
     coordinates () {
       return this.currentCity.adresses.find(x => x.address === this.orderData.cafe_address).coordinates.split(',')
@@ -421,6 +421,7 @@ export default {
   },
   methods:{
     ...mapActions('cart',['fetchCart']),
+    ...mapActions('city',['fetchCity']),
     ... mapActions('auth',['getUser']),
     ...mapActions('componentState',['changePaymentVisible','changePaymentUrl']),
     map_init() {
@@ -448,10 +449,10 @@ export default {
           source:'site'
         })
 
-       this.$analytics.fbq.event('Purchase', {
-        value: this.items_in_cart.total_price - this.cart_bonuses - this.cart_promo + this.delivery_price,
-        currency: 'RUB'
-      })
+      //  this.$analytics.fbq.event('Purchase', {
+      //   value: this.items_in_cart.total_price - this.cart_bonuses - this.cart_promo + this.delivery_price,
+      //   currency: 'RUB'
+      // })
       let items =[]
       for (let i of this.items_in_cart.items){
         let item = {

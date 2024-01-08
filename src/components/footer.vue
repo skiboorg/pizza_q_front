@@ -30,18 +30,19 @@
         </q-avatar>
           </div>
 
-          <div class="flex column items-start">
-            <a target="_blank" href="https://apps.apple.com/us/app/meat-coal/id1572409729"><img class="store-img" src="~assets/ios.png" alt=""></a>
-            <a target="_blank" href="https://play.google.com/store/apps/details?id=ru.meat.coal.app"><img class="store-img" src="~assets/play.png" alt=""></a>
-          </div>
+<!--          <div class="flex column items-start">-->
+<!--            <a target="_blank" href="https://apps.apple.com/us/app/meat-coal/id1572409729"><img class="store-img" src="~assets/ios.png" alt=""></a>-->
+<!--            <a target="_blank" href="https://play.google.com/store/apps/details?id=ru.meat.coal.app"><img class="store-img" src="~assets/play.png" alt=""></a>-->
+<!--          </div>-->
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
            <p><router-link class="no-text-decoration text-grey-10" exact-active-class="link-active" exact to="policy">Политика конфиденциальности</router-link></p>
           <p><router-link class="no-text-decoration text-grey-10" exact-active-class="link-active" exact to="rules">Правила оказания услуг</router-link></p>
-           <p class="q-mb-none q-mt-lg flex items-center">
-            Разработка сайта
-            <img class="q-ml-lg q-mr-xs" style="width: 30px;height: 30px;object-fit: contain" src="https://www.astrapromo.ru/images/logo.png" alt="">
-            <a style="text-decoration: none;font-weight: bold" target="_blank" href="https://www.astrapromo.ru/">ASTRAPROMO</a></p>
+<!--           <p class="q-mb-none q-mt-lg flex items-center">-->
+<!--            Разработка сайта-->
+<!--&lt;!&ndash;            <img class="q-ml-lg q-mr-xs" style="width: 30px;height: 30px;object-fit: contain" src="https://www.astrapromo.ru/images/logo.png" alt="">&ndash;&gt;-->
+<!--            <a style="text-decoration: none;font-weight: bold" target="_blank" href="https://www.astrapromo.ru/">ASTRAPROMO</a>-->
+<!--           </p>-->
         </div>
       </div>
     </div>

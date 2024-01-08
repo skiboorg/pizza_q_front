@@ -8,25 +8,26 @@ export default async ({ app, router, Vue, store, ssrContext }) => {
     ? Cookies.parseSSR(ssrContext)
     : Cookies
 
-  if (!process.env.SERVER) {
-   // if(window.location.host.split('.').length>2){
-    //  const response = await api.get(`https://meat-coal.ru/api/items/get_city?domain=${window.location.host.split('.')[0]}`)
-
-   if(window.location.host.split('.').length>1){
-      const response = await api.get(`http://localhost:8000/api/items/get_city?domain=${window.location.host.split('.')[0]}`)
-     //console.log(response.data)
-     cookies.set('city_selected',true)
-     cookies.set('city_id',response.data.id)
-     cookies.set('metrika_id',response.data.metrika_id)
-     cookies.set('call_tracker_id',response.data.call_tracker_id)
-   }
-  }
+  // if (!process.env.SERVER) {
+  //  // if(window.location.host.split('.').length>2){
+  //   //  const response = await api.get(`https://meat-coal.ru/api/items/get_city?domain=${window.location.host.split('.')[0]}`)
+  //
+  //  if(window.location.host.split('.').length>2){
+  //     const response = await api.get(`${process.env.API}/api/items/get_city?domain=${window.location.host.split('.')[0]}`)
+  //    //console.log(response.data)
+  //    cookies.set('city_selected',true)
+  //    cookies.set('city_id',response.data.id)
+  //    cookies.set('metrika_id',response.data.metrika_id)
+  //    cookies.set('call_tracker_id',response.data.call_tracker_id)
+  //  }
+  // }
 
 
     let token = cookies.get('auth_token')
   Vue.prototype.$cook = cookies
    store.dispatch('products/fetchItems')
    store.dispatch('cart/fetchCart')
+   store.dispatch('city/fetchCity')
 
   if (token) {
    await store.dispatch('auth/getUser')

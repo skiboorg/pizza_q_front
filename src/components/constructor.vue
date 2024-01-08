@@ -147,17 +147,6 @@ export default {
         color: 'positive'
       })
       await this.$store.dispatch('cart/fetchCart')
-      this.$analytics.fbq.event('AddToCart',{
-        value: this.pizzaPrice,
-        currency: 'RUB',
-        contents: [
-          {
-            id: 'Конструктор',
-            quantity: 1
-          }
-        ],
-        content_ids: 'Конструктор',
-      });
       this.closeModal()
 
     },

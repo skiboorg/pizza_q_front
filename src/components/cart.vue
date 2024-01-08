@@ -298,7 +298,7 @@ export default {
     ...mapActions('cart',['fetchCart','addBonuses','addPromo']),
     ...mapActions('auth',['getUser']),
     openCheckoutPage(){
-      this.$analytics.fbq.event('Lead')
+
       this.$router.push('/checkout')
 
     },

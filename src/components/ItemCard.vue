@@ -52,10 +52,12 @@
                color="primary"
                class="in-cart-btn col-lg-8 col-md-8 col-sm-8 col-xs-8"
                @click="openPizza(item.id)"
-
+               no-caps
                label="В корзину" />
 <!--           :label="`от ${item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price} р` " -->
         <q-btn v-else unelevated
+
+               no-caps
 
                class="in-cart-btn col-lg-9 col-md-9 col-sm-9 col-xs-9"
                :loading="is_loading"
@@ -136,17 +138,7 @@ export default {
         color: 'positive'
       })
       this.is_loading = false
-      this.$analytics.fbq.event('AddToCart',{
-        value: this.item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price,
-        currency: 'RUB',
-        contents: [
-          {
-            id: this.item.id,
-            quantity: this.units
-          }
-        ],
-        content_ids: this.item.id,
-      });
+
       window.dataLayer.push({
     "ecommerce": {
         "add": {
