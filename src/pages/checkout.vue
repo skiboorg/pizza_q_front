@@ -1,7 +1,7 @@
 <template>
   <q-no-ssr>
   <q-page class="q-pa-sm q-mb-lg">
-{{orderData.cafe_address}}
+<!--{{orderData.cafe_address}}-->
 
     <div v-if="cart_total_price>0" class="container">
       <h3 class="f-raleway-900">Оформление заказа</h3>
