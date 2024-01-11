@@ -12,11 +12,11 @@
            </div>
            <div class="col-6 text-center">
              <p class="text-grey-6 text-body2 no-margin">СУММА ЗАКАЗА</p>
-             <p class="text-bold text-h5  no-margin" >{{currentCity.delivery_from_price}}</p>
+             <p class="text-bold text-h5  no-margin" >{{currentCity.delivery_from_price}} </p>
            </div>
            <div class="col-6 text-center">
                <p class="text-grey-6 text-body2 no-margin">ЦЕНА ДОСТАВКИ</p>
-             <p class="text-bold text-h5  no-margin" >{{currentCity.delivery_price}}</p>
+             <p class="text-bold text-h5  no-margin" >{{currentCity.delivery_price}} руб</p>
            </div>
            <div class="col-6 text-center">
                <p class="text-grey-6 text-body2 no-margin">ВРЕМЯ ДОСТАВКИ</p>

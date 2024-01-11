@@ -39,7 +39,7 @@
           <q-btn-toggle
             class="q-mr-sm"
             v-model="pizzaSize"
-            no-caps
+            unelevated no-caps
             toggle-color="primary"
             :options="[
         {label: '28 см', value: 22},
@@ -90,7 +90,7 @@
           color="primary"
           :loading="is_loading"
           @click="addToCart"
-          no-caps
+          unelevated no-caps
           label="В корзину" >
           <template v-slot:loading>
             <q-spinner-hourglass class="on-left" />

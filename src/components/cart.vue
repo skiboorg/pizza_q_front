@@ -1,9 +1,6 @@
 <template>
 
   <div v-if="cart_items_count>0" class="q-pa-sm">
-
-
-
     <q-card flat v-for="item in items_in_cart.items"
             :key="item.id">
       <q-card-section horizontal :class="[headerCart ? 'q-mb-sm' : 'q-mb-md']">
@@ -113,7 +110,7 @@
         <p class="meat-warning">При оплате семги и баранины на сайте, просим обратить ваше внимание, что фактический вес готового блюда, при получении, может отличаться от стандартной граммовки на сайте, поэтому фактическая стоимость может меняться. Просим уточнять фактический вес этих блюд у операторов. </p>
         <p class="text-h6 text-bold">Рекомендуем к шашлыку</p>
           <div class="row q-gutter-lg-md q-gutter-md-md q-gutter-sm-md q-gutter-xs-none q-mb-md">
-            <q-card class=" q-px-sm col-lg-3 col-md-3 col-sm-4 col-xs-12 q-mb-xs-sm cursor-pointer"   @click="addToCart(item)" v-for="item in recommended_items_for_meat" :key="item.id">
+            <q-card flat bordered class=" q-px-sm col-lg-3 col-md-3 col-sm-4 col-xs-12 q-mb-xs-sm cursor-pointer"   @click="addToCart(item)" v-for="item in recommended_items_for_meat" :key="item.id">
             <q-card-section horizontal>
               <q-img
                 contain
@@ -137,7 +134,7 @@
         <swiper v-if="souses.length>0"  class="cart-slider" :options="soucesSliderOption">
 <!--          v-if="items_in_cart.souces.filter(x => x.item.id === souse.id).length===0"-->
           <swiper-slide  v-for="souse in souses" :key="souse.id">
-            <q-card  class="cursor-pointer slider-card " @click="addSouseToCart(souse)" >
+            <q-card flat bordered class="cursor-pointer slider-card " @click="addSouseToCart(souse)" >
 
               <q-card-section horizontal class="no-padding">
                 <q-img
@@ -158,9 +155,10 @@
       </q-no-ssr>
       <p  class="text-h6 text-bold">Рекомендуем к заказу</p>
       <q-no-ssr>
-      <swiper   class="recommended-slider q-mb-lg" :options="soucesSliderOption">
-        <swiper-slide v-if="item.prices.filter(x => x.city === $q.cookies.get('city_id')).length" class="recommended-item"  v-for="item in recommended_items" :key="item.id">
-          <q-card  class="q-py-sm cursor-pointer" @click="addToCart(item)" >
+      <swiper   class="recommended-slider q-mb-lg" :options="recomendedSliderOption">
+        <swiper-slide v-if="item.prices.filter(x => x.city === $q.cookies.get('city_id')).length" class="recommended-item"
+                      v-for="item in recommended_items" :key="item.id">
+          <q-card flat bordered class="q-py-sm cursor-pointer" @click="addToCart(item)" >
             <q-card-section horizontal class="q-pa-none">
               <q-img
                   contain
@@ -213,7 +211,7 @@
 
       <p class="text-h6 text-bold">Сумма заказа: {{cart_total_price}} р  <span class="q-mb-none text-body1 text-primary  " v-if="is_apply_promo">(Цена с учетом акции)</span></p>
       <div class="row">
-        <q-btn outline to="/" class=" q-mt-lg col-lg-5 col-md-5 col-sm-5 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0" color="primary" label="Вернуться в меню"/>
+        <q-btn outline unelevated no-caps to="/" class=" q-mt-lg col-lg-5 col-md-5 col-sm-5 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0" color="primary" label="Вернуться в меню"/>
       <q-btn no-caps unelevated  class="text-h5 text-bold q-mt-lg col-lg-5 col-md-5 col-sm-5 col-xs-12 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0" color="primary"  size="md"
            @click="openCheckoutPage"
            label="Оформить заказ "/>
@@ -275,6 +273,28 @@ export default {
           },
           900: {
             slidesPerView: 4,
+            spaceBetween: 10,
+          }
+        }
+      },
+      recomendedSliderOption: {
+        spaceBetween: 20,
+        //centeredSlides: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 2,
+            spaceBetween: 10
+          },
+          350: {
+            slidesPerView: 2,
+            spaceBetween: 10
+          },
+          900: {
+            slidesPerView: 2,
             spaceBetween: 10,
           }
         }

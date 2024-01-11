@@ -11,7 +11,7 @@
     <div class="container-sm text-center">
        <img src="~assets/empty-cart.svg" >
     <p class="text-h6">Вы сюда еще ничего не добавили</p>
-      <q-btn color="primary" @click="$router.push('/')" label="открыть меню"/>
+      <q-btn unelevated no-caps color="primary" @click="$router.push('/')" label="открыть меню"/>
     </div>
 
   </q-page>

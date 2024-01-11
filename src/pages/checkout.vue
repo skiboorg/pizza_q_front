@@ -1,7 +1,7 @@
 <template>
   <q-no-ssr>
   <q-page class="q-pa-sm q-mb-lg">
-<!--{{orderData.cafe_address}}-->
+
 
     <div v-if="cart_total_price>0" class="container">
       <h3 class="f-raleway-900">Оформление заказа</h3>
@@ -26,29 +26,29 @@
           <div  class="checkout-form">
 
             <q-form ref="orderForm" @submit="placeOrder" class="q-gutter-sd q-mb-lg">
-              <q-input filled v-model="orderData.name" dense label="Ваше имя *" :rules="[val => !!val || 'Это обязательное поле']"/>
+              <q-input outlined v-model="orderData.name" dense label="Ваше имя *" :rules="[val => !!val || 'Это обязательное поле']"/>
               <p class="text-bold text-primary text-h6">Пожалуйста, введите корректный номер, без 8-ки или +7</p>
-              <q-input pattern="[0-9]*" filled v-model="orderData.phone" dense label="Телефон *" mask="+7 (###) ###-##-##" lazy-rules
+              <q-input pattern="[0-9]*" outlined v-model="orderData.phone" dense label="Телефон *" mask="+7 (###) ###-##-##" lazy-rules
                        :rules="[val => !!val  || 'Это обязательное поле', val => val.length > 17 || 'Телефон введен не полностью']"/>
-               <q-input pattern="[0-9]*" filled v-model="orderData.phone_raw" dense label="Повторите телефон *"
+               <q-input pattern="[0-9]*" outlined v-model="orderData.phone_raw" dense label="Повторите телефон *"
                        :rules="[val => !!val  || 'Это обязательное поле']"/>
               <q-checkbox class="q-mb-md" dense v-model="orderData.need_callback" label="Перезвоните мне для уточнения деталей заказа" />
               <div v-if="orderData.delivery_type==='Курьером'">
                 <div v-if="$user.loggedIn &&  user_addresses.length>0" class="q-mb-sm">
-                  <q-select dense filled v-model="selectedAddress" :options="user_addresses" label="Выберите адрес доставки" />
+                  <q-select dense outlined v-model="selectedAddress" :options="user_addresses" label="Выберите адрес доставки" />
                   <p class="q-mb-sm">или укажите другой</p>
                 </div>
               </div>
 
               <div v-if="orderData.delivery_type==='Курьером'" class="flex  no-wrap">
-                <q-input class="full-width " filled v-model="orderData.street" dense label="Улица *" :rules="[val => !!val || 'Это обязательное поле']"/>
-                <q-input  filled class="q-ml-sm" v-model="orderData.house"  dense label="Дом *" :rules="[val => !!val || 'Это обязательное поле']"/>
+                <q-input class="full-width " outlined v-model="orderData.street" dense label="Улица *" :rules="[val => !!val || 'Это обязательное поле']"/>
+                <q-input  outlined class="q-ml-sm" v-model="orderData.house"  dense label="Дом *" :rules="[val => !!val || 'Это обязательное поле']"/>
               </div>
               <div v-if="orderData.delivery_type==='Курьером'" class="flex justify-between no-wrap q-mb-md">
-                <q-input class=" q-mr-sm" filled v-model="orderData.flat" type="number" dense label="Кв " />
-                <q-input class=" q-mr-sm" filled v-model="orderData.podezd" type="number" dense label="Подъезд " />
-                <q-input class=" q-mr-sm"  filled v-model="orderData.code" type="number" dense label="Код двери " />
-                <q-input  filled v-model="orderData.floor" dense type="number" label="Этаж " />
+                <q-input class=" q-mr-sm" outlined v-model="orderData.flat" type="number" dense label="Кв " />
+                <q-input class=" q-mr-sm" outlined v-model="orderData.podezd" type="number" dense label="Подъезд " />
+                <q-input class=" q-mr-sm"  outlined v-model="orderData.code" type="number" dense label="Код двери " />
+                <q-input  outlined v-model="orderData.floor" dense type="number" label="Этаж " />
               </div>
             </q-form>
 
@@ -81,12 +81,12 @@
             class="q-mb-md"
             v-model="orderData.comment"
             label="Комментарий к заказу"
-            filled
+            outlined
             type="textarea"
           />
           <p class="text-bold text-h6">{{orderData.delivery_type === 'Курьером' ? 'Когда доставить?' : 'Во сколько заберете?'}}</p>
           <div class="flex justify-between no-wrap q-mb-none">
-            <q-input dense v-show="orderData.delivery_type === 'Курьером'" style="flex-basis: 49%" filled v-model="orderData.date" mask="date" label="Дата" :rules="['date']">
+            <q-input dense v-show="orderData.delivery_type === 'Курьером'" style="flex-basis: 49%" outlined v-model="orderData.date" mask="date" label="Дата" :rules="['date']">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
@@ -99,7 +99,7 @@
                 </q-icon>
               </template>
             </q-input>
-            <q-select dense style="flex-basis: 49%" filled v-model="orderData.time" :options="delivery_time" label="Время" />
+            <q-select dense style="flex-basis: 49%" outlined v-model="orderData.time" :options="delivery_time" label="Время" />
           </div>
 <!--          <p class="text-bold text-primary text-h6">{{orderData.delivery_type==='Курьером' ? 'Доставка в районе 60 минут' : 'Заказ можно будет забрать примерно через 40 минут'}}</p>-->
          <p class="text-bold text-primary text-body1">{{orderData.delivery_type==='Курьером' ? 'В будни время доставки: в течении 1 ч, в выходные и праздничные дни - время доставки увеличено до 1 ч 40 мин' : 'Заказ можно будет забрать течении 1 часа'}}</p>
@@ -111,7 +111,7 @@
 <!--              <q-input  type="number" class="q-mr-sm" style="flex-basis: 20%" dense  outlined v-model="orderData.cashback" ></q-input>-->
 <!--              <q-checkbox left-label v-model="orderData.no_cashback">Без сдачи</q-checkbox>-->
 <!--            </div>-->
-<!--            <q-radio v-if="orderData.delivery_type==='Курьером'" class="q-mb-sm" dense  v-model="orderData.payment" val="online" label="Онлайн" />-->
+            <q-radio v-if="orderData.delivery_type==='Курьером'" class="q-mb-sm" dense  v-model="orderData.payment" val="online" label="Онлайн" />
             <q-radio v-if="orderData.delivery_type==='Курьером'" dense  v-model="orderData.payment" val="courier_card" label="Картой курьеру" />
             <q-radio v-if="orderData.delivery_type==='Самовывоз'" dense  v-model="orderData.payment" val="cash" label="Картой при получении" />
          </div>
@@ -120,7 +120,7 @@
 
           <q-btn no-caps unelevated v-else color="primary" @click="createOrder" class="text-bold q-mb-lg" size="md"
                  :label="`Подтвердить заказ на ${cart_total_price} р ${is_apply_promo ? '(С учетом акции)' : ''}` "/>
-             <div v-if="delivery_price>0" class="lt-sm"><p class="text-caption text-primary">Минимальная стоимость доставки 150 руб (в радиусе 3 км от кафе). Точную стоимость доставки можно узнать у оператора.</p></div>
+             <div v-if="delivery_price>0" class="lt-sm"><p class="text-caption text-primary">Минимальная стоимость доставки {{currentCity.delivery_price}} руб (в радиусе 3 км от кафе). Точную стоимость доставки можно узнать у оператора.</p></div>
           <p class="text-caption text-grey-6">Нажимая на кнопку, вы даете согласие на обработку персональных данных</p>
 <!--          <p class="text-bold text-negative">График работы кафе в праздники:<br><br>-->
 
@@ -132,7 +132,7 @@
           <Payment/>
         </div><!--        col-6-->
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 gt-xs offset-lg-1 offset-md-1 offset-sm-1">
-          <q-card>
+          <q-card flat bordered>
             <q-card-section class="flex items-center justify-between">
               <p class="no-margin text-grey-6">Изменить состав корзины</p>
               <q-btn to="/cart" flat dense icon="edit" color="grey-6" round/>
@@ -265,7 +265,7 @@
                 <p class="text-bold text-body1 no-margin">Доставка:</p>
                 <p class="text-bold text-body1 no-margin">+ {{delivery_price}} р</p>
               </div>
-              <div v-if="delivery_price>0" class=""><p class="text-caption text-primary">Минимальная стоимость доставки 150 руб (в радиусе 3 км от кафе).<br>Точную стоимость доставки можно узнать у оператора.</p></div>
+              <div v-if="delivery_price>0" class=""><p class="text-caption text-primary">Минимальная стоимость доставки {{currentCity.delivery_price}} руб (в радиусе 3 км от кафе).<br>Точную стоимость доставки можно узнать у оператора.</p></div>
               <div  class="flex items-center justify-between">
                 <p class="text-bold text-h6 text-primary no-margin">Итого:</p>
                 <p class="text-bold text-h6 text-primary no-margin"><span class="q-mb-none text-caption text-primary  " v-if="is_apply_promo">(С учетом акции)</span>{{cart_total_price + delivery_price}} р</p>
@@ -394,7 +394,7 @@ export default {
 
     },
     delivery_price(){
-      return  this.orderData.delivery_type==='Курьером' ? 150 : 0
+      return  this.orderData.delivery_type==='Курьером' ? this.currentCity?.delivery_price : 0
     },
     coordinates () {
       return this.currentCity.adresses.find(x => x.address === this.orderData.cafe_address).coordinates.split(',')

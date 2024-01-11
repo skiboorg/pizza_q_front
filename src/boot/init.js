@@ -9,9 +9,6 @@ export default async ({ app, router, Vue, store, ssrContext }) => {
     : Cookies
 
   if (!process.env.SERVER) {
-  //  // if(window.location.host.split('.').length>2){
-  //   //  const response = await api.get(`https://meat-coal.ru/api/items/get_city?domain=${window.location.host.split('.')[0]}`)
-  //
    if(window.location.host.split('.').length>2){
       const response = await api.get(`${process.env.API}/api/items/get_city?domain=${window.location.host.split('.')[0]}`)
      //console.log(response.data)
