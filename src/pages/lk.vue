@@ -9,10 +9,11 @@
         outlined
         inline-label
         class="text-grey"
-        active-color="primary"
+        active-color="white"
         indicator-color="primary"
         align="justify"
-        narrow-indicator
+
+        stretch
       >
         <q-tab no-caps name="person" icon="person"  label="Личные даные" />
         <q-tab no-caps name="location_on" icon="location_on" label="Адреса доставки" />

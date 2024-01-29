@@ -146,14 +146,14 @@ export default {
       input_sms:null,
       loading:false,
       userLogin:{
-        phone:'+79682717070',
-        password:'1111',
+        phone:null,
+        password:null,
       },
       userRegister:{
-        phone:'+79682717070',
-        password1:'1111',
-        password2:'1111',
-        tg_username:'@web_appp_dev',
+        phone:null,
+        password1:null,
+        password2:null,
+        tg_username:null,
       },
 
       authModalTab:'loginTab',
