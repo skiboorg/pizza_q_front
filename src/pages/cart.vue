@@ -1,5 +1,5 @@
 <template>
-  <q-no-ssr>
+
   <q-page v-if="cart_items_count>0" class="q-pa-sm q-mb-lg">
     <div class="container-sm">
       <h1 class="text-h3 f-raleway-900">Корзина</h1>
@@ -15,7 +15,7 @@
     </div>
 
   </q-page>
-    </q-no-ssr>
+
 </template>
 
 <script>

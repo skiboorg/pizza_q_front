@@ -25,9 +25,13 @@ const actions = {
         this._vm.$cook.set('auth_token',response.data.auth_token)
         // LocalStorage.set('auth_token',response.data.auth_token)
         api.defaults.headers.common['Authorization'] = 'Token ' + response.data.auth_token
+        Notify.create({
+          message: 'Получение данных пользователя ...',
+          position: Screen.lt.sm ? 'bottom' : 'bottom-right',
+          color:'positive',
+          icon: 'announcement'
+        })
         dispatch('getUser',true)
-
-
       })
       .catch(function (error) {
         Notify.create({
@@ -40,13 +44,18 @@ const actions = {
 
   },
   async getUser ({commit,dispatch},redirect){
-    const response = await api.get( '/api/user/me/')
-    //console.log('getUser', response)
-    commit('updateUser', response.data)
-    commit('updateUserStatus', true)
-    await this.dispatch('cart/fetchCart')
-    if (redirect){
-     // this.$router.push('/')
+
+    try {
+      const response = await api.get('/api/user/me/')
+
+      commit('updateUser', response.data)
+      commit('updateUserStatus', true)
+
+    }catch (e) {
+      console.log(e)
+      api.defaults.headers.common['Authorization'] = null
+      this._vm.$cook.remove('auth_token')
+      this.$router.push('/')
     }
 
   },

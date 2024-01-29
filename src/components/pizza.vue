@@ -1,7 +1,7 @@
 <template>
 
   <q-dialog
-    :full-height="$q.screen.lt.sm"
+
     v-model="is_visible"
     transition-show="slide-left"
     transition-hide="slide-right"
@@ -42,13 +42,14 @@
             unelevated no-caps
             toggle-color="primary"
             :options="[
-        {label: '28 см', value: 22},
-        {label: '33 см', value: 33},]"/>
+
+        {label: '28 см', value: 22,color:'grey-5',toggleColor:'negative'},
+        {label: '33 см', value: 33,color:'grey-5',toggleColor:'negative'},]"/>
           <p class="no-margin">{{weight}} г</p>
         </div>
         <q-separator class="q-my-sm"/>
         <p>Добавить ингредиенты</p>
-        <q-no-ssr>
+
           <swiper ref="itemModalSlider" :options="itemModalSliderOption">
             <swiper-slide v-for="(ingredient,index) in pizza.additional_ingridients" :key="ingredient.id">
               <q-card
@@ -79,7 +80,7 @@
             <div class="swiper-button-prev" slot="button-prev"></div>
             <div class="swiper-button-next" slot="button-next"></div>
           </swiper>
-        </q-no-ssr>
+
 
       </q-card-section>
 
@@ -193,19 +194,7 @@ export default {
         caption: this.pizza.name,
         color: 'positive'
       })
-      window.dataLayer.push({
-        "ecommerce": {
-          "add": {
-            "products": [
-              {
-                "id": this.pizza.id,
-                "name": this.pizza.name,
-                "quantity": 1
-              }
-            ]
-          }
-        }
-      });
+
       this.closeModal()
     },
     async getPizza(){

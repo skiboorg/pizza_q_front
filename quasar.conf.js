@@ -110,16 +110,29 @@ module.exports = function (/* ctx */) {
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
-      workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: {}, // only for GenerateSW
+      workboxPluginMode: 'InjectManifest', // 'GenerateSW' or 'InjectManifest'
+      workboxOptions: {
+        // skipWaiting: true,
+        // clientsClaim: true
+      }, // only for GenerateSW
       manifest: {
         name: `Мясо на углях`,
         short_name: `Мясо на углях`,
         description: `Мясо на углях`,
         display: 'standalone',
         orientation: 'portrait',
+        start_url: '/',
         background_color: '#ffffff',
-        theme_color: '#000',
+        theme_color: '#ffffff',
+        screenshots: [
+          {
+            "src": "/android-chrome-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "form_factor": "narrow"
+          },
+
+        ],
         icons: [
           {
             src: 'icons/icon-128x128.png',

@@ -44,9 +44,9 @@
           <q-icon v-if="!item.item.is_gift" @click="changeQuantity('delete_item',item.code,item.id)" class="cursor-pointer inline-block " size="25px" name="delete_outline"/>
           <div v-else class=""></div>
           <div class="">
-            <q-no-ssr>
+
               <p v-if="$user.loggedIn && !item.item.is_gift" class="no-margin text-caption ">+{{item.bonuses}} бал.</p>
-            </q-no-ssr>
+
             <p class="no-margin text-body1 text-bold">{{item.price}} р</p>
           </div>
 
@@ -91,9 +91,9 @@
 <!--          <q-btn @click="changeQuantity('delete_cart_souse',souce.code, souce.id)" flat round dense icon="delete_outline" class="q-mr-sm"/>-->
            <q-icon @click="changeQuantity('delete_cart_souse',souce.code,souce.id)" class="cursor-pointer inline-block " size="25px" name="delete_outline"/>
           <div class="">
-            <q-no-ssr>
+
             <p v-if="$user.loggedIn" class="no-margin text-caption ">+{{souce.bonuses}} бал.</p>
-            </q-no-ssr>
+
             <p class="no-margin text-caption text-bold">{{souce.price}} р</p>
           </div>
 
@@ -130,7 +130,7 @@
 
       </div>
       <p v-if="souses.length>0" class="text-h6 text-bold">Cоусы</p>
-      <q-no-ssr>
+
         <swiper v-if="souses.length>0"  class="cart-slider" :options="soucesSliderOption">
 <!--          v-if="items_in_cart.souces.filter(x => x.item.id === souse.id).length===0"-->
           <swiper-slide  v-for="souse in souses" :key="souse.id">
@@ -152,9 +152,9 @@
           <div class="swiper-button-prev" slot="button-prev"></div>
           <div class="swiper-button-next" slot="button-next"></div>
         </swiper>
-      </q-no-ssr>
+
       <p  class="text-h6 text-bold">Рекомендуем к заказу</p>
-      <q-no-ssr>
+
       <swiper   class="recommended-slider q-mb-lg" :options="recomendedSliderOption">
         <swiper-slide v-if="item.prices.filter(x => x.city === $q.cookies.get('city_id')).length" class="recommended-item"
                       v-for="item in recommended_items" :key="item.id">
@@ -176,8 +176,8 @@
         <div class="swiper-button-prev" slot="button-prev"></div>
         <div class="swiper-button-next" slot="button-next"></div>
       </swiper>
-      </q-no-ssr>
-      <q-no-ssr>
+
+
         <div  class="q-mb-none">
         <p v-if="$user.loggedIn" class="q-mb-none">Баллов будет начислено: {{items_in_cart.total_bonuses}} </p>
         <q-checkbox v-if="$user.loggedIn" size="sm" class="q-mb-sm" left-label  v-model="with_bonuses" :label="`Списать баллы (${$user.user.bonuses} баллов доступно)`" />
@@ -189,7 +189,7 @@
           </div>
         </q-card-section>
       </div>
-      </q-no-ssr>
+
     </div>
 
     <div v-if="!headerCart" class="">
@@ -223,10 +223,10 @@
   </div>
 
   <div v-else class="flex items-center justify-center column text-center">
-<q-no-ssr>
+
     <img src="~assets/empty-cart.svg" >
     <p class="text-h6 text-center">Вы сюда еще ничего не добавили</p>
-</q-no-ssr>
+
   </div>
 
 </template>

@@ -50,10 +50,11 @@
           </div>
        <q-btn  v-if="item.is_pizza" unelevated
                color="primary"
-               class="in-cart-btn col-lg-8 col-md-8 col-sm-8 col-xs-8"
+               :size="$q.screen.lt.sm ? 'sm' : 'md'"
+               :class="$q.screen.lt.sm ? 'text-bold q-py-sm' : ''"
                @click="openPizza(item.id)"
                no-caps
-               label="В корзину" />
+               label="Выбрать" />
 <!--           :label="`от ${item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price} р` " -->
         <q-btn v-else unelevated
 
@@ -139,20 +140,7 @@ export default {
       })
       this.is_loading = false
 
-      window.dataLayer.push({
-    "ecommerce": {
-        "add": {
-            "products": [
-                {
-                    "id": this.item.id,
-                    "name": this.item.name,
-                    "price": this.item.prices.find(x => x.city === this.$q.cookies.get('city_id')).price * this.units,
-                    "quantity": this.units
-                }
-            ]
-        }
-    }
-});
+
     },
   },
   computed:{

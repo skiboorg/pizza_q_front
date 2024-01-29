@@ -1,12 +1,12 @@
 <template>
   <q-page padding>
-    <q-no-ssr>
+
       <div class="container-sm">
       <p class="text-bold text-h5">Ваш ID: {{$user.user.id}}</p>
       <p class="text-bold text-h5">Баллов начислено: {{$user.user.bonuses}}</p>
       <q-tabs
         v-model="tab"
-        dense
+        outlined
         inline-label
         class="text-grey"
         active-color="primary"
@@ -14,27 +14,35 @@
         align="justify"
         narrow-indicator
       >
-        <q-tab name="person" icon="person"  label="Личные даные" />
-        <q-tab name="location_on" icon="location_on" label="Адреса доставки" />
+        <q-tab no-caps name="person" icon="person"  label="Личные даные" />
+        <q-tab no-caps name="location_on" icon="location_on" label="Адреса доставки" />
 <!--        <q-tab name="password" icon="password" label="Сменить пароль" />-->
       </q-tabs>
-
       <q-separator />
-
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="person">
           <p class="text-h6">Личные данные</p>
           <q-form class="q-gutter-sm q-mb-lg">
-            <q-input dense filled v-model="userData.fio" label="ФИО" />
-            <q-input dense disable filled v-model="userData.phone" label="Телефон" />
-
-
+            <q-input   outlined v-model="userData.fio" label="ФИО" />
+            <q-input  readonly outlined v-model="userData.phone" label="Телефон" />
+            <p  v-if="!$user.user.tg_username">Введите Ваш telegram username, чтобы получать оповещения о заказах и восстанавливать пароль через телеграм бота.<br>
+              Инструкция по подключению появится после того, как Вы укажете telegram username и нажмете кнопку сохранить.</p>
+            <q-input :error="!$user.user.tg_username" outlined v-model="userData.tg_username" label="Ваш telegram username" />
           </q-form>
-          <div class="flex justify-between">
-            <q-btn v-if="$user.user.is_staff" color="warning" @click="$router.push('/orders')" label="Админка"/>
-            <q-btn color="positive" class=" " @click="userDataSave" label="Сохранить"/>
 
-            <q-btn color="primary" class=" " @click="userLogout" label="Выйти"/>
+          <div v-if="$user.user.tg_username && !$user.user.tg_id" class="q-mb-md">
+            <p class="text-bold text-negative">Нужно подключить телеграм бота, следуйте инструкции:</p>
+              1. Создайте диалог с <span class="text-bold text-negative"><a target="_blank" href="https://t.me/meat_coal_bot">@meat_coal_bot</a></span><br>
+              2. В созданном диалоге нажмите Start<br>
+              3. Если вы все сделали правильно, бот сообщит об этом.<br>
+              4. Обновите эту страницу или перезайдите в аккаунт, если это сообщение пропало, то все сделано правильно.<br>
+              5. Бот будет присылать оповещения о заказах.
+          </div>
+          <div class="flex justify-between">
+            <q-btn padding="md" no-caps unelevated v-if="$user.user.is_staff" color="warning" @click="$router.push('/orders')" label="Админка"/>
+            <q-btn padding="md" no-caps unelevated color="positive" class=" " @click="userDataSave" label="Сохранить"/>
+
+            <q-btn padding="md" no-caps unelevated color="primary" class=" " @click="userLogout" label="Выйти"/>
           </div>
 
         </q-tab-panel>
@@ -52,16 +60,16 @@
     <q-form>
       <p class="text-bold">Добавить новый адрес</p>
       <div class="flex justify-between no-wrap">
-          <q-input class="full-width q-mr-sm" filled v-model="newAddress.street" dense label="Улица *" :rules="[val => !!val || 'Это обязательное поле']"/>
-          <q-input  filled v-model="newAddress.house"  dense label="Дом *" :rules="[val => !!val || 'Это обязательное поле']"/>
+          <q-input class="full-width q-mr-sm" outlined v-model="newAddress.street" outlined label="Улица *" :rules="[val => !!val || 'Это обязательное поле']"/>
+          <q-input  outlined v-model="newAddress.house"  outlined label="Дом *" :rules="[val => !!val || 'Это обязательное поле']"/>
         </div>
         <div class="flex justify-between no-wrap q-mb-md">
-          <q-input class=" q-mr-sm" filled v-model="newAddress.flat" type="number" dense label="Кв " />
-          <q-input class=" q-mr-sm" filled v-model="newAddress.podezd" type="number" dense label="Подъезд " />
-          <q-input class=" q-mr-sm"  filled v-model="newAddress.code" type="number" dense label="Код двери " />
-          <q-input  filled v-model="newAddress.floor" dense type="number" label="Этаж " />
+          <q-input class=" q-mr-sm" outlined v-model="newAddress.flat" type="number" outlined label="Кв " />
+          <q-input class=" q-mr-sm" outlined v-model="newAddress.podezd" type="number" outlined label="Подъезд " />
+          <q-input class=" q-mr-sm"  outlined v-model="newAddress.code" type="number" outlined label="Код двери " />
+          <q-input  outlined v-model="newAddress.floor" outlined type="number" label="Этаж " />
         </div>
-      <q-btn @click="userAddressSave" color="primary" class="full-width" label="Добавить"/>
+      <q-btn no-caps unelevated padding="md" @click="userAddressSave" color="primary" class="full-width" label="Добавить"/>
     </q-form>
         </q-tab-panel>
 
@@ -70,7 +78,7 @@
         </q-tab-panel>
       </q-tab-panels>
     </div>
-    </q-no-ssr>
+
   </q-page>
 
 </template>
@@ -91,6 +99,7 @@ export default {
         fio:this.$user.user.fio,
         email:this.$user.user.email,
         birthday:this.$user.user.birthday,
+        tg_username:this.$user.user.tg_username,
         phone:this.$user.user.phone,
       },
       newAddress:{
@@ -107,6 +116,8 @@ export default {
     ... mapActions('auth',['getUser']),
     ...mapActions('auth',['logoutUser']),
     async userDataSave(){
+      this.userData.tg_username = this.userData.tg_username.replace('@','')
+
       const responce = await this.$api.post('/api/user/update',{userData:this.userData})
       //console.log(responce.data)
       await  this.getUser(false)

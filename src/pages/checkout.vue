@@ -1,5 +1,5 @@
 <template>
-  <q-no-ssr>
+
   <q-page class="q-pa-sm q-mb-lg">
 
 
@@ -14,11 +14,13 @@
             no-caps
 
             v-model="orderData.delivery_type"
-            toggle-color="primary"
-            class="q-mb-lg"
+
+            :spread="$q.screen.lt.md"
+
+            class="q-mb-lg "
             :options="[
-                {label: 'Курьером', value: 'Курьером'},
-                {label: 'Самовывоз', value: 'Самовывоз'},
+                {label: 'Курьером', value: 'Курьером',color:'grey-5',toggleColor:'negative'},
+                {label: 'Самовывоз', value: 'Самовывоз',color:'grey-5',toggleColor:'negative'},
             ]"
           />
           <p class="text-primary text-bold">Уважаемые клиенты! Пожалуйста, вводите свой номер телефона корректно, без 8-ки или +7, система автоматически подставит +7 в начале, как только начнете вводить цифры.</p>
@@ -284,7 +286,7 @@
 
   </q-page>
   </q-page>
-  </q-no-ssr>
+
 </template>
 
 <script>
@@ -465,16 +467,6 @@ export default {
             }
               items.push(item)
             }
-            window.dataLayer.push({
-          "ecommerce": {
-              "purchase": {
-                  // "actionField": {
-                  //     "id" : "TRX987"
-                  // },
-                  "products": items
-              }
-          }
-      });
       await this.fetchCart()
       ym(86828132,'reachGoal','lead')
       if (response.data.formUrl){

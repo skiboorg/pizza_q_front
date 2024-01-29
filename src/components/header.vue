@@ -9,46 +9,49 @@
         </q-avatar>
         <div class="lt-md">
           <q-space/>
-          <q-no-ssr>
+
           <p class="text-bold text-h6 no-margin"><a class="text-primary zphone" style="text-decoration: unset" :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a></p>
-          </q-no-ssr>
+
           <q-space/>
         </div>
         <div class="gt-sm">
          <p @click="is_city_not_selected=!is_city_not_selected"  class="no-margin text-bold text-decoration-dash cursor-pointer">{{currentCity.name}}</p>
-
           <p  class="no-margin text-caption text-bold">Сеть мясных кафе</p>
         </div>
         <q-space/>
-        <q-tabs dense class="gt-sm" inline-label v-model="tab" shrink :indicator-color="tab==='tab5' ? 'white' : 'primary'">
-          <q-route-tab  no-caps  name="tab1" to="/promotions"  label="Акции" />
-          <q-route-tab  no-caps name="tab2" to="/delivery" label="Доставка и оплата" />
-          <q-route-tab  no-caps name="tab3" to="/vacancy" label="Вакансии" />
-          <q-route-tab  no-caps name="tab4" to="/contacts" label="Контакты" />
-          <q-tab  no-caps v-if="!$user.loggedIn" name="tab5" @click="changeAuthModalVisible(true)" icon="login"  label="Личный кабинет" />
-          <q-route-tab  no-caps v-else name="tab5" to="/lk" icon="person" label="Личный кабинет" />
+        <q-tabs dense  inline-label v-model="tab" class="gt-sm " shrink active-color="white" indicator-color="primary" >
+          <q-route-tab :ripple="false" no-caps  name="tab1" to="/promotions"  label="Акции" />
+          <q-route-tab :ripple="false" no-caps name="tab2" to="/delivery" label="Доставка и оплата" />
+          <q-route-tab :ripple="false" no-caps name="tab3" to="/vacancy" label="Вакансии" />
+          <q-route-tab :ripple="false" no-caps name="tab4" to="/contacts" label="Контакты" />
+          <q-tab :ripple="false" no-caps v-if="!$user.loggedIn" name="tab5" @click="changeAuthModalVisible(true)" icon="login"  label="Личный кабинет" />
+          <q-route-tab :ripple="false" no-caps v-else name="tab5" to="/lk" icon="person" label="Личный кабинет">
+            <q-badge v-if="!$user.user.tg_id" rounded floating><q-icon name="warning"/></q-badge>
+          </q-route-tab>
         </q-tabs>
         <q-space/>
         <div class="gt-sm">
-          <q-no-ssr>
           <p class="text-bold text-h6 no-margin zphone"><a class="text-primary " style="text-decoration: unset" :href="`tel:${currentCity.main_phone}`">{{currentCity.main_phone}}</a></p>
-          </q-no-ssr>
         </div>
-        <q-btn @click="changeRightMenuVisible(true)" flat round dense icon="menu" class="q-mr-sm lt-md"/>
+        <q-btn @click="changeRightMenuVisible(true)" flat round dense icon="menu" class="q-mr-sm lt-md">
+          <q-badge  v-if="$user.loggedIn && !$user.user.tg_id" rounded floating><q-icon size="10px" name="warning"/></q-badge>
+        </q-btn>
       </q-toolbar>
 
       <div v-if="categories.length>0" class="row items-start">
-        <div class="col-10">
+        <div class="col-12 col-md-11">
           <q-tabs
             v-model="tab"
             outside-arrows
             mobile-arrows
             dense
-
+            v-touch-swipe
+            active-color="white"
             indicator-color="primary"
+
             :ripple="false"
             no-caps
-            class="    text-bold q-tabs__content--align-justify">
+            class="q-py-sm    text-bold q-tabs__content--align-justify">
             <q-tab :name="index"
                    class="text-bold "
                    :ripple="false"
@@ -63,7 +66,7 @@
             <!--                    @click="selectedCategory=item.id"-->
           </q-tabs>
         </div>
-        <div  @mouseover="cart= true" @click="cart= true" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 offset-lg-1 offset-md-1 offset-sm-1 offset-xs-0 cursor-pointer text-right">
+        <div  @mouseover="cart= true" @click="cart= true" class="gt-sm col-md-1  cursor-pointer text-center">
           <q-chip class="cart-icon"  icon="shopping_cart" :label="`${items_in_cart.total_price} р`"  >
             <q-badge v-if="cart_items_count>0" floating rounded>{{cart_items_count}}</q-badge>
             <q-menu  fit :offset="[0, 12]" @mouseleave="cart=false" v-model="cart"  self="top end" anchor="bottom end">
@@ -215,4 +218,15 @@ export default {
     top: -65px
   .cart-icon
     padding: 9px
+    background: transparent
+.q-tab__indicator
+  height: 100%
+  border-radius: 8px
+  z-index: -1
+.q-hoverable:hover > .q-focus-helper
+  opacity: 0 !important
+.q-tabs__arrow
+  color: $primary
+.q-header--hidden
+  transform: translateY(-60%)
 </style>

@@ -83,14 +83,11 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-
           <div v-html="currentCity.modalText"></div>
-
-
         </q-card-section>
 
         <q-card-actions align="center">
-          <q-btn  label="Понятно" color="primary" class="q-px-lg" v-close-popup />
+          <q-btn  no-caps unelevated  padding="md"  label="Понятно" color="primary" class="full-width"  v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>

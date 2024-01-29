@@ -1,7 +1,13 @@
 <template>
   <q-layout view="hHh lpR fFf">
+    <q-banner v-if="updateAvaiable" class="bg-primary text-white">
+      Обнаружено обновление!
+      <template v-slot:action>
+        <q-btn outline  color="white"  text-color="white" @click="reloadPage" no-caps label="Обновить" />
+      </template>
+    </q-banner>
     <Header/>
-    <q-no-ssr>
+
     <q-drawer v-model="is_visible" side="right" overlay behavior="mobile" bordered>
 
       <q-toolbar class="q-pb-md">
@@ -19,10 +25,11 @@
         <p class="text-bold">Ваш город</p>
         <q-btn-dropdown
           split
-          color="primary"
+
           disable-main-btn
           class="full-width q-mb-md"
-          push
+          outline
+          unelevated
           no-caps>
           <template v-slot:label>
             <div class="row items-center no-wrap">
@@ -50,7 +57,7 @@
         </q-btn-dropdown>
       </div>
 
-      <q-list  padding class="rounded-borders text-primary">
+      <q-list  padding class="rounded-borders ">
         <q-item
           clickable
           v-ripple
@@ -107,65 +114,68 @@
           <q-item-section>Контакты</q-item-section>
         </q-item>
         <q-separator spaced />
-<!--        <q-item-->
-<!--          v-if="$user.loggedIn"-->
-<!--          clickable-->
-<!--          v-ripple-->
-<!--          :active="link === 'lk'"-->
-<!--           @click="link = 'lk', $router.push('/lk')"-->
-<!--          active-class="my-menu-link">-->
-<!--          <q-item-section avatar>-->
-<!--            <q-icon name="person" />-->
-<!--          </q-item-section>-->
-<!--          <q-item-section>Личный кабинет</q-item-section>-->
-<!--        </q-item>-->
-<!--        <q-item-->
-<!--          v-if="$user.loggedIn"-->
-<!--          clickable-->
-<!--          v-ripple-->
-<!--          :active="link === 'logout'"-->
-<!--          @click="logoutUser"-->
-<!--          active-class="my-menu-link">-->
-<!--          <q-item-section avatar>-->
-<!--            <q-icon name="logout" />-->
-<!--          </q-item-section>-->
-<!--          <q-item-section>Выход</q-item-section>-->
-<!--        </q-item>-->
-<!--        <q-item-->
-<!--          v-else-->
-<!--          clickable-->
-<!--          v-ripple-->
-<!--          @click="changeRightMenuVisible(false), changeAuthModalVisible(true)"-->
-<!--          active-class="my-menu-link">-->
-<!--          <q-item-section avatar>-->
-<!--            <q-icon name="login" />-->
-<!--          </q-item-section>-->
-<!--          <q-item-section>Личный кабинет</q-item-section>-->
-<!--        </q-item>-->
+        <q-item
+          v-if="$user.loggedIn"
+          clickable
+          v-ripple
+          :active="link === 'lk'"
+          @click="link = 'lk', $router.push('/lk')"
+          active-class="my-menu-link">
+          <q-item-section avatar >
+            <q-icon name="person" />
+
+          </q-item-section>
+          <q-item-section class="relative-position">Личный кабинет
+            <q-badge  v-if="!$user.user.tg_id" rounded floating><q-icon size="10px" name="warning"/></q-badge>
+          </q-item-section>
+        </q-item>
+        <q-item
+          v-if="$user.loggedIn"
+          clickable
+          v-ripple
+          :active="link === 'logout'"
+          @click="logoutUser"
+          active-class="my-menu-link">
+          <q-item-section avatar>
+            <q-icon name="logout" />
+          </q-item-section>
+          <q-item-section>Выход</q-item-section>
+        </q-item>
+        <q-item
+          v-else
+          clickable
+          v-ripple
+          @click="changeRightMenuVisible(false), changeAuthModalVisible(true)"
+          active-class="my-menu-link">
+          <q-item-section avatar>
+            <q-icon name="login" />
+          </q-item-section>
+          <q-item-section>Личный кабинет</q-item-section>
+        </q-item>
 
 
       </q-list>
-      <div class="flex-center column items-start">
-            <a target="_blank" href="https://apps.apple.com/us/app/meat-coal/id1572409729"><img class="store-img" src="~assets/ios.png" alt=""></a>
-            <a target="_blank" href="https://play.google.com/store/apps/details?id=ru.meat.coal.app"><img class="store-img" src="~assets/play.png" alt=""></a>
-          </div>
-      <div  class="q-px-sm">
 
-
-
-<!--        <p class="q-mb-sm text-bold">Адреса кафе</p>-->
-<!--        <p class="q-mb-none" v-for="adress in currentCity.adresses" :key="adress.id">{{adress.address}}</p>-->
-
-      </div>
 
     </q-drawer>
-    </q-no-ssr>
+
     <q-page-container style="padding-top: 0">
-      <!--      <transition name="fade">-->
       <router-view />
-      <!--        </transition>-->
     </q-page-container>
-        <Footer/>
+    <q-banner inline-actions v-if="$q.platform.is.iphone && show_ios_install && $q.screen.lt.sm"  class="install-banner bg-negative text-white">
+
+      <p class="no-margin">
+        Чтобы установить приложение нажмите
+        <img style="width: 20px;height: 20px;object-fit: contain" src="~assets/share-icon.svg" alt="">
+        и На экран "Домой
+      </p>
+      <template v-slot:action>
+        <q-btn outline unelevated color="white" text-color="white" no-caps @click="banner_hide" label="Ок" />
+      </template>
+    </q-banner>
+    <Footer/>
+
+
 
   </q-layout>
 </template>
@@ -181,13 +191,31 @@ export default {
   },
   data() {
     return {
-      link: ''
+      link: '',
+      updateAvaiable: false,
+      show_ios_install: false,
 
     }
   },
   async mounted() {
     // await this.fetchCart()
     // await this.fetchItems()
+  },
+  async beforeMount() {
+    let ios_banner = this.$q.cookies.get('ios_banner')
+
+    if (!ios_banner){
+      this.show_ios_install = true
+    }
+    if ('serviceWorker' in navigator) {
+      const registrations = await navigator.serviceWorker.getRegistrations()
+      for (let registration of registrations) {
+        registration.addEventListener('updatefound', () => {
+          console.log('Service Worker update detected!');
+          this.updateAvaiable = true
+        });
+      }
+    }
   },
   computed:{
     ...mapGetters('city',['cities','currentCity']),
@@ -221,28 +249,30 @@ export default {
     async logout(){
       this.logoutUser()
       await this.fetchCart()
+    },
+    reloadPage (){
+      window.location.reload()
+    },
+    banner_hide(){
+      this.show_ios_install = false
+      this.$q.cookies.set('ios_banner','true')
     }
   }
 }
 </script>
-<style>
-.my-menu-link{
-  color: white;
-  background: #EF2121;
-
-}
-
-.page-enter-active,
-.page-leave-active {
-
-  transition-property: all;
-  transition-timing-function: ease-in-out;
-  transition-duration: 200ms;
-  transform: translateX(0%);
-}
-.page-enter,
-.page-leave-to {
-  transform: translateX(-100%);
-
-}
+<style lang="sass">
+.install-banner
+  position: fixed
+  bottom: 100px
+  z-index: 1000
+  &::after
+    position: absolute
+    content: ''
+    bottom: -15px
+    left: 50%
+    transform: translateX(-50%) rotate(45deg)
+    width: 30px
+    height: 30px
+    background: $negative
+    z-index: -1
 </style>
