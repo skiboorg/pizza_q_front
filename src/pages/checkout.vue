@@ -34,7 +34,7 @@
                        :rules="[val => !!val  || 'Это обязательное поле', val => val.length > 17 || 'Телефон введен не полностью']"/>
                <q-input pattern="[0-9]*" outlined v-model="orderData.phone_raw" dense label="Повторите телефон *"
                        :rules="[val => !!val  || 'Это обязательное поле']"/>
-              <q-checkbox class="q-mb-md" dense v-model="orderData.need_callback" label="Перезвоните мне для уточнения деталей заказа" />
+<!--              <q-checkbox class="q-mb-md" dense v-model="orderData.need_callback" label="Перезвоните мне для уточнения деталей заказа" />-->
               <div v-if="orderData.delivery_type==='Курьером'">
                 <div v-if="$user.loggedIn &&  user_addresses.length>0" class="q-mb-sm">
                   <q-select dense outlined v-model="selectedAddress" :options="user_addresses" label="Выберите адрес доставки" />
