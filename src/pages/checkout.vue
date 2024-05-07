@@ -86,9 +86,11 @@
             outlined
             type="textarea"
           />
-          <p class="text-bold text-h6">{{orderData.delivery_type === 'Курьером' ? 'Когда доставить?' : 'Во сколько заберете?'}}</p>
+          <p class="text-bold text-h6">{{orderData.delivery_type === 'Курьером' ? 'Во сколько доставить?' : 'Во сколько заберете?'}}</p>
+
           <div class="flex justify-between no-wrap q-mb-none">
-            <q-input dense v-show="orderData.delivery_type === 'Курьером'" style="flex-basis: 49%" outlined v-model="orderData.date" mask="date" label="Дата" :rules="['date']">
+            <p>{{new Date(orderData.date).toLocaleDateString()}}</p>
+            <q-input  dense v-show="orderData.delivery_type === 'Курьером1'" disable style="flex-basis: 49%" mask="date" outlined v-model="orderData.date"  label="Дата" :rules="['date']">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
