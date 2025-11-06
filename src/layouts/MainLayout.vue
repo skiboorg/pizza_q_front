@@ -162,7 +162,8 @@
     <q-page-container style="padding-top: 0">
       <router-view />
     </q-page-container>
-    <q-banner inline-actions v-if="$q.platform.is.iphone && show_ios_install && $q.screen.lt.sm"  class="install-banner bg-negative text-white">
+    <q-banner inline-actions v-if="$q.platform.is.iphone && show_ios_install && $q.screen.lt.sm"
+              class="install-banner bg-negative text-white">
 
       <p class="no-margin">
         Чтобы установить приложение нажмите
@@ -172,6 +173,22 @@
       <template v-slot:action>
         <q-btn outline unelevated color="white" text-color="white" no-caps @click="banner_hide" label="Ок" />
       </template>
+    </q-banner>
+    <q-banner
+      v-if="$q.platform.is.android && show_android_install && $q.screen.lt.sm"
+      class="android-install-banner bg-red text-white"
+      inline-actions
+    >
+      <div class="instructions-content flex items-end justify-between">
+        <div class="">
+          <span  class="instruction-step"><span>1.</span> Нажмите ⋮ (меню) в браузере</span>
+          <span class="instruction-step"><span>2.</span> Выберите 'Добавить на главный экран'</span>
+          <span class="instruction-step"><span>3.</span> Подтвердите установку</span>
+        </div>
+
+        <q-btn outline unelevated color="white" text-color="white" no-caps @click="android_banner_hide" label="Ок" />
+
+      </div>
     </q-banner>
     <Footer/>
 
@@ -194,7 +211,7 @@ export default {
       link: '',
       updateAvaiable: false,
       show_ios_install: false,
-
+      show_android_install: false,
     }
   },
   async mounted() {
@@ -203,10 +220,16 @@ export default {
   },
   async beforeMount() {
     let ios_banner = this.$q.cookies.get('ios_banner')
+    let android_banner = this.$q.cookies.get('android_banner')
 
     if (!ios_banner){
       this.show_ios_install = true
     }
+
+    if (!android_banner){
+      this.show_android_install = true
+    }
+
     if ('serviceWorker' in navigator) {
       const registrations = await navigator.serviceWorker.getRegistrations()
       for (let registration of registrations) {
@@ -256,11 +279,17 @@ export default {
     banner_hide(){
       this.show_ios_install = false
       this.$q.cookies.set('ios_banner','true')
+    },
+    android_banner_hide(){
+      this.show_android_install = false
+      this.$q.cookies.set('android_banner','true')
     }
   }
 }
 </script>
 <style lang="sass">
+.instruction-step
+  display: block
 .install-banner
   position: fixed
   bottom: 100px
@@ -275,4 +304,12 @@ export default {
     height: 30px
     background: $negative
     z-index: -1
+
+.android-install-banner
+  position: fixed
+  bottom: 40px
+  padding-bottom: 20px
+  width: 100%
+  z-index: 1000
+
 </style>

@@ -442,6 +442,10 @@ export default {
     },
     async placeOrder(){
       //console.log('new order')
+      if (!this.items_in_cart.items.length) {
+        this.$q.notify({type:'negative', message:'Корзина пуста!'})
+        return
+      }
       this.$q.loading.show()
       const response = await this.$api.post('/api/order/new_order',
         {
