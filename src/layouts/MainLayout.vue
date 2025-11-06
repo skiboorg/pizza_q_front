@@ -181,6 +181,7 @@
     >
       <div class="instructions-content flex items-end justify-between">
         <div class="">
+          <p style="font-weight: 600" class="q-mb-sm">Чтобы установить приложение:</p>
           <span  class="instruction-step"><span>1.</span> Нажмите ⋮ (меню) в браузере</span>
           <span class="instruction-step"><span>2.</span> Выберите 'Добавить на главный экран'</span>
           <span class="instruction-step"><span>3.</span> Подтвердите установку</span>
